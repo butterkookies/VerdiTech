@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerdiTech Architecture & App Flow</title>
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #C8E6C9;
+            --secondary: #1565C0;
+            --secondary-light: #BBDEFB;
+            --accent: #F57F17;
+            --accent-light: #FFF9C4;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            
+            /* UI Mockup Colors */
+            --ui-primary: #4CAF50;
+            --ui-primary-dark: #388E3C;
+            --ui-bg: #F5F7F8;
+            --ui-text: #202124;
+            --ui-subtext: #5F6368;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button.toggle-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            background-color: transparent;
+            color: var(--primary);
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button.toggle-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        button.toggle-btn.active {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 0.4s ease;
+        }
+
+        .section.hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* Architecture Styles */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            position: relative;
+        }
+
+        .layer {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            position: relative;
+        }
+
+        .layer-title {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0 10px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .layer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .component {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-width: 150px;
+            font-weight: 600;
+            border: 1px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .component.domain {
+            background: var(--secondary-light);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .component.data {
+            background: var(--accent-light);
+            color: #d84315;
+            border-color: #d84315;
+        }
+
+        .arrow-down {
+            text-align: center;
+            color: #999;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        /* Android Phone Mockup Styles */
+        .phone-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .phone-frame {
+            width: 320px;
+            height: 640px;
+            background-color: #f0f0f0;
+            border: 12px solid #222;
+            border-radius: 36px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .phone-camera {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background-color: #111;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .status-bar {
+            height: 30px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 15px 5px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 5;
+        }
+
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+
+        .phone-screen {
+            flex-grow: 1;
+            background-color: #fafafa;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .app-flow-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .app-flow-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-indicator {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .step-title {
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* Phone Navigation Footer */
+        .phone-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .phone-nav button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .phone-nav button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .os-nav-bar {
+            height: 20px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+        
+        .os-nav-handle {
+            width: 80px;
+            height: 4px;
+            background-color: #ccc;
+            border-radius: 2px;
+        }
+
+
+        /* =========================================
+           ACTUAL UI MOCKUP SPECIFIC STYLES 
+           ========================================= */
+        
+        .ui-status-bar {
+            background-color: var(--ui-primary-dark);
+        }
+        
+        .ui-header {
+            background-color: var(--ui-primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ui-header-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .ui-screen {
+            background-color: var(--ui-bg);
+            padding: 0;
+        }
+
+        .ui-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ui-card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #E8F5E9;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--ui-primary);
+        }
+
+        .ui-card-content h4 {
+            margin: 0 0 4px 0;
+            color: var(--ui-text);
+            font-size: 16px;
+        }
+
+        .ui-card-content p {
+            margin: 0;
+            color: var(--ui-subtext);
+            font-size: 13px;
+        }
+
+        .ui-fab {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background-color: var(--ui-primary);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+        }
+
+        /* Form UI Styles */
+        .ui-form-group {
+            margin: 16px;
+        }
+        .ui-label {
+            font-size: 12px;
+            color: var(--ui-primary);
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .ui-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-sizing: border-box;
+            color: var(--ui-text);
+            font-family: inherit;
+        }
+        .ui-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ui-slider {
+            flex-grow: 1;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            position: relative;
+        }
+        .ui-slider-fill {
+            height: 100%;
+            background: var(--ui-primary);
+            width: 60%;
+            border-radius: 2px;
+        }
+        .ui-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--ui-primary);
+            border-radius: 50%;
+            position: absolute;
+            top: -6px;
+            left: 60%;
+        }
+        .ui-btn-primary {
+            background-color: var(--ui-primary);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 24px;
+            margin: 24px 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+        }
+
+        /* Prediction UI Styles */
+        .ui-health-card {
+            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+            margin: 16px;
+            border-radius: 16px;
+            padding: 20px;
+            color: white;
+            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
+        }
+        .ui-health-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .ui-health-status {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 0;
+        }
+        
+        .ui-timeline {
+            margin: 16px;
+            padding: 16px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        }
+        .ui-timeline-item {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+        .ui-timeline-icon {
+            width: 24px;
+            height: 24px;
+            background: var(--ui-primary);
+            border-radius: 12px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
+        .ui-timeline-icon.pending {
+            background: #E0E0E0;
+            color: #999;
+        }
+        .ui-timeline-content h5 {
+            margin: 0 0 4px 0;
+            color: var(--ui-text);
+        }
+        .ui-timeline-content p {
+            margin: 0;
+            font-size: 12px;
+            color: var(--ui-subtext);
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VerdiTech Visualization</h1>
+        <p>Interactive System Architecture, Logic Flow, & UI Mockups</p>
+    </header>
+
+    <div class="controls">
+        <button id="btn-all" class="toggle-btn active" onclick="toggleView('all')">Show Complete View</button>
+        <button id="btn-arch" class="toggle-btn" onclick="toggleView('arch')">System Architecture Only</button>
+        <button id="btn-flow" class="toggle-btn" onclick="toggleView('flow')">Logic Flow Only</button>
+        <button id="btn-ui" class="toggle-btn" onclick="toggleView('ui')" style="background-color: var(--ui-primary); color: white; border-color: var(--ui-primary-dark);">Actual UI Mockups</button>
+    </div>
+
+    <div class="container">
+        
+        <!-- ==========================================
+             ARCHITECTURE SECTION
+             ========================================== -->
+        <div id="sec-arch" class="section">
+            <h2 class="section-title">System Architecture (Clean Architecture + Riverpod)</h2>
+            <div class="arch-grid">
+                <div class="layer">
+                    <div class="layer-title">Presentation Layer (Flutter UI)</div>
+                    <div class="layer-content">
+                        <div class="component">Dashboard Screen</div>
+                        <div class="component">Add Plant Screen</div>
+                        <div class="component">Plant Details Screen</div>
+                        <div class="component">CA Visualizer Screen</div>
+                    </div>
+                    <div class="arrow-down">⬇ Riverpod Providers (State Management) ⬇</div>
+                </div>
+                <div class="layer">
+                    <div class="layer-title">Domain / Core Layer (Business Logic)</div>
+                    <div class="layer-content">
+                        <div class="component domain">CA Engine (1D Model)</div>
+                        <div class="component domain">Recommendation Engine</div>
+                        <div class="component domain">Entities (PlantProfile, Seasons)</div>
+                    </div>
+                    <div class="arrow-down">⬇ Repositories ⬇</div>
+                </div>
+                <div class="layer">
+                    <div class="layer-title">Data Layer (Storage)</div>
+                    <div class="layer-content">
+                        <div class="component data">Drift (SQLite) Database</div>
+                        <div class="component data">Local Data Sources</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             APP LOGIC FLOW SECTION
+             ========================================== -->
+        <div id="sec-flow" class="section">
+            <h2 class="section-title">Application Logic Flow & CA Pipeline</h2>
+            <div class="phone-container">
+                <div class="phone-frame">
+                    <div class="phone-camera"></div>
+                    <div class="status-bar">
+                        <span>10:42</span>
+                        <div class="status-icons"><span>📶</span><span>🔋</span></div>
+                    </div>
+                    <div class="app-header">VerdiTech Flow</div>
+                    <div class="phone-screen">
+                        
+                        <!-- Step 1 -->
+                        <div class="app-flow-step active" id="flow-step-1">
+                            <div class="step-indicator">Step 1 of 4</div>
+                            <h3 class="step-title">1. User Input</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Select Plant:</strong> (Tomato, Eggplant, Siling Labuyo)</li>
+                                    <li><strong>Select Stage:</strong> Seedling to Fruiting</li>
+                                    <li><strong>Rate Environment:</strong> Sun, Water, Soil (1-5)</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="app-flow-step" id="flow-step-2">
+                            <div class="step-indicator">Step 2 of 4</div>
+                            <h3 class="step-title">2. CA Engine</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li>Applies Plant Weights</li>
+                                    <li>Applies Season Modifiers</li>
+                                    <li>Runs 1D Time-Series Simulation</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="app-flow-step" id="flow-step-3">
+                            <div class="step-indicator">Step 3 of 4</div>
+                            <h3 class="step-title">3. Prediction Output</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li>Growth Timeline Calculation</li>
+                                    <li>Health Status (Excellent -> Critical)</li>
+                                    <li>Actionable Recommendations</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="app-flow-step" id="flow-step-4">
+                            <div class="step-indicator">Step 4 of 4</div>
+                            <h3 class="step-title">4. Monitoring</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li>View plant details</li>
+                                    <li>Interactive CA Grid visualization</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-nav">
+                        <button id="nav-flow-prev" onclick="changeFlowStep(-1)" disabled>Back</button>
+                        <button id="nav-flow-next" onclick="changeFlowStep(1)">Next Step</button>
+                    </div>
+                    <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             ACTUAL UI MOCKUP SECTION
+             ========================================== -->
+        <div id="sec-ui" class="section">
+            <h2 class="section-title">Actual UI Mockup (What users will see)</h2>
+            <div class="phone-container">
+                <div class="phone-frame">
+                    <div class="phone-camera"></div>
+                    
+                    <div class="status-bar ui-status-bar">
+                        <span>10:42</span>
+                        <div class="status-icons"><span>📶</span><span>🔋</span></div>
+                    </div>
+
+                    <div class="phone-screen ui-screen">
+                        
+                        <!-- UI MOCKUP 1: Dashboard -->
+                        <div class="app-flow-step active" id="ui-step-1">
+                            <div class="app-header ui-header">
+                                VerdiTech
+                            </div>
+                            <div style="padding: 16px; font-weight: bold; color: var(--ui-subtext);">My Plants</div>
+                            
+                            <div class="ui-card">
+                                <div class="ui-card-icon">🍅</div>
+                                <div class="ui-card-content">
+                                    <h4>Tomato (Roma)</h4>
+                                    <p>Flowering • Health: Good</p>
+                                </div>
+                            </div>
+                            
+                            <div class="ui-card">
+                                <div class="ui-card-icon">🍆</div>
+                                <div class="ui-card-content">
+                                    <h4>Eggplant</h4>
+                                    <p>Young Plant • Health: Excellent</p>
+                                </div>
+                            </div>
+
+                            <div class="ui-fab" onclick="changeUiStep(1)">+</div>
+                        </div>
+
+                        <!-- UI MOCKUP 2: Add Plant Form -->
+                        <div class="app-flow-step" id="ui-step-2">
+                            <div class="app-header ui-header">
+                                <span class="ui-header-icon" onclick="changeUiStep(-1)">←</span>
+                                Add New Plant
+                            </div>
+                            
+                            <div class="ui-form-group">
+                                <label class="ui-label">PLANT TYPE</label>
+                                <select class="ui-input">
+                                    <option>Tomato</option>
+                                    <option>Eggplant</option>
+                                    <option>Siling Labuyo</option>
+                                </select>
+                            </div>
+
+                            <div class="ui-form-group">
+                                <label class="ui-label">ENVIRONMENTAL FACTORS</label>
+                                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 14px;">Sunlight (4/5)</span>
+                                </div>
+                                <div class="ui-slider-container">
+                                    <div class="ui-slider">
+                                        <div class="ui-slider-fill" style="width: 80%;"></div>
+                                        <div class="ui-slider-thumb" style="left: 80%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="ui-form-group">
+                                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
+                                    <span style="font-size: 14px;">Water (2/5)</span>
+                                </div>
+                                <div class="ui-slider-container">
+                                    <div class="ui-slider">
+                                        <div class="ui-slider-fill" style="width: 40%; background: #FF9800;"></div>
+                                        <div class="ui-slider-thumb" style="left: 40%; background: #FF9800;"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="ui-btn-primary" onclick="changeUiStep(1)">
+                                Predict Growth
+                            </div>
+                        </div>
+
+                        <!-- UI MOCKUP 3: Prediction Results -->
+                        <div class="app-flow-step" id="ui-step-3">
+                            <div class="app-header ui-header">
+                                <span class="ui-header-icon" onclick="changeUiStep(-1)">←</span>
+                                Tomato Prediction
+                            </div>
+                            
+                            <div class="ui-health-card">
+                                <div class="ui-health-title">Overall Health Status</div>
+                                <div class="ui-health-status">Good</div>
+                                <div style="margin-top: 10px; font-size: 12px; opacity: 0.9;">
+                                    ⚠️ Warning: Low water for Tag-init season.
+                                </div>
+                            </div>
+
+                            <div style="padding: 0 16px; font-weight: bold; color: var(--ui-subtext); margin-top: 24px;">Growth Timeline</div>
+                            
+                            <div class="ui-timeline">
+                                <div class="ui-timeline-item">
+                                    <div class="ui-timeline-icon">✓</div>
+                                    <div class="ui-timeline-content">
+                                        <h5>Seedling</h5>
+                                        <p>Completed</p>
+                                    </div>
+                                </div>
+                                <div class="ui-timeline-item">
+                                    <div class="ui-timeline-icon">✓</div>
+                                    <div class="ui-timeline-content">
+                                        <h5>Young Plant</h5>
+                                        <p>Completed</p>
+                                    </div>
+                                </div>
+                                <div class="ui-timeline-item">
+                                    <div class="ui-timeline-icon" style="background: #2196F3;">●</div>
+                                    <div class="ui-timeline-content">
+                                        <h5>Flowering</h5>
+                                        <p>Current (Est. 7 days remaining)</p>
+                                    </div>
+                                </div>
+                                <div class="ui-timeline-item">
+                                    <div class="ui-timeline-icon pending"></div>
+                                    <div class="ui-timeline-content">
+                                        <h5 style="color: #999;">Fruiting</h5>
+                                        <p>Predicted on Oct 14</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+                    
+                    <!-- Only show navigation in UI view if we want to manually drive it, but we integrated buttons in the UI! -->
+                    <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
+                </div>
+                
+                <div style="text-align: center; color: #666; margin-top: 10px;">
+                    <em>Interact with the UI buttons (+, ←, Predict Growth) to navigate.</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main view toggles
+        function toggleView(view) {
+            document.querySelectorAll('button.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.id !== 'btn-ui') {
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.color = 'var(--primary)';
+                } else {
+                    btn.style.backgroundColor = 'var(--ui-primary)';
+                    btn.style.color = 'white';
+                }
+            });
+            
+            const activeBtn = document.getElementById('btn-' + view);
+            activeBtn.classList.add('active');
+            if(view !== 'ui') {
+                activeBtn.style.backgroundColor = 'var(--primary)';
+                activeBtn.style.color = 'white';
+            } else {
+                activeBtn.style.backgroundColor = 'var(--ui-primary-dark)';
+            }
+
+            const arch = document.getElementById('sec-arch');
+            const flow = document.getElementById('sec-flow');
+            const uiMock = document.getElementById('sec-ui');
+
+            if (view === 'all') {
+                arch.classList.remove('hidden');
+                flow.classList.remove('hidden');
+                uiMock.classList.remove('hidden');
+            } else if (view === 'arch') {
+                arch.classList.remove('hidden');
+                flow.classList.add('hidden');
+                uiMock.classList.add('hidden');
+            } else if (view === 'flow') {
+                arch.classList.add('hidden');
+                flow.classList.remove('hidden');
+                uiMock.classList.add('hidden');
+            } else if (view === 'ui') {
+                arch.classList.add('hidden');
+                flow.classList.add('hidden');
+                uiMock.classList.remove('hidden');
+            }
+        }
+
+        // Logic Flow Phone Mockup navigation
+        let currentFlowStep = 1;
+        const totalFlowSteps = 4;
+
+        function changeFlowStep(direction) {
+            document.getElementById(`flow-step-${currentFlowStep}`).classList.remove('active');
+            currentFlowStep += direction;
+            document.getElementById(`flow-step-${currentFlowStep}`).classList.add('active');
+            
+            document.getElementById('nav-flow-prev').disabled = currentFlowStep === 1;
+            const nextBtn = document.getElementById('nav-flow-next');
+            if (currentFlowStep === totalFlowSteps) {
+                nextBtn.innerText = "Finish";
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.innerText = "Next Step";
+                nextBtn.disabled = false;
+            }
+        }
+
+        // UI Mockup Phone navigation
+        let currentUiStep = 1;
+        function changeUiStep(direction) {
+            document.getElementById(`ui-step-${currentUiStep}`).classList.remove('active');
+            currentUiStep += direction;
+            document.getElementById(`ui-step-${currentUiStep}`).classList.add('active');
+        }
+    </script>
+</body>
+</html>

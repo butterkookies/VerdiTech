@@ -3,8 +3,8 @@
 
 Clear definition of what is included, excluded, and pending for VerdiTech v1. This document prevents scope creep and sets expectations with the client.
 
-> **⚠️ STATUS: PENDING CLIENT CONFIRMATION**
-> This scope is based on developer analysis. Items in the "Pending" section require client input before being moved to In Scope or Out of Scope.
+> **✅ STATUS: CORE SCOPE CONFIRMED**
+> The core features (F001-F005) are confirmed. Nice-to-have features remain pending client response.
 
 ---
 

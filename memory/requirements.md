@@ -3,8 +3,8 @@
 
 Comprehensive requirements specification for the VerdiTech plant growth prediction mobile app. This document captures all functional and non-functional requirements, constraints, and acceptance criteria.
 
-> **⚠️ STATUS: AWAITING CLIENT QUESTIONNAIRE RESPONSES**
-> Requirements marked "Pending" are based on developer analysis and recommendations. They require client confirmation before implementation begins.
+> **✅ STATUS: CORE SCOPE CONFIRMED**
+> The core requirements (FR-001 through FR-019) have been confirmed by the client's detailed specification. Optional features remain pending.
 
 ---
 
@@ -15,38 +15,38 @@ Comprehensive requirements specification for the VerdiTech plant growth predicti
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
 | FR-001 | User can select plant type from three options: Tomato, Eggplant, Siling Labuyo | Core | ✅ Confirmed | Dropdown/selector shows exactly 3 plant options; selection persists |
-| FR-002 | User can enter or select planting date | Core | ⏳ Pending | Date picker allows past and current dates; default is today |
-| FR-003 | User can select current growth stage: Seedling, Young Plant, Flowering, Fruiting | Core | ⏳ Pending | Four stage options displayed clearly; stages are plant-relevant |
-| FR-004 | User can select current season or season is auto-detected from date | Core | ⏳ Pending | Three Philippine seasons available: Tag-init, Tag-ulan, Malamig; auto-detect preferred |
-| FR-005 | User can rate Sunlight level (Low/Medium/High or 1–5 scale) | Core | ⏳ Pending | Input is intuitive; includes helper text explaining what each level means |
-| FR-006 | User can rate Water availability (Low/Medium/High or 1–5 scale) | Core | ⏳ Pending | Same UX pattern as FR-005 |
-| FR-007 | User can rate Soil Quality (Low/Medium/High or 1–5 scale) | Core | ⏳ Pending | Same UX pattern as FR-005; includes brief guidance on soil assessment |
+| FR-002 | User can enter or select planting date | Core | ✅ Confirmed | Date picker allows past and current dates; default is today |
+| FR-003 | User can select current growth stage: Seedling, Young Plant, Flowering, Fruiting | Core | ✅ Confirmed | Four stage options displayed clearly; stages are plant-relevant |
+| FR-004 | User can select current season or season is auto-detected from date | Core | ✅ Confirmed | Three Philippine seasons available: Tag-init, Tag-ulan, Malamig; auto-detect preferred |
+| FR-005 | User can rate Sunlight level (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Input is intuitive; includes helper text explaining what each level means |
+| FR-006 | User can rate Water availability (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Same UX pattern as FR-005 |
+| FR-007 | User can rate Soil Quality (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Same UX pattern as FR-005; includes brief guidance on soil assessment |
 
 ### 1.2 Prediction Engine (FR-008 through FR-012)
 
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
 | FR-008 | App uses Cellular Automata algorithm to predict plant growth | Core | ✅ Confirmed | CA engine produces deterministic results for identical inputs |
-| FR-009 | Prediction calculates estimated days to next growth stage | Core | ⏳ Pending | Output shows a number of days with reasonable accuracy (±20% of agricultural norms) |
-| FR-010 | Prediction accounts for all three environmental factors | Core | ⏳ Pending | Changing any single factor visibly affects the prediction output |
-| FR-011 | Prediction accounts for Philippine seasonal conditions | Core | ⏳ Pending | Same inputs with different seasons produce different predictions |
-| FR-012 | Prediction generates an overall health score | Core | ⏳ Pending | Health score is displayed as a percentage, category, or visual indicator |
+| FR-009 | Prediction calculates estimated days to next growth stage | Core | ✅ Confirmed | Output shows a number of days with reasonable accuracy (±20% of agricultural norms) |
+| FR-010 | Prediction accounts for all three environmental factors | Core | ✅ Confirmed | Changing any single factor visibly affects the prediction output |
+| FR-011 | Prediction accounts for Philippine seasonal conditions | Core | ✅ Confirmed | Same inputs with different seasons produce different predictions |
+| FR-012 | Prediction generates an overall health score | Core | ✅ Confirmed | Health score is displayed as a percentage, category, or visual indicator |
 
 ### 1.3 Health Monitoring & Recommendations (FR-013 through FR-016)
 
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
-| FR-013 | App displays plant health status based on environmental factors | Core | ⏳ Pending | Health status updates in real-time as user changes inputs |
-| FR-014 | App identifies which environmental factors are suboptimal | Core | ⏳ Pending | Deficient factors are visually highlighted (color, icon, label) |
-| FR-015 | App provides actionable recommendations for each deficiency | Core | ⏳ Pending | Recommendations are plant-specific and season-aware; text is clear and actionable |
-| FR-016 | Recommendations are contextual (different tips for different plants/seasons) | Core | ⏳ Pending | At least 3 unique tips per plant per factor per severity level |
+| FR-013 | App displays plant health status based on environmental factors | Core | ✅ Confirmed | Health status updates in real-time as user changes inputs |
+| FR-014 | App identifies which environmental factors are suboptimal | Core | ✅ Confirmed | Deficient factors are visually highlighted (color, icon, label) |
+| FR-015 | App provides actionable recommendations for each deficiency | Core | ✅ Confirmed | Recommendations are plant-specific and season-aware; text is clear and actionable |
+| FR-016 | Recommendations are contextual (different tips for different plants/seasons) | Core | ✅ Confirmed | At least 3 unique tips per plant per factor per severity level |
 
 ### 1.4 Visualization (FR-017 through FR-019)
 
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
-| FR-017 | App displays a visual growth timeline from current stage to harvest | Core | ⏳ Pending | Timeline shows all remaining stages with estimated durations |
-| FR-018 | Growth timeline updates dynamically based on input changes | Core | ⏳ Pending | Changing inputs immediately reflects in timeline visualization |
+| FR-017 | App displays a visual growth timeline from current stage to harvest | Core | ✅ Confirmed | Timeline shows all remaining stages with estimated durations |
+| FR-018 | Growth timeline updates dynamically based on input changes | Core | ✅ Confirmed | Changing inputs immediately reflects in timeline visualization |
 | FR-019 | Optional: Animated CA grid visualization showing algorithm in action | Nice-to-Have | ⏳ Pending Client | Grid animates cell state transitions; includes play/pause controls |
 
 ### 1.5 Data Management (FR-020 through FR-023)

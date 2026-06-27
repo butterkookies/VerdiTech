@@ -33,6 +33,18 @@ Chronological record of all client communications, decisions made during discuss
 | **Action Items** | ⏳ Awaiting client responses to questionnaire |
 | **Next Steps** | Wait for client responses; begin Phase 1 (Design) once answers are received |
 
+### Entry #3 — Detailed Core Spec Confirmation
+
+| Field | Details |
+|-------|---------|
+| **Date** | June 27, 2026 |
+| **Type** | 📩 Message (detailed specification) |
+| **Participants** | Client → Developer |
+| **Summary** | Client explicitly detailed the main features required: User Input (Veg type, Date, Stage, Season, Sun, Water, Soil), Prediction System (CA logic, 4 stages), Plant Monitoring (Health status, factor deficiencies), Recommendation System (Actionable tips), Android/Flutter platform, and the Expected Output. |
+| **Key Decisions** | Core scope (F001-F005) is 100% confirmed by the client. The 4 stages and 3 environmental factors are also confirmed. |
+| **Action Items** | ✅ Update memory files (requirements, scope, decisions) to reflect confirmed status. ✅ Move to Phase 2 (Core Development). |
+| **Next Steps** | Begin implementing the CA engine and Riverpod architecture. |
+
 ---
 
 ## Pending Client Responses
@@ -40,13 +52,13 @@ Chronological record of all client communications, decisions made during discuss
 | Item | Question/Topic | Sent Date | Response Date | Status |
 |------|---------------|-----------|---------------|--------|
 | Q1 | App name confirmation ('VerdiTech') | 2026-06-27 | — | ⏳ Waiting |
-| Q2 | Feature scope (core vs. nice-to-have features) | 2026-06-27 | — | ⏳ Waiting |
-| Q3 | CA model preference (1D vs 2D vs hybrid) | 2026-06-27 | — | ⏳ Waiting |
+| Q2 | Feature scope (core vs. nice-to-have features) | 2026-06-27 | 2026-06-27 | ✅ Confirmed (Core) |
+| Q3 | CA model preference (1D vs 2D vs hybrid) | 2026-06-27 | 2026-06-27 | ✅ Confirmed (1D logic) |
 | Q4 | Data persistence requirement | 2026-06-27 | — | ⏳ Waiting |
 | Q5 | Push notifications desired? | 2026-06-27 | — | ⏳ Waiting |
 | Q6 | Thesis defense date / project deadline | 2026-06-27 | — | ⏳ Waiting |
 | Q7 | Thesis panel specific requirements | 2026-06-27 | — | ⏳ Waiting |
-| Q8 | UI style preferences | 2026-06-27 | — | ⏳ Waiting |
+| Q8 | UI style preferences | 2026-06-27 | 2026-06-27 | ✅ Confirmed (Material) |
 | Q9 | Language preference (English/Filipino/Both) | 2026-06-27 | — | ⏳ Waiting |
 | Q10 | Multiple plant tracking needed? | 2026-06-27 | — | ⏳ Waiting |
 

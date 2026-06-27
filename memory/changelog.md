@@ -43,11 +43,23 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 **Status:** Phase 0 (Requirements Gathering) — Awaiting client questionnaire responses.
 
+### v0.1.0 — Design & Spec Confirmation (June 27, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📝 Core specification (F001-F005) explicitly confirmed by client.
+- 🎨 Interactive Architecture and App Flow visualization created (`docs/architecture_flow.html`).
+- 📱 Actual UI Mockups designed and integrated (Material Design, green accents).
+- 🧠 Domain knowledge guide generated, capturing plant biology, Philippine agriculture context, and 1D CA theory.
+- 🗂️ Memory files updated (requirements, scope, milestones, decisions) to reflect confirmed Phase 0 and Phase 1 completion.
+
+**Status:** Phase 2 (Core Development) — In Progress.
+
 ---
 
 ### Upcoming
 
-- **v0.1.0** — Project scaffold (Flutter project creation, folder structure, base dependencies)
 - **v0.2.0** — CA engine implementation (core prediction algorithm)
 - **v0.3.0** — Data models and plant database
 - **v0.4.0** — UI screens (input form, results, dashboard)

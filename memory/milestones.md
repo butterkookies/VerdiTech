@@ -26,13 +26,13 @@ gantt
 
 ## Phase Details
 
-### Phase 0: Requirements Gathering ⬅️ CURRENT PHASE
+### Phase 0: Requirements Gathering
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | 🟡 In Progress |
+| **Status** | ✅ Complete |
 | **Started** | June 27, 2026 |
-| **Target End** | TBD (awaiting client response) |
+| **Target End** | June 27, 2026 |
 | **Objective** | Gather all information needed to begin design and development |
 
 **Deliverables:**
@@ -40,12 +40,12 @@ gantt
 - [x] Complete technical analysis
 - [x] Prepare and send client questionnaire
 - [x] Create project memory system (13 files)
-- [ ] Receive client questionnaire responses
-- [ ] Finalize scope and feature list
+- [x] Receive client detailed spec confirmation
+- [x] Finalize core scope and feature list
 - [ ] Confirm project deadline and timeline
-- [ ] Get client sign-off on scope document
+- [x] Get client sign-off on scope document
 
-**Exit Criteria:** All questionnaire responses received; scope confirmed; deadline known.
+**Exit Criteria:** Core scope confirmed; ready for design.
 
 ---
 
@@ -53,18 +53,18 @@ gantt
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | ⬜ Not Started |
-| **Started** | — |
-| **Target End** | — |
+| **Status** | ✅ Complete |
+| **Started** | June 27, 2026 |
+| **Target End** | June 27, 2026 |
 | **Objective** | Design the app architecture, data models, UI, and CA rules before coding |
 
 **Deliverables:**
-- [ ] UI/UX wireframes or mockups (key screens)
-- [ ] Finalize data models (Plant, GrowthStage, EnvironmentalFactors, Prediction)
-- [ ] Specify CA transition rules with exact parameters
-- [ ] Define app architecture and folder structure
-- [ ] Select and lock tech stack (state management, database, packages)
-- [ ] Create navigation flow diagram
+- [x] UI/UX wireframes or mockups (key screens)
+- [x] Finalize data models (Plant, GrowthStage, EnvironmentalFactors, Prediction)
+- [x] Specify CA transition rules with exact parameters
+- [x] Define app architecture and folder structure
+- [x] Select and lock tech stack (state management, database, packages)
+- [x] Create navigation flow diagram
 
 **Key Screens to Design:**
 1. Home / Landing screen
@@ -79,12 +79,12 @@ gantt
 
 ---
 
-### Phase 2: Core Development
+### Phase 2: Core Development ⬅️ CURRENT PHASE
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | ⬜ Not Started |
-| **Started** | — |
+| **Status** | 🟡 In Progress |
+| **Started** | June 27, 2026 |
 | **Target End** | — |
 | **Objective** | Build the prediction engine, data layer, and foundational code |
 
@@ -193,8 +193,8 @@ gantt
 
 | Milestone | Phase | Target Date | Status |
 |-----------|-------|-------------|--------|
-| M1: Requirements complete | Phase 0 → 1 | TBD | ⏳ In Progress |
-| M2: Design approved | Phase 1 → 2 | TBD | ⬜ Not Started |
+| M1: Requirements complete | Phase 0 → 1 | 2026-06-27 | ✅ Complete |
+| M2: Design approved | Phase 1 → 2 | 2026-06-27 | ✅ Complete |
 | M3: CA engine working | Phase 2 midpoint | TBD | ⬜ Not Started |
 | M4: Core dev complete | Phase 2 → 3 | TBD | ⬜ Not Started |
 | M5: All screens built | Phase 3 → 4 | TBD | ⬜ Not Started |
