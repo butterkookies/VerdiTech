@@ -1,0 +1,65 @@
+# VerdiTech — Changelog
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Chronological record of all project changes, releases, and milestones. Follows [Semantic Versioning](https://semver.org/) principles adapted for this project.
+
+---
+
+## Versioning Scheme
+
+- **Major (X.0.0)** — Significant feature releases or milestones (e.g., v1.0.0 = thesis-ready release)
+- **Minor (0.X.0)** — New features or substantial additions
+- **Patch (0.0.X)** — Bug fixes, refinements, documentation updates
+
+---
+
+## Changelog
+
+### v0.0.1 — Project Initialization (June 27, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📁 Project folder structure created under `COMMISSIONS/Temp/`
+- 📊 Comprehensive technical analysis of client specification completed
+- 📝 Client questionnaire prepared and sent (15+ clarification questions)
+- 🧠 Project memory system established with 13 tracking files:
+  - `decisions.md` — Decision log with 7 initial decisions
+  - `errors_and_solutions.md` — Error tracking (empty, pre-development)
+  - `features.md` — 10 features catalogued (F001–F010)
+  - `techstack.md` — Technology stack candidates identified
+  - `requirements.md` — 24 functional + 7 non-functional requirements documented
+  - `client_communication.md` — 2 communication entries logged
+  - `changelog.md` — This file
+  - `constraints.md` — 8 project constraints identified
+  - `research.md` — CA theory, plant data, Philippine seasons documented
+  - `risks.md` — 5 risks assessed with mitigations
+  - `milestones.md` — 6-phase project plan outlined
+  - `scope.md` — In/Out/Pending scope defined
+  - `references.md` — Reference sources catalogued
+- 🌱 Three plants identified: Tomato, Eggplant, Siling Labuyo
+- 🔬 1D Cellular Automata recommended as prediction engine (hybrid with optional 2D viz)
+- 📱 Android confirmed as primary platform; Flutter confirmed as framework
+
+**Status:** Phase 0 (Requirements Gathering) — Awaiting client questionnaire responses.
+
+---
+
+### Upcoming
+
+- **v0.1.0** — Project scaffold (Flutter project creation, folder structure, base dependencies)
+- **v0.2.0** — CA engine implementation (core prediction algorithm)
+- **v0.3.0** — Data models and plant database
+- **v0.4.0** — UI screens (input form, results, dashboard)
+- **v0.5.0** — Integration (connect engine to UI)
+- **v1.0.0** — Thesis-ready release (polished, tested, documented)
+
+*Dates TBD — awaiting client deadline confirmation.*
+
+---
+
+## Notes
+
+- Every code commit or significant change should have a corresponding changelog entry.
+- Group related changes under a single version bump when possible.
+- Reference related decisions (`decisions.md`) and features (`features.md`) in change descriptions.
