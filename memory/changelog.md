@@ -58,12 +58,25 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 ---
 
+### v0.2.0 — Staging Logs & Unified Timeline Planning (June 28, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📝 Proposed and approved **Unified Live Timeline** & **Daily Staging Logs** (Flo-app cycle tracking concept).
+- 🧠 Documented new specifications and data models for `DailyLog` entity.
+- 🗂️ Promoted local database persistence and dashboard tracking features to confirmed core scope.
+- 🎨 Planned integration of 24 dynamic staging illustrations.
+
+**Status:** Phase 2 (Core Development) — DB & CA Engine implementation scheduled.
+
+---
+
 ### Upcoming
 
-- **v0.2.0** — CA engine implementation (core prediction algorithm)
-- **v0.3.0** — Data models and plant database
-- **v0.4.0** — UI screens (input form, results, dashboard)
-- **v0.5.0** — Integration (connect engine to UI)
+- **v0.3.0** — CA engine refactoring (time-series logic & Drift DB setup)
+- **v0.4.0** — UI Screens (Staging timeline, quick log sheet, multi-plant dashboard)
+- **v0.5.0** — Integration & Asset Packing (WebP crop drawings)
 - **v1.0.0** — Thesis-ready release (polished, tested, documented)
 
 *Dates TBD — awaiting client deadline confirmation.*

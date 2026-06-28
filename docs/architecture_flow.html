@@ -441,61 +441,194 @@
             cursor: pointer;
         }
 
-        /* Prediction UI Styles */
-        .ui-health-card {
-            background: linear-gradient(135deg, #4CAF50 0%, #388E3C 100%);
+        /* Prediction UI / Unified Timeline & Staging Logs Styles */
+        .ui-growth-ring-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
             margin: 16px;
-            border-radius: 16px;
-            padding: 20px;
-            color: white;
-            box-shadow: 0 8px 16px rgba(76, 175, 80, 0.3);
         }
-        .ui-health-title {
-            font-size: 14px;
-            opacity: 0.9;
-            margin-bottom: 5px;
+        .ui-growth-ring {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 8px solid var(--ui-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
         }
-        .ui-health-status {
-            font-size: 24px;
-            font-weight: bold;
+        .ui-growth-ring h4 {
             margin: 0;
+            font-size: 11px;
+            color: var(--ui-subtext);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
-        
-        .ui-timeline {
-            margin: 16px;
-            padding: 16px;
+        .ui-growth-ring h3 {
+            margin: 2px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--ui-text);
+        }
+        .ui-growth-ring span {
+            font-size: 11px;
+            color: var(--ui-primary-dark);
+            font-weight: bold;
+        }
+        .ui-timeline-list {
+            padding: 0 16px 20px 16px;
+        }
+        .ui-timeline-card {
             background: white;
             border-radius: 12px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-        }
-        .ui-timeline-item {
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
             display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
         }
-        .ui-timeline-icon {
-            width: 24px;
-            height: 24px;
+        .ui-timeline-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+        .ui-timeline-card.today {
+            border-color: var(--ui-primary);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.12);
+            position: relative;
+        }
+        .ui-timeline-card.today::after {
+            content: 'TODAY';
+            position: absolute;
+            top: -9px;
+            right: 12px;
             background: var(--ui-primary);
-            border-radius: 12px;
             color: white;
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 5px;
+            border-radius: 10px;
+        }
+        .ui-timeline-card.predicted {
+            border: 1px dashed #bbb;
+            opacity: 0.6;
+            background: #fafafa;
+        }
+        .ui-timeline-card-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: #E8F5E9;
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 12px;
         }
-        .ui-timeline-icon.pending {
-            background: #E0E0E0;
-            color: #999;
+        .ui-timeline-card.predicted .ui-timeline-card-icon {
+            background: #EEEEEE;
+            border: 1px dashed #888;
         }
-        .ui-timeline-content h5 {
-            margin: 0 0 4px 0;
+        .ui-timeline-card-info {
+            flex-grow: 1;
+        }
+        .ui-timeline-card-info h5 {
+            margin: 0 0 3px 0;
+            font-size: 13px;
             color: var(--ui-text);
+            font-weight: bold;
         }
-        .ui-timeline-content p {
+        .ui-timeline-card-info p {
             margin: 0;
+            font-size: 11px;
+            color: var(--ui-subtext);
+        }
+        .ui-timeline-card-metrics {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+        .ui-metric-badge {
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 4px;
+            background: #E8F5E9;
+            color: var(--ui-primary-dark);
+        }
+        .ui-metric-badge.water-low {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+        .ui-bottom-sheet-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 100;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .ui-bottom-sheet-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .ui-bottom-sheet {
+            position: absolute;
+            bottom: -360px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 101;
+            transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 16px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .ui-bottom-sheet.active {
+            bottom: 0;
+        }
+        .ui-sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: #ccc;
+            border-radius: 2px;
+            margin: 0 auto 12px auto;
+        }
+        .ui-sheet-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--ui-text);
+            margin: 0 0 12px 0;
+        }
+        .ui-slider-label {
+            display: flex;
+            justify-content: space-between;
             font-size: 12px;
             color: var(--ui-subtext);
+            margin-bottom: 2px;
+        }
+        .ui-sheet-input-group {
+            margin-bottom: 12px;
+        }
+        .ui-sheet-slider {
+            width: 100%;
+            margin: 4px 0 8px 0;
+            accent-color: var(--ui-primary);
         }
 
     </style>
@@ -527,7 +660,8 @@
                     <div class="layer-content">
                         <div class="component">Dashboard Screen</div>
                         <div class="component">Add Plant Screen</div>
-                        <div class="component">Plant Details Screen</div>
+                        <div class="component">Unified Timeline Screen</div>
+                        <div class="component">Quick-Log Bottom Sheet</div>
                         <div class="component">CA Visualizer Screen</div>
                     </div>
                     <div class="arrow-down">⬇ Riverpod Providers (State Management) ⬇</div>
@@ -535,16 +669,16 @@
                 <div class="layer">
                     <div class="layer-title">Domain / Core Layer (Business Logic)</div>
                     <div class="layer-content">
-                        <div class="component domain">CA Engine (1D Model)</div>
+                        <div class="component domain">CA Engine (1D Time-Series)</div>
                         <div class="component domain">Recommendation Engine</div>
-                        <div class="component domain">Entities (PlantProfile, Seasons)</div>
+                        <div class="component domain">Entities (PlantProfile, DailyLog, Seasons)</div>
                     </div>
                     <div class="arrow-down">⬇ Repositories ⬇</div>
                 </div>
                 <div class="layer">
                     <div class="layer-title">Data Layer (Storage)</div>
                     <div class="layer-content">
-                        <div class="component data">Drift (SQLite) Database</div>
+                        <div class="component data">Drift (SQLite) Database (plants & daily_logs)</div>
                         <div class="component data">Local Data Sources</div>
                     </div>
                 </div>
@@ -568,51 +702,63 @@
                         
                         <!-- Step 1 -->
                         <div class="app-flow-step active" id="flow-step-1">
-                            <div class="step-indicator">Step 1 of 4</div>
-                            <h3 class="step-title">1. User Input</h3>
+                            <div class="step-indicator">Step 1 of 5</div>
+                            <h3 class="step-title">1. Plant Profile Setup</h3>
                             <div class="step-content">
                                 <ul>
-                                    <li><strong>Select Plant:</strong> (Tomato, Eggplant, Siling Labuyo)</li>
-                                    <li><strong>Select Stage:</strong> Seedling to Fruiting</li>
-                                    <li><strong>Rate Environment:</strong> Sun, Water, Soil (1-5)</li>
+                                    <li><strong>Select Crop:</strong> Tomato, Eggplant, Siling Labuyo</li>
+                                    <li><strong>Set Date:</strong> Select planting date</li>
+                                    <li><strong>Initial Stage:</strong> Seedling/Young Plant</li>
                                 </ul>
                             </div>
                         </div>
 
                         <!-- Step 2 -->
                         <div class="app-flow-step" id="flow-step-2">
-                            <div class="step-indicator">Step 2 of 4</div>
-                            <h3 class="step-title">2. CA Engine</h3>
+                            <div class="step-indicator">Step 2 of 5</div>
+                            <h3 class="step-title">2. Daily Logging (Symptoms)</h3>
                             <div class="step-content">
                                 <ul>
-                                    <li>Applies Plant Weights</li>
-                                    <li>Applies Season Modifiers</li>
-                                    <li>Runs 1D Time-Series Simulation</li>
+                                    <li><strong>Frictionless Check:</strong> Rate Sun, Water, Soil (1-5)</li>
+                                    <li><strong>Write Notes:</strong> Log specific issues or observations</li>
+                                    <li><strong>Device Storage:</strong> Local saving in Drift database</li>
                                 </ul>
                             </div>
                         </div>
 
                         <!-- Step 3 -->
                         <div class="app-flow-step" id="flow-step-3">
-                            <div class="step-indicator">Step 3 of 4</div>
-                            <h3 class="step-title">3. Prediction Output</h3>
+                            <div class="step-indicator">Step 3 of 5</div>
+                            <h3 class="step-title">3. Time-Series CA Engine</h3>
                             <div class="step-content">
                                 <ul>
-                                    <li>Growth Timeline Calculation</li>
-                                    <li>Health Status (Excellent -> Critical)</li>
-                                    <li>Actionable Recommendations</li>
+                                    <li><strong>Historical Sweep:</strong> Runs CA rules step-by-step from planting date to today using logged inputs</li>
+                                    <li><strong>Future Projections:</strong> Simulates future steps based on historical averages</li>
                                 </ul>
                             </div>
                         </div>
 
                         <!-- Step 4 -->
                         <div class="app-flow-step" id="flow-step-4">
-                            <div class="step-indicator">Step 4 of 4</div>
-                            <h3 class="step-title">4. Monitoring</h3>
+                            <div class="step-indicator">Step 4 of 5</div>
+                            <h3 class="step-title">4. Unified Timeline Display</h3>
                             <div class="step-content">
                                 <ul>
-                                    <li>View plant details</li>
-                                    <li>Interactive CA Grid visualization</li>
+                                    <li><strong>Historical Cards:</strong> Solid colors showing logged stage/health drawings</li>
+                                    <li><strong>Focus Item:</strong> Prominent "Today" card for fast updates</li>
+                                    <li><strong>Forecast Cards:</strong> Dotted predicted stage timeline</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="app-flow-step" id="flow-step-5">
+                            <div class="step-indicator">Step 5 of 5</div>
+                            <h3 class="step-title">5. dynamic Advisories</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li>Deficiencies analyzed dynamically</li>
+                                    <li>Generates specific recommendations based on crop, stage, and season</li>
                                 </ul>
                             </div>
                         </div>
@@ -647,9 +793,9 @@
                             <div class="app-header ui-header">
                                 VerdiTech
                             </div>
-                            <div style="padding: 16px; font-weight: bold; color: var(--ui-subtext);">My Plants</div>
+                            <div style="padding: 16px; font-weight: bold; color: var(--ui-subtext);">My Garden</div>
                             
-                            <div class="ui-card">
+                            <div class="ui-card" onclick="changeUiStep(2)" style="cursor: pointer;">
                                 <div class="ui-card-icon">🍅</div>
                                 <div class="ui-card-content">
                                     <h4>Tomato (Roma)</h4>
@@ -657,7 +803,7 @@
                                 </div>
                             </div>
                             
-                            <div class="ui-card">
+                            <div class="ui-card" onclick="changeUiStep(2)" style="cursor: pointer;">
                                 <div class="ui-card-icon">🍆</div>
                                 <div class="ui-card-content">
                                     <h4>Eggplant</h4>
@@ -685,93 +831,142 @@
                             </div>
 
                             <div class="ui-form-group">
-                                <label class="ui-label">ENVIRONMENTAL FACTORS</label>
-                                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 14px;">Sunlight (4/5)</span>
-                                </div>
-                                <div class="ui-slider-container">
-                                    <div class="ui-slider">
-                                        <div class="ui-slider-fill" style="width: 80%;"></div>
-                                        <div class="ui-slider-thumb" style="left: 80%;"></div>
-                                    </div>
-                                </div>
+                                <label class="ui-label">PLANTING DATE</label>
+                                <input type="date" class="ui-input" value="2026-06-28">
                             </div>
-                            
+
                             <div class="ui-form-group">
-                                <div style="margin-bottom: 12px; display: flex; justify-content: space-between; align-items: center;">
-                                    <span style="font-size: 14px;">Water (2/5)</span>
-                                </div>
-                                <div class="ui-slider-container">
-                                    <div class="ui-slider">
-                                        <div class="ui-slider-fill" style="width: 40%; background: #FF9800;"></div>
-                                        <div class="ui-slider-thumb" style="left: 40%; background: #FF9800;"></div>
-                                    </div>
-                                </div>
+                                <label class="ui-label">INITIAL GROWTH STAGE</label>
+                                <select class="ui-input">
+                                    <option>Seedling</option>
+                                    <option>Young Plant</option>
+                                </select>
                             </div>
 
                             <div class="ui-btn-primary" onclick="changeUiStep(1)">
-                                Predict Growth
+                                Create Plant Profile
                             </div>
                         </div>
 
-                        <!-- UI MOCKUP 3: Prediction Results -->
+                        <!-- UI MOCKUP 3: Unified Timeline & Logs -->
                         <div class="app-flow-step" id="ui-step-3">
                             <div class="app-header ui-header">
-                                <span class="ui-header-icon" onclick="changeUiStep(-1)">←</span>
-                                Tomato Prediction
+                                <span class="ui-header-icon" onclick="changeUiStep(-2)">←</span>
+                                Tomato (Roma)
                             </div>
                             
-                            <div class="ui-health-card">
-                                <div class="ui-health-title">Overall Health Status</div>
-                                <div class="ui-health-status">Good</div>
-                                <div style="margin-top: 10px; font-size: 12px; opacity: 0.9;">
-                                    ⚠️ Warning: Low water for Tag-init season.
+                            <!-- Circular Growth Stage Ring -->
+                            <div class="ui-growth-ring-container">
+                                <div class="ui-growth-ring" id="dashboard-ring">
+                                    <h4>Flowering</h4>
+                                    <h3 id="ring-stage-title">Day 5 of 12</h3>
+                                    <span id="ring-health-text">Health: Good</span>
                                 </div>
                             </div>
-
-                            <div style="padding: 0 16px; font-weight: bold; color: var(--ui-subtext); margin-top: 24px;">Growth Timeline</div>
                             
-                            <div class="ui-timeline">
-                                <div class="ui-timeline-item">
-                                    <div class="ui-timeline-icon">✓</div>
-                                    <div class="ui-timeline-content">
-                                        <h5>Seedling</h5>
-                                        <p>Completed</p>
+                            <div style="padding: 0 16px; font-weight: bold; color: var(--ui-subtext); margin-top: 10px; font-size: 13px;">Unified Staging Timeline</div>
+                            
+                            <div class="ui-timeline-list">
+                                <!-- Day 1 (Logged Seedling) -->
+                                <div class="ui-timeline-card">
+                                    <div class="ui-timeline-card-icon">🌱</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 1: Seedling</h5>
+                                        <p>June 28 • Logged</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge">💧 4</span>
                                     </div>
                                 </div>
-                                <div class="ui-timeline-item">
-                                    <div class="ui-timeline-icon">✓</div>
-                                    <div class="ui-timeline-content">
-                                        <h5>Young Plant</h5>
-                                        <p>Completed</p>
+
+                                <!-- Day 3 (Logged Young Plant) -->
+                                <div class="ui-timeline-card">
+                                    <div class="ui-timeline-card-icon">🌿</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 3: Young Plant</h5>
+                                        <p>June 30 • Logged</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge">💧 3</span>
                                     </div>
                                 </div>
-                                <div class="ui-timeline-item">
-                                    <div class="ui-timeline-icon" style="background: #2196F3;">●</div>
-                                    <div class="ui-timeline-content">
-                                        <h5>Flowering</h5>
-                                        <p>Current (Est. 7 days remaining)</p>
+
+                                <!-- Day 5 (Today - Flowering) -->
+                                <div class="ui-timeline-card today" onclick="openBottomSheet()" id="timeline-card-today">
+                                    <div class="ui-timeline-card-icon" id="today-stage-icon">🌸</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 5: Flowering</h5>
+                                        <p>July 2 • Tap to Log Care</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics" id="today-metrics-container">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge water-low" id="today-water-badge">💧 2 (Low)</span>
                                     </div>
                                 </div>
-                                <div class="ui-timeline-item">
-                                    <div class="ui-timeline-icon pending"></div>
-                                    <div class="ui-timeline-content">
-                                        <h5 style="color: #999;">Fruiting</h5>
-                                        <p>Predicted on Oct 14</p>
+
+                                <!-- Day 12 (Predicted Fruiting) -->
+                                <div class="ui-timeline-card predicted" id="predicted-timeline-card">
+                                    <div class="ui-timeline-card-icon">🍅</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 12: Fruiting</h5>
+                                        <p id="prediction-date-text">Predicted on July 9</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge" style="background:#e0e0e0; color:#555;">CA Forecast</span>
                                     </div>
                                 </div>
                             </div>
-
                         </div>
 
                     </div>
                     
-                    <!-- Only show navigation in UI view if we want to manually drive it, but we integrated buttons in the UI! -->
+                    <!-- Bottom Sheet Overlay and Container inside the phone frame -->
+                    <div class="ui-bottom-sheet-overlay" id="sheet-overlay" onclick="closeBottomSheet()"></div>
+                    <div class="ui-bottom-sheet" id="bottom-sheet">
+                        <div class="ui-sheet-handle"></div>
+                        <div class="ui-sheet-title">Log Today's Care (Day 5)</div>
+                        
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Sunlight Exposure</span>
+                                <span id="label-sun">4/5 (Optimal)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="4" class="ui-sheet-slider" id="slider-sun" oninput="updateSliderLabel('sun', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Water Availability</span>
+                                <span id="label-water">2/5 (Low)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="2" class="ui-sheet-slider" id="slider-water" oninput="updateSliderLabel('water', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Soil Quality</span>
+                                <span id="label-soil">3/5 (Medium)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="ui-sheet-slider" id="slider-soil" oninput="updateSliderLabel('soil', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group" style="margin-bottom: 20px;">
+                            <label class="ui-label">CARE NOTES</label>
+                            <input type="text" class="ui-input" placeholder="e.g. soil dry, leaves look good" style="padding: 8px;" id="input-notes">
+                        </div>
+
+                        <div class="ui-btn-primary" style="margin: 0; padding: 10px;" onclick="saveBottomSheetLog()">
+                            Save & Update Prediction
+                        </div>
+                    </div>
+
                     <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
                 </div>
                 
                 <div style="text-align: center; color: #666; margin-top: 10px;">
-                    <em>Interact with the UI buttons (+, ←, Predict Growth) to navigate.</em>
+                    <em>Interact with the UI buttons (+, ←, Tomato card, Today card) to navigate and log care.</em>
                 </div>
             </div>
         </div>
@@ -825,7 +1020,7 @@
 
         // Logic Flow Phone Mockup navigation
         let currentFlowStep = 1;
-        const totalFlowSteps = 4;
+        const totalFlowSteps = 5;
 
         function changeFlowStep(direction) {
             document.getElementById(`flow-step-${currentFlowStep}`).classList.remove('active');
@@ -849,6 +1044,114 @@
             document.getElementById(`ui-step-${currentUiStep}`).classList.remove('active');
             currentUiStep += direction;
             document.getElementById(`ui-step-${currentUiStep}`).classList.add('active');
+        }
+
+        // Bottom Sheet & Dynamic CA Logic Mockup
+        function openBottomSheet() {
+            document.getElementById('sheet-overlay').classList.add('active');
+            document.getElementById('bottom-sheet').classList.add('active');
+        }
+
+        function closeBottomSheet() {
+            document.getElementById('sheet-overlay').classList.remove('active');
+            document.getElementById('bottom-sheet').classList.remove('active');
+        }
+
+        function updateSliderLabel(factor, value) {
+            let desc = "";
+            if (factor === "sun") {
+                if (value <= 2) desc = "Low (Shade)";
+                else if (value <= 3) desc = "Medium (Partial Sun)";
+                else desc = "Optimal (Full Sun)";
+            } else if (factor === "water") {
+                if (value <= 1) desc = "Critical (Dry)";
+                else if (value <= 2) desc = "Low (Underwatered)";
+                else if (value <= 4) desc = "Optimal (Moist)";
+                else desc = "Excessive (Wet Feet)";
+            } else if (factor === "soil") {
+                if (value <= 2) desc = "Poor (Nutrient-depleted)";
+                else if (value <= 3) desc = "Medium (Loam)";
+                else desc = "Optimal (Organic Compost)";
+            }
+            document.getElementById(`label-${factor}`).innerText = `${value}/5 (${desc})`;
+        }
+
+        function saveBottomSheetLog() {
+            // Fetch inputs
+            const sunVal = parseInt(document.getElementById('slider-sun').value);
+            const waterVal = parseInt(document.getElementById('slider-water').value);
+            const soilVal = parseInt(document.getElementById('slider-soil').value);
+
+            // Compute Mock CA Engine Response
+            let health = "Good";
+            let healthColor = "#4CAF50";
+            let forecastDays = 7;
+            let forecastDate = "July 9";
+            let stageTitle = "Day 5 of 12";
+            let waterBadgeClass = "ui-metric-badge";
+            let waterBadgeText = "💧 " + waterVal;
+            let iconEmoji = "🌸";
+
+            // Rules simulation
+            if (waterVal === 5) {
+                // Excessive Water
+                health = "Stressed (Wet Feet)";
+                healthColor = "#FFB74D";
+                forecastDays = 9;
+                forecastDate = "July 11";
+                stageTitle = "Day 5 of 14";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 5 (Excessive)";
+                iconEmoji = "🥀";
+            } else if (waterVal >= 3 && waterVal <= 4 && sunVal >= 4) {
+                // Optimal water & sun
+                health = "Excellent";
+                healthColor = "#2E7D32";
+                forecastDays = 5;
+                forecastDate = "July 7";
+                stageTitle = "Day 5 of 10";
+                waterBadgeText = "💧 " + waterVal + " (Optimal)";
+            } else if (waterVal <= 1) {
+                // Critical Dry
+                health = "Critical (Drought)";
+                healthColor = "#E53935";
+                forecastDays = 12;
+                forecastDate = "July 14";
+                stageTitle = "Stressed (Flowering Paused)";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 1 (Critical)";
+                iconEmoji = "🍂";
+            } else if (waterVal === 2) {
+                // Low water (Defaults)
+                health = "Good";
+                healthColor = "#4CAF50";
+                forecastDays = 7;
+                forecastDate = "July 9";
+                stageTitle = "Day 5 of 12";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 2 (Low)";
+            }
+
+            // Update UI Ring
+            const ring = document.getElementById('dashboard-ring');
+            ring.style.borderColor = healthColor;
+            document.getElementById('ring-stage-title').innerText = stageTitle;
+            document.getElementById('ring-health-text').innerText = "Health: " + health;
+            document.getElementById('ring-health-text').style.color = healthColor;
+
+            // Update Timeline Card
+            document.getElementById('today-stage-icon').innerText = iconEmoji;
+            
+            // Update Badges
+            let metricsHTML = `<span class="ui-metric-badge">☀️ ${sunVal}</span>`;
+            metricsHTML += `<span class="${waterBadgeClass}">${waterBadgeText}</span>`;
+            document.getElementById('today-metrics-container').innerHTML = metricsHTML;
+
+            // Update Forecast Card
+            document.getElementById('prediction-date-text').innerText = "Predicted on " + forecastDate;
+
+            // Close Bottom Sheet
+            closeBottomSheet();
         }
     </script>
 </body>

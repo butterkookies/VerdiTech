@@ -38,7 +38,7 @@ The libraries and packages used are defined in the project's [pubspec.yaml](file
 - **SQLite**: The industry standard for local data storage on mobile devices. It saves data as tables (rows and columns) inside a secure file on the device.
 - **Drift**: A Dart-friendly ORM (Object-Relational Mapper) wrapper around SQLite.
   - *Why it's used*: Instead of writing raw SQL database queries (which are easy to mistype and break), Drift allows developers to write query logic using pure Dart. It translates Dart queries to SQLite commands automatically and provides compile-time safety (meaning errors are caught before the app runs).
-  - *Relation to VerdiTech*: Critical for storing multiple plant profiles, tracking individual plant parameters, and maintaining a log of growth predictions.
+  - *Relation to VerdiTech*: Critical for storing multiple plant profiles, saving daily environmental logs (Sunlight, Water, Soil Quality ratings), and maintaining a record of care notes. This supports a time-series history that fuels the prediction engine.
 
 ### File Storage Access: Path & Path Provider
 - **Path Provider**: A Flutter package that safely requests folder paths from Android/iOS.

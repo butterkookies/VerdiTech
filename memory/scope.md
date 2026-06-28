@@ -21,6 +21,10 @@ These features and deliverables are confirmed for the first version of the app.
 | **Health Monitoring** | Display plant health status (Excellent/Good/Fair/Poor/Critical) based on environmental scores | F003 |
 | **Recommendation System** | Generate actionable, plant-specific tips for improving suboptimal conditions | F004 |
 | **Growth Timeline** | Visual representation of predicted growth from current stage to harvest | F005 |
+| **Plant Dashboard** | Multi-plant tracking dashboard interface for managing several profiles simultaneously | F006 |
+| **Data Persistence** | Local SQLite storage via Drift to save profiles and daily logs offline | F008 |
+| **Daily Staging Logs** | Tracking daily environmental factors (1-5 Sunlight, Water, Soil Quality) | F011 |
+| **Unified Live Timeline** | Chronological view combining logged history and predicted CA stages | F012 |
 
 ### Technical
 | Item | Description |
@@ -68,9 +72,7 @@ These items are proposed but require client confirmation before being placed In 
 
 | Item | Description | Recommendation | Reference | Questionnaire Item |
 |------|-------------|----------------|-----------|-------------------|
-| **Multiple Plant Tracking** | Dashboard to manage several plants simultaneously | 🟡 Nice-to-Have — adds value but not essential for thesis | F006 | Q10 |
 | **CA Visualization** | Animated grid showing the CA algorithm in action | 🟡 Recommended for thesis — demonstrates algorithm visually | F007 | Q3 |
-| **Data Persistence** | Save plant profiles and prediction history locally | 🟡 Nice-to-Have — improves UX significantly; essential if F006 is included | F008 | Q4 |
 | **Push Notifications** | Local reminders for plant care activities | 🟢 Optional — adds engagement but not core to thesis | F009 | Q5 |
 | **About/How It Works** | Educational section explaining the CA algorithm and plant science | 🟡 Recommended for thesis — shows understanding of the algorithm | F010 | — |
 | **Language Support** | Filipino/Tagalog in addition to English | 🟢 Optional — adds local relevance but increases content workload | — | Q9 |
@@ -104,6 +106,10 @@ Before considering the project complete, verify all In Scope items are delivered
 - [ ] Health monitoring displays accurate status
 - [ ] Recommendations are contextual and actionable
 - [ ] Growth timeline visualization is functional
+- [ ] Plant dashboard lists multiple profiles and handles creation/deletion
+- [ ] Drift database persists profiles and daily logs across sessions
+- [ ] Unified timeline correctly displays historical logs and predicted stages
+- [ ] Daily log entry form updates factors and notes successfully
 - [ ] Release APK builds and runs on Android
 - [ ] Source code is clean and documented
 

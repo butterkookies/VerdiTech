@@ -53,9 +53,9 @@ Comprehensive requirements specification for the VerdiTech plant growth predicti
 
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
-| FR-020 | App saves plant profiles locally on device | Nice-to-Have | ⏳ Pending Client | Data persists across app restarts; no data loss on normal close |
-| FR-021 | User can track multiple plants simultaneously | Nice-to-Have | ⏳ Pending Client | Dashboard shows all plants; user can add/edit/delete plants |
-| FR-022 | User can view prediction history for each plant | Nice-to-Have | ⏳ Pending Client | History shows past predictions with timestamps |
+| FR-020 | App saves plant profiles locally on device | Core | ✅ Confirmed | Data persists across app restarts; no data loss on normal close |
+| FR-021 | User can track multiple plants simultaneously | Core | ✅ Confirmed | Dashboard shows all plants; user can add/edit/delete plants |
+| FR-022 | User can view prediction history for each plant | Core | ✅ Confirmed | History shows past predictions with timestamps |
 | FR-023 | Optional: Local push notifications for care reminders | TBD | ⏳ Pending Client | Notifications appear at scheduled times; user can disable them |
 
 ### 1.6 Educational Content (FR-024)
@@ -63,6 +63,15 @@ Comprehensive requirements specification for the VerdiTech plant growth predicti
 | ID | Requirement | Priority | Status | Acceptance Criteria |
 |----|-------------|----------|--------|---------------------|
 | FR-024 | App includes an "About" or "How It Works" section explaining the CA algorithm | Nice-to-Have | ⏳ Pending Client | Content is accurate, understandable for SHS level, includes diagrams |
+
+### 1.7 Staging Logs & Live Timeline (FR-025 through FR-028)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-025 | User can log daily environmental factors (Sun, Water, Soil Quality) on a 1-5 scale for any day since planting | Core | ✅ Confirmed | Numeric ratings are saved in the DB mapped to specific dates; triggers CA updates |
+| FR-026 | App displays a scrollable Unified Live Timeline from Day 1 to predicted harvest | Core | ✅ Confirmed | Displays past logged items (solid) and future simulated days (semi-transparent) |
+| FR-027 | Timeline displays crop-specific stage drawings that dynamically reflect health status | Core | ✅ Confirmed | Health state (Healthy vs Stressed) alters the color/form of the plant illustration |
+| FR-028 | Tapping a timeline day opens a Bottom Sheet for quick score updates | Core | ✅ Confirmed | Sheet slides up instantly; allows rating adjustments and notes; auto-updates CA prediction |
 
 ---
 

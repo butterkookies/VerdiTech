@@ -19,6 +19,7 @@ This file tracks all major project decisions, their rationale, and current statu
 | D008 | 2026-06-27 | State Management: **Riverpod (v3.x)** | Chosen over BLoC due to lower boilerplate, better async data handling, and compile-time safety. It's the modern industry standard and easier to explain in an academic defense than strict event-driven architectures. | ✅ Confirmed | Developer |
 | D009 | 2026-06-27 | Local Database: **Drift** | Chosen over NoSQL options (Hive/ObjectBox) because the app handles relational data (Plants have multiple Predictions). Drift provides a type-safe ORM over SQLite with excellent offline-first reactive streams. | ✅ Confirmed | Developer |
 | D010 | 2026-06-27 | Architecture Pattern: **Feature-First (Domain-Driven)** | Chosen over strict layer-by-layer Clean Architecture. Organizing folders by feature (e.g., `plants/`, `predictions/`) makes the codebase more cohesive and significantly easier to present during a thesis defense. | ✅ Confirmed | Developer |
+| D011 | 2026-06-28 | Unified Live Timeline & Staging Logs System | User confirmed implementation of daily log history + dynamic CA future forecast (concept analogous to Flo app's cycle tracker) to improve UI/UX engagement and panel demonstrability. | ✅ Confirmed | Developer + Client |
 ---
 
 ## Decision Status Legend
