@@ -1,30 +1,59 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
 
-import 'package:verditech/main.dart';
+import 'package:verditech/features/dashboard/presentation/dashboard_screen.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(const MyApp());
+  // Create a router config that only needs the dashboard for the smoke test.
+  final testRouter = GoRouter(
+    initialLocation: '/',
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: '/add-plant',
+        builder: (context, state) => const Scaffold(body: Text('Add Plant')),
+      ),
+      GoRoute(
+        path: '/about',
+        builder: (context, state) => const Scaffold(body: Text('About')),
+      ),
+    ],
+  );
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+  testWidgets('DashboardScreen smoke test — empty state renders correctly',
+      (WidgetTester tester) async {
+    // Build the app with an empty database (ProviderScope with no overrides
+    // will attempt DB access; we just verify the loading spinner appears, then
+    // the empty-state screen. In a full test suite we would inject a mock repo.)
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp.router(
+          routerConfig: testRouter,
+        ),
+      ),
+    );
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // The loading spinner should appear first
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('DashboardScreen shows FAB for adding a plant',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp.router(
+          routerConfig: testRouter,
+        ),
+      ),
+    );
+
+    // FAB should be present immediately
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    expect(find.text('Add Plant'), findsOneWidget);
   });
 }

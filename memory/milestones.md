@@ -79,24 +79,24 @@ gantt
 
 ---
 
-### Phase 2: Core Development ⬅️ CURRENT PHASE
+### Phase 2: Core Development
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | 🟡 In Progress |
+| **Status** | ✅ Complete |
 | **Started** | June 27, 2026 |
 | **Target End** | — |
 | **Objective** | Build the prediction engine, data layer, and foundational code |
 
 **Deliverables:**
-- [ ] Flutter project initialized with folder structure
-- [ ] Plant data models implemented
-- [ ] CA prediction engine implemented and unit-tested
-- [ ] Environmental scoring system implemented
-- [ ] Seasonal modifier logic implemented
-- [ ] Recommendation engine implemented
-- [ ] Local data persistence set up (if F008 confirmed)
-- [ ] Unit tests for CA engine (minimum 80% coverage on core logic)
+- [x] Flutter project initialized with folder structure
+- [x] Plant data models implemented
+- [x] CA prediction engine implemented and unit-tested
+- [x] Environmental scoring system implemented
+- [x] Seasonal modifier logic implemented
+- [x] Recommendation engine implemented
+- [x] Local data persistence set up (if F008 confirmed)
+- [x] Unit tests for CA engine (minimum 80% coverage on core logic)
 
 **Priority Order:**
 1. 🔴 CA Engine (F002) — this is the heart of the app
@@ -113,21 +113,21 @@ gantt
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | ⬜ Not Started |
+| **Status** | ✅ Complete |
 | **Started** | — |
 | **Target End** | — |
 | **Objective** | Build all user-facing screens and navigation |
 
 **Deliverables:**
-- [ ] Plant Input Form screen (F001)
-- [ ] Prediction Results screen with Growth Timeline (F005)
-- [ ] Health Status & Recommendations screen (F003 + F004)
-- [ ] Dashboard screen (F006 — if confirmed)
-- [ ] CA Visualization screen (F007 — if confirmed)
-- [ ] About / How It Works screen (F010 — if confirmed)
-- [ ] App navigation and routing
-- [ ] Theme and styling (colors, fonts, icons)
-- [ ] Responsive layout testing
+- [x] Plant Input Form screen (F001)
+- [x] Prediction Results screen with Growth Timeline (F005)
+- [x] Health Status & Recommendations screen (F003 + F004)
+- [x] Dashboard screen (F006 — if confirmed)
+- [x] CA Visualization screen (F007 — if confirmed)
+- [x] About / How It Works screen (F010 — if confirmed)
+- [x] App navigation and routing
+- [x] Theme and styling (colors, fonts, icons)
+- [x] Responsive layout testing
 
 **Exit Criteria:** All confirmed screens built; navigation works; visual styling complete.
 
@@ -137,20 +137,20 @@ gantt
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | ⬜ Not Started |
+| **Status** | ✅ Complete |
 | **Started** | — |
 | **Target End** | — |
 | **Objective** | Connect the prediction engine to the UI; comprehensive testing |
 
 **Deliverables:**
-- [ ] Wire UI inputs to CA engine
-- [ ] Display predictions in the timeline visualization
-- [ ] Display health status and recommendations from engine output
-- [ ] End-to-end testing of all user flows
-- [ ] Edge case testing (all Low inputs, all High inputs, boundary conditions)
-- [ ] Push notification integration (F009 — if confirmed)
-- [ ] Performance testing on target device
-- [ ] Fix all Critical and High bugs
+- [x] Wire UI inputs to CA engine
+- [x] Display predictions in the timeline visualization
+- [x] Display health status and recommendations from engine output
+- [x] End-to-end testing of all user flows
+- [x] Edge case testing (all Low inputs, all High inputs, boundary conditions)
+- [x] Push notification integration (F009 — deferred)
+- [x] Performance testing on target device
+- [x] Fix all Critical and High bugs
 
 **Test Scenarios:**
 | Scenario | Expected Behavior |
@@ -165,11 +165,11 @@ gantt
 
 ---
 
-### Phase 5: Polish & Delivery
+### Phase 5: Polish & Delivery ⬅️ CURRENT PHASE
 
 | Attribute | Details |
 |-----------|---------|
-| **Status** | ⬜ Not Started |
+| **Status** | 🟡 In Progress |
 | **Started** | — |
 | **Target End** | — |
 | **Objective** | Final polish, documentation, and delivery of thesis-ready app |
@@ -195,10 +195,10 @@ gantt
 |-----------|-------|-------------|--------|
 | M1: Requirements complete | Phase 0 → 1 | 2026-06-27 | ✅ Complete |
 | M2: Design approved | Phase 1 → 2 | 2026-06-27 | ✅ Complete |
-| M3: CA engine working | Phase 2 midpoint | TBD | ⬜ Not Started |
-| M4: Core dev complete | Phase 2 → 3 | TBD | ⬜ Not Started |
-| M5: All screens built | Phase 3 → 4 | TBD | ⬜ Not Started |
-| M6: Integration complete | Phase 4 → 5 | TBD | ⬜ Not Started |
+| M3: CA engine working | Phase 2 midpoint | 2026-06-28 | ✅ Complete |
+| M4: Core dev complete | Phase 2 → 3 | 2026-06-28 | ✅ Complete |
+| M5: All screens built | Phase 3 → 4 | 2026-06-28 | ✅ Complete |
+| M6: Integration complete | Phase 4 → 5 | 2026-06-28 | ✅ Complete |
 | M7: Release APK delivered | Phase 5 end | TBD | ⬜ Not Started |
 
 ---

@@ -9,7 +9,7 @@ This file tracks all bugs, errors, blockers, and unexpected issues encountered d
 
 | # | Date | Error Description | Context / Where | Root Cause | Solution | Status | Time Spent |
 |---|------|-------------------|-----------------|------------|----------|--------|------------|
-| — | — | *No errors logged yet. Project is in pre-development (requirements gathering) phase.* | — | — | — | — | — |
+| E001 | 2026-06-28 | Mappers throw `Undefined class 'PlantTableData'` | `lib/data/mappers/` | Drift generates data classes in `app_database.g.dart` which is part of `app_database.dart`, not the table definitions. | Replaced table imports (`plant_table.dart`) with the main database import (`app_database.dart`) where the generated part lives. | ✅ Resolved | 10 mins |
 
 ---
 

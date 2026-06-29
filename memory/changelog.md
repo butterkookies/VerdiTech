@@ -72,10 +72,25 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 ---
 
+### v0.4.0 — Core Engine & UI Implementation (June 28, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- ⚙️ **Prediction Engine**: Fully implemented `CaEngine` for 1D growth state transitions, factoring in plant type, seasons (Tag-init, Tag-ulan, Malamig), and 3 environmental factors.
+- 💡 **Recommendation Engine**: Intelligent `RecommendationEngine` added for situational care tips.
+- 🗄️ **Database Layer**: Drift schema, DAOs, and Repositories built for local persistence.
+- 🔄 **State Management**: Integrated full Riverpod provider suite (Streams and StateNotifiers).
+- 🎨 **UI/UX**: Feature-first screens created for dashboard, plant forms, details, CA visualizations, and about pages.
+- 🧪 **Testing**: Added smoke tests and `ca_engine_test.dart` to verify logic.
+- 🛠️ **Static Analysis**: Resolved all linting, deprecations, and generated type issues.
+
+**Status:** Phase 4 (Integration) — Complete. App is ready for physical device testing.
+
+---
+
 ### Upcoming
 
-- **v0.3.0** — CA engine refactoring (time-series logic & Drift DB setup)
-- **v0.4.0** — UI Screens (Staging timeline, quick log sheet, multi-plant dashboard)
 - **v0.5.0** — Integration & Asset Packing (WebP crop drawings)
 - **v1.0.0** — Thesis-ready release (polished, tested, documented)
 
