@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import 'presentation/theme/verditech_theme.dart';
 import 'features/dashboard/presentation/dashboard_screen.dart';
 import 'features/plant_detail/presentation/plant_details_screen.dart';
 import 'features/ca_visualization/presentation/ca_visualization_screen.dart';
@@ -78,19 +79,28 @@ class VerdiTechApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      title: 'VerdiTech',
-      theme: ThemeData(
-        useMaterial3: true,
-        colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF2E7D32),
-          brightness: Brightness.light,
+    // Determine system brightness to pick light or dark scheme.
+    final brightness = MediaQuery.platformBrightnessOf(context);
+    final isDark = brightness == Brightness.dark;
+    final scheme = isDark ? VTScheme.dark() : VTScheme.light();
+
+    return VTTheme(
+      scheme: scheme,
+      child: MaterialApp.router(
+        title: 'VerdiTech',
+        theme: ThemeData(
+          useMaterial3: true,
+          colorScheme: ColorScheme.fromSeed(
+            seedColor: scheme.verdantDeep,
+            brightness: brightness,
+            surface: scheme.bg,
+          ),
+          textTheme: GoogleFonts.interTextTheme(
+            Theme.of(context).textTheme,
+          ),
         ),
-        textTheme: GoogleFonts.interTextTheme(
-          Theme.of(context).textTheme,
-        ),
+        routerConfig: _router,
       ),
-      routerConfig: _router,
     );
   }
 }
