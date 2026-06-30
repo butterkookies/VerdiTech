@@ -637,6 +637,7 @@
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
             margin-top: 20px;
+            overflow: visible;
         }
         .code-layer {
             background: #fff;
@@ -709,7 +710,7 @@
             padding: 8px 12px;
             border-radius: 4px;
             position: absolute;
-            z-index: 100;
+            z-index: 9999;
             left: 20px;
             top: 105%;
             width: 250px;
@@ -730,6 +731,11 @@
         .code-entrypoint:hover .tooltip, .code-layer-title:hover .tooltip, .code-folder:hover .tooltip, .code-file:hover .tooltip {
             visibility: visible;
             opacity: 1;
+        }
+        /* Elevate the hovered element's stacking context above all siblings and the SVG wire overlay */
+        .code-file:hover, .code-folder:hover, .code-layer-title:hover, .code-entrypoint:hover {
+            z-index: 9999;
+            position: relative;
         }
         .code-entrypoint {
             background: #222;
@@ -767,6 +773,7 @@
         }
         .split-right {
             flex: 1;
+            overflow: visible;
         }
         #code-wires {
             position: absolute;
@@ -1169,55 +1176,69 @@
                 <div class="split-right">
                     <div class="code-entrypoint" id="file-main">
                         📄 lib/main.dart
-                        <span class="tooltip">The application entry point. Initializes Flutter, local databases, Riverpod ProviderScope, and mounts the root widget.</span>
+                        <span class="tooltip">The application entry point. Initializes Flutter, sets up GoRouter with all 5 routes (/, /add-plant, /plant/:id, /plant/:id/visualization, /about), wraps the app in a Riverpod ProviderScope, and mounts VerdiTechApp with Material3 + Google Fonts (Inter).</span>
                     </div>
                     
                     <div class="code-grid">
                         <!-- Presentation Layer -->
                         <div class="code-layer presentation">
-                            <div class="code-layer-title">Presentation Layer (Features)<span class="tooltip">Contains all UI screens, widgets, and Riverpod view-models organized by specific features. Purely UI focused.</span></div>
-                            <div class="code-folder">features/dashboard<span class="tooltip">Houses all UI code relating strictly to the main garden overview.</span></div>
-                            <div class="code-file" id="file-dashboard">dashboard_screen.dart<span class="tooltip">Main garden overview displaying all plants and the unified timeline.</span></div>
+                            <div class="code-layer-title">Presentation Layer (5 Features)<span class="tooltip">Contains all 5 feature screens organized by feature. Each feature lives in features/{name}/presentation/. Purely UI-focused — no business logic. Screens are ConsumerWidgets that watch Riverpod providers.</span></div>
+                            <div class="code-folder">features/dashboard<span class="tooltip">Main garden overview — watches plantsStreamProvider (Riverpod StreamProvider) and renders _PlantCard widgets with live health scores computed by the CA engine.</span></div>
+                            <div class="code-file" id="file-dashboard">dashboard_screen.dart<span class="tooltip">Displays all plants via plantsStreamProvider. Each _PlantCard watches envScoreProvider and daysToHarvestProvider. FAB navigates to /add-plant. Tapping a card navigates to /plant/:id.</span></div>
                             
-                            <div class="code-folder">features/plant_form<span class="tooltip">Contains UI forms for creating and editing plant profiles.</span></div>
-                            <div class="code-file" id="file-add-plant">add_plant_screen.dart<span class="tooltip">Form for adding a new crop, setting planting date, and initial stage.</span></div>
+                            <div class="code-folder">features/plant_form<span class="tooltip">Add-plant form screen. Uses PlantFormNotifier (StateNotifier) which manages form state and calls PlantRepository.addPlant() on submit.</span></div>
+                            <div class="code-file" id="file-add-plant">add_plant_screen.dart<span class="tooltip">Form with dropdowns for PlantType, GrowthStage, Season and sliders for sunlight/water/soil (1–5 scale). On save, calls plantFormProvider.notifier.save() which routes: PlantFormNotifier → PlantRepository → PlantDao → SQLite.</span></div>
                             
-                            <div class="code-folder">features/plant_detail<span class="tooltip">Dedicated to the deep-dive analytics and detailed history of a single plant.</span></div>
-                            <div class="code-file" id="file-plant-detail">plant_details_screen.dart<span class="tooltip">Detailed view of a specific plant and its health metrics.</span></div>
+                            <div class="code-folder">features/plant_detail<span class="tooltip">Analytics screen for a single plant. Watches forecastProvider (60-day CA timeline), recommendationsProvider, envScoreProvider, and daysToHarvestProvider — all computed live from plant state.</span></div>
+                            <div class="code-file" id="file-plant-detail">plant_details_screen.dart<span class="tooltip">Shows health card (envScore %), Predicted Growth Timeline (from forecastProvider mapping GrowthStage transitions), and Recommendations list. Action button navigates to /plant/:id/visualization.</span></div>
+
+                            <div class="code-folder">features/ca_visualization<span class="tooltip">Dedicated screen for visualizing raw 1D CA simulation output — shows the day-by-day GrowthStage grid that the prediction engine computes.</span></div>
+                            <div class="code-file" id="file-ca-viz">ca_visualization_screen.dart<span class="tooltip">Renders the full CA forecast as a scrollable visual timeline grid. Watches forecastProvider(plant) and plots each DayPrediction's predictedStage and healthStatus. Accessible via the analytics icon on PlantDetailsScreen.</span></div>
+
+                            <div class="code-folder">features/about<span class="tooltip">Static informational screen — no Riverpod providers or database access needed here.</span></div>
+                            <div class="code-file" id="file-about">about_screen.dart<span class="tooltip">Describes the app purpose, the 3 supported crop types (Tomato, Eggplant, Siling Labuyo), the Philippine seasonal model (Tag-init/Tag-ulan/Malamig), and the 1D Cellular Automata methodology.</span></div>
                         </div>
 
                         <!-- State Management -->
                         <div class="code-layer state">
-                            <div class="code-layer-title">State Management (Riverpod)<span class="tooltip">The reactive glue layer. Exposes domain logic and data to the presentation layer via state providers.</span></div>
-                            <div class="code-folder">providers<span class="tooltip">Global and scoped Riverpod providers.</span></div>
-                            <div class="code-file" id="file-database-provider">database_provider.dart<span class="tooltip">Exposes the Drift local database instance to the rest of the application.</span></div>
-                            <div class="code-file" id="file-plant-provider">plant_providers.dart<span class="tooltip">Manages the reactive state of the user's plant list and actively handles UI actions (save/delete).</span></div>
-                            <div class="code-file" id="file-prediction-provider">prediction_providers.dart<span class="tooltip">Caches and manages the state of Cellular Automata predictions, preventing unnecessary recalculations.</span></div>
+                            <div class="code-layer-title">State Management (Riverpod)<span class="tooltip">The reactive glue layer. 3 provider files expose domain logic and data streams to the presentation layer. Screens never import the data layer directly — all data access flows through these providers.</span></div>
+                            <div class="code-folder">providers<span class="tooltip">3 provider files, each with a specific responsibility: database wiring, plant CRUD, and CA predictions.</span></div>
+                            <div class="code-file" id="file-database-provider">database_provider.dart<span class="tooltip">Two singleton providers: databaseProvider (AppDatabase instance, auto-closed on ref.onDispose) and plantRepositoryProvider (PlantRepository backed by the database). ALL data access in the app flows through plantRepositoryProvider.</span></div>
+                            <div class="code-file" id="file-plant-provider">plant_providers.dart<span class="tooltip">Read providers: plantsStreamProvider (real-time Stream&lt;List&lt;Plant&gt;&gt;), plantByIdProvider (FutureProvider.family), dailyLogsForPlantProvider (StreamProvider.family). Write: PlantFormNotifier (StateNotifier) manages add-plant form state and calls PlantRepository.addPlant() on save.</span></div>
+                            <div class="code-file" id="file-prediction-provider">prediction_providers.dart<span class="tooltip">6 pure computation providers (no DB calls): caEngineProvider, recommendationEngineProvider, environmentProfileProvider, envScoreProvider (0.0–1.0), forecastProvider (List&lt;DayPrediction&gt; for 60 days), daysToHarvestProvider, recommendationsProvider. All are Provider.family keyed by Plant.</span></div>
                         </div>
 
                         <!-- Domain Layer -->
                         <div class="code-layer domain">
-                            <div class="code-layer-title">Domain Layer (Core Logic)<span class="tooltip">Contains pure business logic, calculations, rules, and entity models. No UI code here.</span></div>
-                            <div class="code-folder">domain/engine<span class="tooltip">Heavy computational systems like predictions.</span></div>
-                            <div class="code-file" id="file-ca-engine">ca_engine.dart<span class="tooltip">Runs the 1D Cellular Automata simulation on daily logs to predict future growth and stress.</span></div>
-                            <div class="code-file">recommendation_engine.dart<span class="tooltip">Analyzes CA results to output human-readable advice (e.g. "Water tomorrow").</span></div>
-                            <div class="code-folder">domain/models<span class="tooltip">Core Dart data classes representing application entities.</span></div>
-                            <div class="code-file">plant.dart<span class="tooltip">The Plant entity model holding name, type, and relationships.</span></div>
-                            <div class="code-file">daily_log.dart<span class="tooltip">The Daily Log entity containing sun, water, and soil metrics.</span></div>
+                            <div class="code-layer-title">Domain Layer (Core Logic)<span class="tooltip">Pure Dart — zero Flutter or Drift imports. Contains the CA engine, recommendation engine, and 6 entity models. Fully unit-testable without a device or database.</span></div>
+                            <div class="code-folder">domain/engine<span class="tooltip">2 engines encapsulating all prediction and advisory logic. Stateless const classes — safe to share as Riverpod singletons.</span></div>
+                            <div class="code-file" id="file-ca-engine">ca_engine.dart<span class="tooltip">CaEngine: computeEnvScore() weights sun/water/soil by PlantType and applies Philippine season modifiers. forecast() runs day-by-day GrowthStage transitions using minStageDays lookup tables and two thresholds (≥0.70 = progress, ≥0.40 = delayed, &lt;0.40 = regression). estimateDaysToHarvest() runs a 180-day forecast to find harvestReady.</span></div>
+                            <div class="code-file">recommendation_engine.dart<span class="tooltip">RecommendationEngine.generate() compares EnvironmentProfile scores against plant-specific optimal ranges for each GrowthStage, returning a prioritized List&lt;Recommendation&gt; covering watering, sunlight, and soil care.</span></div>
+                            <div class="code-folder">domain/models<span class="tooltip">6 pure Dart data classes — the shared vocabulary between all layers. Defined here, used everywhere.</span></div>
+                            <div class="code-file">plant.dart<span class="tooltip">Plant entity: name, PlantType, DateTime plantingDate, GrowthStage currentStage, sunlightScore/waterScore/soilScore (double 1–5), Season, optional notes. Computed getter: daysPlanted = today − plantingDate.</span></div>
+                            <div class="code-file">daily_log.dart<span class="tooltip">DailyLog entity for one day's care entry: plantId (FK), DateTime date, sunlightScore/waterScore/soilScore (double), optional notes. Stored in the daily_logs table with a unique (plantId, date) constraint for upserts.</span></div>
+                            <div class="code-file">enums.dart<span class="tooltip">PlantType (tomato, eggplant, silingLabuyo), GrowthStage (seedling→youngPlant→flowering→fruiting→harvestReady with stageIndex), Season (tagInit/tagUlan/malamig with fromDate auto-detection), HealthStatus (critical→excellent via fromScore()), RecommendationPriority (high/medium/low).</span></div>
+                            <div class="code-file">environment_profile.dart<span class="tooltip">Lightweight value object: sunlight, water, soil (double), Season. Passed as input to CaEngine.computeEnvScore() and forecast(). Created by environmentProfileProvider from a Plant's current scores.</span></div>
+                            <div class="code-file">day_prediction.dart<span class="tooltip">One day's CA output: dayOffset (int, relative to planting), date, predictedStage (GrowthStage), healthStatus (HealthStatus), environmentalScore (double 0–1). The forecastProvider returns List&lt;DayPrediction&gt; covering 60 days.</span></div>
+                            <div class="code-file">recommendation.dart<span class="tooltip">Single advisory: category (string e.g. 'Watering'), message (human-readable tip), priority (RecommendationPriority). The recommendationsProvider returns List&lt;Recommendation&gt; displayed in PlantDetailsScreen.</span></div>
                         </div>
 
                         <!-- Data Layer -->
                         <div class="code-layer data">
-                            <div class="code-layer-title">Data Layer (Persistence)<span class="tooltip">Handles data storage, API calls, and local persistence via SQLite/Drift.</span></div>
-                            <div class="code-folder">data/database<span class="tooltip">Core Drift database setup.</span></div>
-                            <div class="code-file" id="file-app-database">app_database.dart<span class="tooltip">The main Drift database configuration and table definitions.</span></div>
-                            <div class="code-folder">data/database/tables<span class="tooltip">SQL Table schemas.</span></div>
-                            <div class="code-file" id="file-plant-table">plant_table.dart<span class="tooltip">Schema definition for the 'plants' table.</span></div>
-                            <div class="code-folder">data/database/daos<span class="tooltip">Data Access Objects (SQL queries).</span></div>
-                            <div class="code-file" id="file-plant-dao">plant_dao.dart<span class="tooltip">Contains specific SQL queries for fetching, inserting, and deleting plants.</span></div>
-                            <div class="code-file" id="file-daily-log-dao">daily_log_dao.dart<span class="tooltip">Contains SQL queries for inserting and aggregating care logs over time.</span></div>
-                            <div class="code-folder">data/repositories<span class="tooltip">Abstracts database calls into clean APIs for the Domain layer to use.</span></div>
-                            <div class="code-file" id="file-plant-repository">plant_repository.dart<span class="tooltip">Mediates between DAOs and Domain models, handling caching and validation.</span></div>
+                            <div class="code-layer-title">Data Layer (Persistence)<span class="tooltip">All SQLite/Drift persistence lives here. Screens never import this layer directly — access flows through Riverpod providers → PlantRepository → DAOs → Mappers → Tables.</span></div>
+                            <div class="code-folder">data/repositories<span class="tooltip">PlantRepository is the single public API of the data layer. Providers call repository methods; the repository delegates to the appropriate DAO.</span></div>
+                            <div class="code-file" id="file-plant-repository">plant_repository.dart<span class="tooltip">PlantRepository(AppDatabase): watchAllPlants(), addPlant() → inserts and returns Plant with new id, updatePlant(), deletePlant() (cascade-deletes logs first via dailyLogDao.deleteLog()), watchLogsForPlant(), upsertLog() (idempotent daily care save), deleteLog().</span></div>
+                            <div class="code-folder">data/database<span class="tooltip">Core Drift database wiring: @DriftDatabase annotation registers PlantTable + DailyLogTable and PlantDao + DailyLogDao. Opens verditech.sqlite in the app documents directory.</span></div>
+                            <div class="code-file" id="file-app-database">app_database.dart<span class="tooltip">AppDatabase extends _$AppDatabase. Opens a LazyDatabase at verditech.sqlite via path_provider. Schema version 1, auto-creates all tables on first launch via onCreate: m.createAll().</span></div>
+                            <div class="code-folder">data/database/tables<span class="tooltip">2 Drift Table schema definitions — the source of truth for all SQLite column types and constraints.</span></div>
+                            <div class="code-file" id="file-plant-table">plant_table.dart<span class="tooltip">PlantTable: id (PK auto-increment), name (text), type (PlantType enum as string), plantingDate (ISO-8601 text), currentStage (GrowthStage enum as string), sunlightScore/waterScore/soilScore (real), season (Season enum as string), notes (nullable text), createdAt (ISO-8601 text).</span></div>
+                            <div class="code-file" id="file-daily-log-table">daily_log_table.dart<span class="tooltip">DailyLogTable: id (PK auto-increment), plantId (FK → plants.id), date (ISO-8601 text), sunlightScore/waterScore/soilScore (real), notes (nullable text). UNIQUE(plantId, date) enables upsertLog() to replace an existing entry for the same day.</span></div>
+                            <div class="code-folder">data/database/daos<span class="tooltip">2 @DriftAccessor classes — the only layer that writes Drift query expressions. Each DAO handles one table's full typed query set.</span></div>
+                            <div class="code-file" id="file-plant-dao">plant_dao.dart<span class="tooltip">PlantDao (@DriftAccessor on PlantTable): watchAllPlants() Stream ordered desc by createdAt, getAllPlants(), getPlantById(), insertPlant() → returns new int id, updatePlant() (replace), deletePlant(). All rows pass through PlantMapper.fromRow() before being returned as domain Plants.</span></div>
+                            <div class="code-file" id="file-daily-log-dao">daily_log_dao.dart<span class="tooltip">DailyLogDao (@DriftAccessor on DailyLogTable): watchLogsForPlant() Stream ordered by date ASC, getLogsForPlant(), insertLog(), updateLog(), deleteLog(), upsertLog() (insertOnConflictUpdate — safe to call multiple times for the same date). Rows pass through DailyLogMapper.</span></div>
+                            <div class="code-folder">data/mappers<span class="tooltip">2 stateless mapper classes — the anti-corruption layer between Drift-generated row data classes (which import Drift) and clean domain model classes (which must not import Drift).</span></div>
+                            <div class="code-file" id="file-plant-mapper">plant_mapper.dart<span class="tooltip">PlantMapper.fromRow(PlantTableData) → Plant domain model (parses ISO-8601 strings → DateTime, enum strings → enum values). PlantMapper.toCompanion(Plant) → PlantTableCompanion (serializes enums → strings, DateTime → ISO-8601) for Drift insert/update calls.</span></div>
+                            <div class="code-file">daily_log_mapper.dart<span class="tooltip">DailyLogMapper.fromRow(DailyLogTableData) → DailyLog domain model. DailyLogMapper.toCompanion(DailyLog) → DailyLogTableCompanion for Drift upsert operations. Handles nullable notes and ISO-8601 date serialization.</span></div>
                         </div>
                     </div>
                 </div>
@@ -1733,38 +1754,40 @@
 
         function triggerAddPlant() {
             changeCodeUiStep(2);
-            // Slower sequential flow: 0, 1500
-            drawWire('ui-fab', 'file-add-plant', 'primary', 0, "UI capturing user input for the new crop profile.");
-            drawWire('file-add-plant', 'file-plant-provider', 'state', 1500, "Provider updates the reactive state to prepare data storage.");
+            // FAB click → AddPlantScreen → PlantFormNotifier (plant_providers)
+            drawWire('ui-fab', 'file-add-plant', 'primary', 0, "FAB press: navigates to /add-plant and loads AddPlantScreen.");
+            drawWire('file-add-plant', 'file-plant-provider', 'state', 1500, "AddPlantScreen reads plantFormProvider (PlantFormNotifier) to drive the form UI state.");
         }
 
         function triggerSavePlant() {
             changeCodeUiStep(1);
-            // Slower sequential flow: 0, 1500, 3000
-            drawWire('file-plant-provider', 'file-plant-repository', 'domain', 0, "Repository validates the domain entity (Plant).");
-            drawWire('file-plant-repository', 'file-plant-dao', 'data', 1500, "Data Access Object constructs the SQL insertion query.");
-            drawWire('file-plant-dao', 'file-plant-table', 'data', 3000, "Drift executing INSERT INTO plants table in SQLite.");
+            // PlantFormNotifier.save() → PlantRepository.addPlant() → PlantDao.insertPlant() → plant_table
+            drawWire('file-plant-provider', 'file-plant-repository', 'domain', 0, "PlantFormNotifier.save() calls PlantRepository.addPlant(plant) — repository is the only entry point to storage.");
+            drawWire('file-plant-repository', 'file-plant-dao', 'data', 1500, "PlantRepository delegates to PlantDao.insertPlant() which builds a typed Drift INSERT query.");
+            drawWire('file-plant-dao', 'file-plant-table', 'data', 3000, "Drift executes INSERT INTO plants(...) and returns the new auto-increment row id.");
         }
 
         function triggerPlantCard() {
             changeCodeUiStep(3);
-            // Slower sequential flow: 0, 1500, 3000, 4500
-            drawWire('ui-plant-card', 'file-dashboard', 'primary', 0, "Dashboard navigating to specific plant timeline.");
-            drawWire('file-dashboard', 'file-prediction-provider', 'state', 1500, "Provider triggers a new prediction sweep.");
-            drawWire('file-prediction-provider', 'file-ca-engine', 'domain', 3000, "CA Engine running 1D time-series calculations based on logs.");
-            drawWire('file-ca-engine', 'file-plant-table', 'data', 4500, "Retrieving historical data for CA simulation from SQLite.");
+            // Plant card tap → PlantDetailsScreen → prediction_providers → ca_engine (pure computation, no DB read here)
+            drawWire('ui-plant-card', 'file-dashboard', 'primary', 0, "Tapping a plant card calls context.go('/plant/:id') — GoRouter pushes PlantDetailsScreen.");
+            drawWire('file-dashboard', 'file-prediction-provider', 'state', 1500, "PlantDetailsScreen watches forecastProvider(plant) and envScoreProvider(plant) from prediction_providers.");
+            drawWire('file-prediction-provider', 'file-ca-engine', 'domain', 3000, "prediction_providers.dart calls CaEngine.forecast() and CaEngine.computeEnvScore() — pure computation from the plant's current state.");
         }
 
         function triggerTodayLog() {
             openCodeBottomSheet();
-            drawWire('ui-today-card', 'file-plant-detail', 'primary', 0, "UI requesting the active log data for today.");
-            drawWire('file-plant-detail', 'file-database-provider', 'state', 1500, "State providing the Drift database instance connection.");
+            // Tapping TODAY card opens bottom sheet — reads dailyLogsForPlantProvider via plant_providers
+            drawWire('ui-today-card', 'file-plant-detail', 'primary', 0, "Tapping the TODAY card triggers the Quick-Log bottom sheet in PlantDetailsScreen.");
+            drawWire('file-plant-detail', 'file-plant-provider', 'state', 1500, "The screen accesses dailyLogsForPlantProvider (StreamProvider.family) from plant_providers.dart to read existing logs.");
         }
 
         function triggerSaveLog() {
             closeCodeBottomSheet();
-            drawWire('file-database-provider', 'file-daily-log-dao', 'data', 0, "Passing connection to the Log Data Access Object.");
-            drawWire('file-daily-log-dao', 'file-app-database', 'data', 1500, "Committing the daily log row into local storage.");
+            // Save log: database_provider (plantRepositoryProvider) → plant_repository → daily_log_dao → daily_log_table
+            drawWire('file-database-provider', 'file-plant-repository', 'domain', 0, "Saving a log calls ref.read(plantRepositoryProvider).upsertLog(dailyLog) — plantRepositoryProvider is the gateway defined in database_provider.dart.");
+            drawWire('file-plant-repository', 'file-daily-log-dao', 'data', 1500, "PlantRepository.upsertLog() delegates to DailyLogDao.upsertLog() which calls insertOnConflictUpdate() for idempotent saves.");
+            drawWire('file-daily-log-dao', 'file-daily-log-table', 'data', 3000, "Drift executes INSERT OR REPLACE INTO daily_logs(...) into DailyLogTable in SQLite, keyed by (plantId, date).");
         }
     </script>
 </body>

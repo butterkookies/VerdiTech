@@ -1,5 +1,5 @@
 # VerdiTech — Errors & Solutions Log
-> Project: VerdiTech | Last Updated: June 27, 2026
+> Project: VerdiTech | Last Updated: June 30, 2026
 
 This file tracks all bugs, errors, blockers, and unexpected issues encountered during development. Every error is documented with its root cause and solution for future reference and pattern recognition.
 
@@ -10,6 +10,7 @@ This file tracks all bugs, errors, blockers, and unexpected issues encountered d
 | # | Date | Error Description | Context / Where | Root Cause | Solution | Status | Time Spent |
 |---|------|-------------------|-----------------|------------|----------|--------|------------|
 | E001 | 2026-06-28 | Mappers throw `Undefined class 'PlantTableData'` | `lib/data/mappers/` | Drift generates data classes in `app_database.g.dart` which is part of `app_database.dart`, not the table definitions. | Replaced table imports (`plant_table.dart`) with the main database import (`app_database.dart`) where the generated part lives. | ✅ Resolved | 10 mins |
+| E002 | 2026-06-30 | [LOW] Tooltips in Codebase Visualization render behind sibling layer cards and SVG wire overlay | `docs/architecture_flow.html` — `.code-file:hover`, `.code-folder:hover` tooltips | Each `.code-layer` has `position: relative` which creates a CSS stacking context. The tooltip's `z-index: 100` was scoped to that context, not the page root, so it sat behind adjacent layers (`z-index` siblings) and the SVG `#code-wires` overlay (`z-index: 50` on the page). | (1) Set tooltip `z-index` to `9999`. (2) Added `:hover` rule to elevate the hovered element itself to `z-index: 9999; position: relative`, promoting its stacking context above all siblings. (3) Added `overflow: visible` to `.code-grid` and `.split-right` to prevent ancestor clipping. | ✅ Resolved | 15 mins |
 
 ---
 

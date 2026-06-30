@@ -1,5 +1,5 @@
 # VerdiTech — Decision Log
-> Project: VerdiTech | Last Updated: June 27, 2026
+> Project: VerdiTech | Last Updated: June 30, 2026
 
 This file tracks all major project decisions, their rationale, and current status. Every architectural choice, scope change, or client-confirmed direction is recorded here for traceability.
 
@@ -21,6 +21,7 @@ This file tracks all major project decisions, their rationale, and current statu
 | D010 | 2026-06-27 | Architecture Pattern: **Feature-First (Domain-Driven)** | Chosen over strict layer-by-layer Clean Architecture. Organizing folders by feature (e.g., `plants/`, `predictions/`) makes the codebase more cohesive and significantly easier to present during a thesis defense. | ✅ Confirmed | Developer |
 | D011 | 2026-06-28 | Unified Live Timeline & Staging Logs System | User confirmed implementation of daily log history + dynamic CA future forecast (concept analogous to Flo app's cycle tracker) to improve UI/UX engagement and panel demonstrability. | ✅ Confirmed | Developer + Client |
 | D012 | 2026-06-28 | **Automated Skill Chooser for Implementation** | Utilized Antigravity 2.0 agent rules (`AGENTS.md`) and specialized skills (`.agents/skills/`) to automatically map Flutter architectural patterns, UI standards, and testing setups to their respective domains during codebase construction. | ✅ Confirmed | Developer + Client |
+| D013 | 2026-06-30 | **Architecture documentation must be audited against code before each phase delivery** | During Phase 5 review, 9 inaccuracies were found in `docs/architecture_flow.html` Codebase Visualization — missing features, layers, models, and wrong interactive wire flows. Established practice: any documentation visualization must be verified line-by-line against real source files before delivery. | ✅ Confirmed | Developer |
 ---
 
 ## Decision Status Legend

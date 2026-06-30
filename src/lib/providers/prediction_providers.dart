@@ -6,6 +6,7 @@ import '../domain/models/day_prediction.dart';
 import '../domain/models/recommendation.dart';
 import '../domain/engine/ca_engine.dart';
 import '../domain/engine/recommendation_engine.dart';
+import 'plant_providers.dart';
 
 /// Singleton CA engine — pure, stateless; safe to share.
 final caEngineProvider = Provider<CaEngine>((_) => const CaEngine());
@@ -18,9 +19,21 @@ final recommendationEngineProvider =
 // Per-plant prediction state
 // ---------------------------------------------------------------------------
 
-/// Derives an [EnvironmentProfile] from a [Plant]'s current scores.
+/// Derives an [EnvironmentProfile] from a [Plant]'s current scores or latest log.
 final environmentProfileProvider =
     Provider.family<EnvironmentProfile, Plant>((ref, plant) {
+  final logsAsync = ref.watch(dailyLogsForPlantProvider(plant.id!));
+  
+  if (logsAsync.hasValue && logsAsync.value!.isNotEmpty) {
+    final latestLog = logsAsync.value!.last;
+    return EnvironmentProfile(
+      sunlight: latestLog.sunlightScore,
+      water: latestLog.waterScore,
+      soil: latestLog.soilScore,
+      season: plant.season,
+    );
+  }
+
   return EnvironmentProfile(
     sunlight: plant.sunlightScore,
     water: plant.waterScore,

@@ -6,6 +6,7 @@ import '../../../domain/models/enums.dart';
 import '../../../domain/models/plant.dart';
 import '../../../providers/plant_providers.dart';
 import '../../../providers/prediction_providers.dart';
+import '../../daily_log/presentation/add_daily_log_dialog.dart';
 
 class PlantDetailsScreen extends ConsumerWidget {
   final String id;
@@ -49,6 +50,8 @@ class _PlantDetailsContent extends ConsumerWidget {
     final recommendations = ref.watch(recommendationsProvider(plant));
     final daysToHarvest = ref.watch(daysToHarvestProvider(plant));
     final forecast = ref.watch(forecastProvider(plant));
+    final logsAsync = ref.watch(dailyLogsForPlantProvider(plant.id!));
+    final logs = logsAsync.valueOrNull ?? [];
 
     final healthColor = _colorForHealth(health);
 
@@ -62,6 +65,14 @@ class _PlantDetailsContent extends ConsumerWidget {
             onPressed: () => context.go('/plant/$rawId/visualization'),
           ),
         ],
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => showDialog(
+          context: context,
+          builder: (context) => AddDailyLogDialog(plantId: plant.id!),
+        ),
+        icon: const Icon(Icons.add),
+        label: const Text('Log Today'),
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
@@ -110,15 +121,27 @@ class _PlantDetailsContent extends ConsumerWidget {
             ),
             const SizedBox(height: 24),
 
-            // Predicted Growth Timeline
+            // Unified Live Timeline
             Text(
-              'Predicted Growth Timeline',
+              'Unified Live Timeline',
               style: Theme.of(context)
                   .textTheme
                   .titleLarge
                   ?.copyWith(fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 16),
+
+            // Historical Logs
+            ...logs.map((log) => _buildTimelineItem(
+                  context,
+                  title: 'Day ${log.date.difference(plant.plantingDate).inDays.abs()} - Logged Data',
+                  subtitle: 'Sun: ${log.sunlightScore.toInt()}, Water: ${log.waterScore.toInt()}, Soil: ${log.soilScore.toInt()}'
+                      '${log.note != null && log.note!.isNotEmpty ? '\nNote: ${log.note}' : ''}',
+                  icon: Icons.history,
+                  color: Colors.teal,
+                )),
+
+            // Future Forecast Stages
             ...GrowthStage.values.where((s) => s != GrowthStage.harvestReady).map(
               (stage) {
                 final stageEntry = forecast.firstWhere(

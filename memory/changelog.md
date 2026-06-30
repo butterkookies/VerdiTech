@@ -1,5 +1,5 @@
 # VerdiTech — Changelog
-> Project: VerdiTech | Last Updated: June 27, 2026
+> Project: VerdiTech | Last Updated: June 30, 2026
 
 Chronological record of all project changes, releases, and milestones. Follows [Semantic Versioning](https://semver.org/) principles adapted for this project.
 
@@ -86,6 +86,28 @@ Chronological record of all project changes, releases, and milestones. Follows [
 - 🛠️ **Static Analysis**: Resolved all linting, deprecations, and generated type issues.
 
 **Status:** Phase 4 (Integration) — Complete. App is ready for physical device testing.
+
+---
+
+### v0.4.1 — Documentation Accuracy Audit & UI Fix (June 30, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- 🔍 **Architecture Doc Audit**: Full line-by-line verification of `docs/architecture_flow.html` Codebase Visualization section against the real `src/lib/` codebase.
+- 🐛 **9 Inaccuracies Found & Fixed** in the Codebase Visualization:
+  - Added missing features: `ca_visualization` and `about` (5 features are now shown, not 3).
+  - Added 4 missing domain models: `enums.dart`, `environment_profile.dart`, `day_prediction.dart`, `recommendation.dart` (all 6 models now shown).
+  - Added entirely missing `data/mappers/` layer (`plant_mapper.dart`, `daily_log_mapper.dart`).
+  - Added missing `daily_log_table.dart` to the data/tables section.
+  - Corrected `main.dart` tooltip (it does NOT initialize the DB; correctly lists all 5 GoRouter routes).
+  - Fixed `triggerPlantCard` wire: removed false DB read hop — `CaEngine` is pure computation.
+  - Fixed `triggerTodayLog` wire: now correctly points to `plant_providers.dart` (`dailyLogsForPlantProvider`) instead of `databaseProvider`.
+  - Fixed `triggerSaveLog` wire: now correctly shows full 4-hop path: `database_provider (plantRepositoryProvider) → plant_repository → daily_log_dao → daily_log_table` (was bypassing the repository entirely).
+  - Updated all tooltips to reflect real method names, types, and relationships.
+- 🐛 **Tooltip Layering Bug Fixed**: Tooltips were rendering behind sibling `.code-layer` cards and the SVG wire overlay. Fixed by elevating hovered elements to `z-index: 9999` and adding `overflow: visible` to `.code-grid` and `.split-right`.
+
+**Status:** Phase 5 (Polish & Delivery) — Documentation and visualization accuracy verified.
 
 ---
 

@@ -1,5 +1,5 @@
 # VerdiTech — Milestones & Timeline
-> Project: VerdiTech | Last Updated: June 27, 2026
+> Project: VerdiTech | Last Updated: June 30, 2026
 
 Project phases, milestones, and delivery timeline. Dates are TBD until the client confirms the project deadline.
 
@@ -199,7 +199,8 @@ gantt
 | M4: Core dev complete | Phase 2 → 3 | 2026-06-28 | ✅ Complete |
 | M5: All screens built | Phase 3 → 4 | 2026-06-28 | ✅ Complete |
 | M6: Integration complete | Phase 4 → 5 | 2026-06-28 | ✅ Complete |
-| M7: Release APK delivered | Phase 5 end | TBD | ⬜ Not Started |
+| M7: Documentation audit passed | Phase 5 | 2026-06-30 | ✅ Complete |
+| M8: Release APK delivered | Phase 5 end | TBD | ⬜ Not Started |
 
 ---
 
