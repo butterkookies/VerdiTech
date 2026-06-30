@@ -82,7 +82,7 @@ class VerdiTechApp extends StatelessWidget {
     // Determine system brightness to pick light or dark scheme.
     final brightness = MediaQuery.platformBrightnessOf(context);
     final isDark = brightness == Brightness.dark;
-    final scheme = isDark ? VTScheme.dark() : VTScheme.light();
+    final scheme = isDark ? VTScheme.dark : VTScheme.light;
 
     return VTTheme(
       scheme: scheme,
