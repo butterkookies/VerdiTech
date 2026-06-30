@@ -4,7 +4,6 @@ import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import 'features/dashboard/presentation/dashboard_screen.dart';
-import 'features/plant_form/presentation/add_plant_screen.dart';
 import 'features/plant_detail/presentation/plant_details_screen.dart';
 import 'features/ca_visualization/presentation/ca_visualization_screen.dart';
 import 'features/about/presentation/about_screen.dart';
@@ -49,12 +48,6 @@ final GoRouter _router = GoRouter(
       },
       routes: <RouteBase>[
         GoRoute(
-          path: 'add-plant',
-          builder: (BuildContext context, GoRouterState state) {
-            return const AddPlantScreen();
-          },
-        ),
-        GoRoute(
           path: 'plant/:id',
           builder: (BuildContext context, GoRouterState state) {
             return PlantDetailsScreen(id: state.pathParameters['id']!);
@@ -63,7 +56,7 @@ final GoRouter _router = GoRouter(
             GoRoute(
               path: 'visualization',
               builder: (BuildContext context, GoRouterState state) {
-                return CaVisualizationScreen(
+                return CAVisualizationScreen(
                     id: state.pathParameters['id']!);
               },
             ),
