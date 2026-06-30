@@ -11,6 +11,7 @@ import '../../daily_log/presentation/add_daily_log_dialog.dart';
 import '../../../presentation/theme/verditech_theme.dart';
 import '../../../presentation/widgets/glass_container.dart';
 import '../../../presentation/widgets/stage_chip.dart';
+import 'care_tutorial_sheet.dart';
 
 // ---------------------------------------------------------------------------
 // Timeline
@@ -262,6 +263,17 @@ class _PlantDetailsContent extends ConsumerWidget {
             backgroundColor: s.bg,
             iconTheme: IconThemeData(color: s.textPrimary),
             actions: [
+              IconButton(
+                icon: const Icon(Icons.menu_book_rounded),
+                tooltip: 'Care Guide',
+                onPressed: () => showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  backgroundColor: Colors.transparent,
+                  builder: (_) =>
+                      CareTutorialSheet(species: plant.type.displayName),
+                ),
+              ),
               IconButton(
                 icon: const Icon(Icons.analytics),
                 tooltip: 'CA Visualization',

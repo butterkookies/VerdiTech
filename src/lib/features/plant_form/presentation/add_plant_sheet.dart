@@ -8,6 +8,7 @@ import '../../../presentation/theme/verditech_theme.dart';
 import '../../../presentation/theme/vt_haptics.dart';
 import '../../../presentation/widgets/glass_container.dart';
 import '../../../presentation/widgets/stage_chip.dart';
+import '../../../services/notification_service.dart';
 
 class AddPlantSheet extends ConsumerStatefulWidget {
   const AddPlantSheet({super.key});
@@ -25,6 +26,7 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
   String _location = 'Indoor';
   double _moisture = 0.6;
   double _light = 0.7;
+  GrowthStage _stage = GrowthStage.seedling;
 
   // We map PlantType to display icons and an initial "GrowthStage" to show on the card
   IconData _iconForType(PlantType t) {
@@ -63,7 +65,7 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
         name: name.isEmpty ? _species!.displayName : name,
         type: _species!,
         plantingDate: DateTime.now(),
-        currentStage: GrowthStage.seedling,
+        currentStage: _stage,
         sunlightScore: (_light * 5).clamp(1, 5).roundToDouble(),
         waterScore: (_moisture * 5).clamp(1, 5).roundToDouble(),
         soilScore: 3.0,
@@ -71,7 +73,10 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
       );
       
       // Save directly using repository
-      await ref.read(plantRepositoryProvider).addPlant(newPlant);
+      final savedPlant = await ref.read(plantRepositoryProvider).addPlant(newPlant);
+      
+      // Schedule notifications for the new plant
+      await NotificationService.scheduleForPlant(savedPlant);
       
       if (mounted) Navigator.of(context).pop(true);
     }
@@ -314,6 +319,36 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
           value: _light,
           onChanged: (v) => setState(() => _light = v),
         ),
+        const SizedBox(height: VTSpace.lg),
+        Text(
+          'Current growth stage',
+          style: TextStyle(color: s.textPrimary, fontWeight: FontWeight.w700),
+        ),
+        const SizedBox(height: VTSpace.sm),
+        Wrap(
+          spacing: VTSpace.sm,
+          runSpacing: VTSpace.sm,
+          children: GrowthStage.values.map((stage) {
+            final sel = _stage == stage;
+            return ChoiceChip(
+              label: Text(stage.displayName),
+              selected: sel,
+              onSelected: (_) {
+                VTHaptics.select();
+                setState(() => _stage = stage);
+              },
+              selectedColor: stage.color,
+              backgroundColor: s.surfaceHigh,
+              labelStyle: TextStyle(
+                color: sel ? Colors.white : s.textMuted,
+                fontWeight: FontWeight.w600,
+              ),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(100),
+              ),
+            );
+          }).toList(),
+        ),
       ],
     );
   }
@@ -329,10 +364,9 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
             children: [
               Row(
                 children: [
-                  const StageChip(
-                      stage: GrowthStage.seedling, compact: true),
+                  StageChip(stage: _stage, compact: true),
                   const Spacer(),
-                  Text('Day 1 of 60',
+                  Text('Day 1',
                       style: TextStyle(color: s.textMuted, fontSize: 12)),
                 ],
               ),

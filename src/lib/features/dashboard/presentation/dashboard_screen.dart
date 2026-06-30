@@ -32,7 +32,7 @@ class DashboardScreen extends ConsumerWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        title: Text('VerdiTech Dashboard', style: TextStyle(color: s.textPrimary)),
+        title: null,
         actions: [
           IconButton(
             icon: Icon(Icons.info_outline, color: s.textPrimary),
@@ -98,21 +98,8 @@ class DashboardScreen extends ConsumerWidget {
                   healthScore: overallHealth,
                 ),
               ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 24, 20, 12),
-                  child: Text(
-                    'Your Plants',
-                    style: TextStyle(
-                      color: s.textPrimary,
-                      fontSize: 18,
-                      fontWeight: FontWeight.w700,
-                    ),
-                  ),
-                ),
-              ),
               SliverPadding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 120),
+                padding: const EdgeInsets.fromLTRB(20, 8, 20, 120),
                 sliver: SliverGrid(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 2,

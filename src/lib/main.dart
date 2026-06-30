@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'services/notification_service.dart';
 
 import 'presentation/theme/verditech_theme.dart';
 import 'features/dashboard/presentation/dashboard_screen.dart';
@@ -9,7 +10,9 @@ import 'features/plant_detail/presentation/plant_details_screen.dart';
 import 'features/ca_visualization/presentation/ca_visualization_screen.dart';
 import 'features/about/presentation/about_screen.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await NotificationService.init();
   runApp(
     const ProviderScope(
       child: VerdiTechApp(),
