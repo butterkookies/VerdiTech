@@ -22,6 +22,14 @@ class _CaVisualizationScreenState extends State<CaVisualizationScreen> {
   bool _isPlaying = false;
   int _currentStep = 0;
 
+  late final List<List<GrowthStage>> _grid;
+
+  @override
+  void initState() {
+    super.initState();
+    _grid = _buildGrid();
+  }
+
   /// Runs a simulated forecast grid using the CA engine.
   /// Each row is a different initial environmental score (0.2 → 1.0).
   List<List<GrowthStage>> _buildGrid() {
@@ -84,8 +92,6 @@ class _CaVisualizationScreenState extends State<CaVisualizationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final grid = _buildGrid();
-
     return Scaffold(
       appBar: AppBar(
         title: const Text('CA Engine Visualization'),
@@ -140,11 +146,24 @@ class _CaVisualizationScreenState extends State<CaVisualizationScreen> {
                         children: List.generate(_numRows, (row) {
                           return Row(
                             children: List.generate(_timelineLength, (col) {
-                              final stage = grid[row][col];
+                              final stage = _grid[row][col];
                               return Container(
                                 width: cellWidth,
                                 height: cellHeight,
-                                color: _colorForStage(stage),
+                                padding: const EdgeInsets.all(0.5),
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                    color: _colorForStage(stage),
+                                    borderRadius: BorderRadius.circular(2),
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.black.withValues(alpha: 0.05),
+                                        blurRadius: 1,
+                                        offset: const Offset(0, 1),
+                                      ),
+                                    ],
+                                  ),
+                                ),
                               );
                             }),
                           );

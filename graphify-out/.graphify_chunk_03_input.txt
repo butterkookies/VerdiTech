@@ -1,0 +1,1814 @@
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\features\plant_detail\presentation\plant_details_screen.dart ===
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../domain/models/enums.dart';
+import '../../../domain/models/plant.dart';
+import '../../../providers/plant_providers.dart';
+import '../../../providers/prediction_providers.dart';
+
+class PlantDetailsScreen extends ConsumerWidget {
+  final String id;
+  const PlantDetailsScreen({super.key, required this.id});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final plantAsync = ref.watch(plantByIdProvider(int.parse(id)));
+
+    return plantAsync.when(
+      loading: () => const Scaffold(
+        body: Center(child: CircularProgressIndicator()),
+      ),
+      error: (e, _) => Scaffold(
+        appBar: AppBar(title: const Text('Error')),
+        body: Center(child: Text('Failed to load plant: $e')),
+      ),
+      data: (plant) {
+        if (plant == null) {
+          return Scaffold(
+            appBar: AppBar(title: const Text('Not Found')),
+            body: const Center(child: Text('Plant not found.')),
+          );
+        }
+        return _PlantDetailsContent(plant: plant, rawId: id);
+      },
+    );
+  }
+}
+
+class _PlantDetailsContent extends ConsumerWidget {
+  const _PlantDetailsContent({required this.plant, required this.rawId});
+
+  final Plant plant;
+  final String rawId;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final envScore = ref.watch(envScoreProvider(plant));
+    final health = HealthStatus.fromScore(envScore);
+    final recommendations = ref.watch(recommendationsProvider(plant));
+    final daysToHarvest = ref.watch(daysToHarvestProvider(plant));
+    final forecast = ref.watch(forecastProvider(plant));
+
+    final healthColor = _colorForHealth(health);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(plant.name),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.analytics),
+            tooltip: 'CA Visualization',
+            onPressed: () => context.go('/plant/$rawId/visualization'),
+          ),
+        ],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            // Health card
+            Card(
+              color: healthColor.withValues(alpha: 0.1),
+              elevation: 0,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(16),
+                side: BorderSide(color: healthColor.withValues(alpha: 0.5)),
+              ),
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Row(
+                  children: [
+                    Icon(Icons.health_and_safety,
+                        size: 48, color: healthColor),
+                    const SizedBox(width: 16),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        const Text('Overall Health'),
+                        Text(
+                          health.displayName,
+                          style: Theme.of(context)
+                              .textTheme
+                              .headlineSmall
+                              ?.copyWith(
+                                color: healthColor,
+                                fontWeight: FontWeight.bold,
+                              ),
+                        ),
+                        Text(
+                          'Score: ${(envScore * 100).toStringAsFixed(0)}% | '
+                          '~$daysToHarvest days to harvest',
+                          style: const TextStyle(fontSize: 12),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+
+            // Predicted Growth Timeline
+            Text(
+              'Predicted Growth Timeline',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            ...GrowthStage.values.where((s) => s != GrowthStage.harvestReady).map(
+              (stage) {
+                final stageEntry = forecast.firstWhere(
+                  (p) => p.predictedStage == stage,
+                  orElse: () => forecast.last,
+                );
+                final isCurrentOrFuture =
+                    stage.stageIndex >= plant.currentStage.stageIndex;
+                final isCurrent = stage == plant.currentStage;
+                return _buildTimelineItem(
+                  context,
+                  title: stage.displayName,
+                  subtitle: isCurrent
+                      ? 'Current Stage (Day ${plant.daysPlanted})'
+                      : isCurrentOrFuture
+                          ? 'Day ~${stageEntry.dayOffset}'
+                          : 'Completed',
+                  icon: isCurrent
+                      ? Icons.adjust
+                      : isCurrentOrFuture
+                          ? Icons.radio_button_unchecked
+                          : Icons.check_circle,
+                  color: isCurrent
+                      ? Colors.blue
+                      : isCurrentOrFuture
+                          ? Colors.grey
+                          : Colors.green,
+                );
+              },
+            ),
+            const SizedBox(height: 32),
+
+            // Recommendations
+            Text(
+              'Recommendations',
+              style: Theme.of(context)
+                  .textTheme
+                  .titleLarge
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            if (recommendations.isEmpty)
+              Card(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Row(
+                    children: [
+                      Icon(Icons.check_circle,
+                          color: Colors.green.shade600),
+                      const SizedBox(width: 12),
+                      const Expanded(
+                        child: Text(
+                          'All conditions are optimal! Keep up the great work.',
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              )
+            else
+              ...recommendations.map(
+                (rec) => Padding(
+                  padding: const EdgeInsets.only(bottom: 8.0),
+                  child: _buildRecommendationCard(context, rec.category,
+                      rec.message, _iconForCategory(rec.category)),
+                ),
+              ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Color _colorForHealth(HealthStatus h) {
+    switch (h) {
+      case HealthStatus.excellent:
+        return Colors.green;
+      case HealthStatus.good:
+        return Colors.lightGreen;
+      case HealthStatus.fair:
+        return Colors.orange;
+      case HealthStatus.poor:
+        return Colors.deepOrange;
+      case HealthStatus.critical:
+        return Colors.red;
+    }
+  }
+
+  IconData _iconForCategory(String category) {
+    switch (category.toLowerCase()) {
+      case 'watering':
+        return Icons.water_drop;
+      case 'sunlight':
+        return Icons.wb_sunny;
+      case 'soil':
+        return Icons.grass;
+      default:
+        return Icons.info_outline;
+    }
+  }
+
+  Widget _buildTimelineItem(
+    BuildContext context, {
+    required String title,
+    required String subtitle,
+    required IconData icon,
+    required Color color,
+  }) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 16.0),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(height: 4),
+              Container(width: 2, height: 30, color: Colors.grey.shade300),
+            ],
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title,
+                    style: const TextStyle(
+                        fontWeight: FontWeight.bold, fontSize: 16)),
+                const SizedBox(height: 4),
+                Text(subtitle,
+                    style: TextStyle(color: Colors.grey.shade600)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRecommendationCard(
+    BuildContext context,
+    String title,
+    String body,
+    IconData icon,
+  ) {
+    return Card(
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Icon(icon, color: Theme.of(context).colorScheme.primary),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title,
+                      style:
+                          const TextStyle(fontWeight: FontWeight.bold)),
+                  const SizedBox(height: 4),
+                  Text(body),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\features\plant_form\presentation\add_plant_screen.dart ===
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../domain/models/enums.dart';
+import '../../../providers/plant_providers.dart';
+
+class AddPlantScreen extends ConsumerStatefulWidget {
+  const AddPlantScreen({super.key});
+
+  @override
+  ConsumerState<AddPlantScreen> createState() => _AddPlantScreenState();
+}
+
+class _AddPlantScreenState extends ConsumerState<AddPlantScreen> {
+  final _formKey = GlobalKey<FormState>();
+  final _nameController = TextEditingController();
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final formState = ref.watch(plantFormProvider);
+    final notifier = ref.read(plantFormProvider.notifier);
+
+    return Scaffold(
+      appBar: AppBar(title: const Text('Add New Plant')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              _buildSectionHeader(context, 'Plant Information'),
+              const SizedBox(height: 16),
+
+              // Plant name
+              TextFormField(
+                controller: _nameController,
+                decoration: const InputDecoration(
+                  labelText: 'Plant Name (optional)',
+                  hintText: 'e.g. My Tomato Pot #1',
+                  border: OutlineInputBorder(),
+                ),
+                onChanged: notifier.updateName,
+              ),
+              const SizedBox(height: 16),
+
+              // Plant type
+              DropdownButtonFormField<PlantType>(
+                initialValue: formState.type,
+                decoration: const InputDecoration(
+                  labelText: 'Plant Type',
+                  border: OutlineInputBorder(),
+                ),
+                items: PlantType.values
+                    .map((t) => DropdownMenuItem(
+                          value: t,
+                          child: Text(t.displayName),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  if (val != null) notifier.updateType(val);
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Growth stage
+              DropdownButtonFormField<GrowthStage>(
+                initialValue: formState.currentStage,
+                decoration: const InputDecoration(
+                  labelText: 'Current Growth Stage',
+                  border: OutlineInputBorder(),
+                ),
+                items: GrowthStage.values
+                    .where((s) => s != GrowthStage.harvestReady)
+                    .map((s) => DropdownMenuItem(
+                          value: s,
+                          child: Text(s.displayName),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  if (val != null) notifier.updateCurrentStage(val);
+                },
+              ),
+              const SizedBox(height: 16),
+
+              // Season
+              DropdownButtonFormField<Season>(
+                initialValue: formState.season,
+                decoration: const InputDecoration(
+                  labelText: 'Season',
+                  border: OutlineInputBorder(),
+                ),
+                items: Season.values
+                    .map((s) => DropdownMenuItem(
+                          value: s,
+                          child: Text(s.displayName),
+                        ))
+                    .toList(),
+                onChanged: (val) {
+                  if (val != null) notifier.updateSeason(val);
+                },
+              ),
+              const SizedBox(height: 32),
+
+              _buildSectionHeader(context, 'Environmental Factors (1–5)'),
+              const SizedBox(height: 8),
+
+              _buildSlider(
+                context,
+                label: 'Sunlight',
+                value: formState.sunlightScore,
+                onChanged: notifier.updateSunlight,
+              ),
+              _buildSlider(
+                context,
+                label: 'Water',
+                value: formState.waterScore,
+                onChanged: notifier.updateWater,
+              ),
+              _buildSlider(
+                context,
+                label: 'Soil Quality',
+                value: formState.soilScore,
+                onChanged: notifier.updateSoil,
+              ),
+
+              const SizedBox(height: 32),
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: FilledButton(
+                  onPressed: formState.isSaving
+                      ? null
+                      : () async {
+                          await notifier.save();
+                          if (context.mounted) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Plant saved successfully!'),
+                              ),
+                            );
+                            context.go('/');
+                          }
+                        },
+                  child: formState.isSaving
+                      ? const SizedBox(
+                          width: 20,
+                          height: 20,
+                          child: CircularProgressIndicator(strokeWidth: 2),
+                        )
+                      : const Text('Save & Predict Growth'),
+                ),
+              ),
+              const SizedBox(height: 24),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(BuildContext context, String title) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: Theme.of(context).colorScheme.primary,
+          ),
+    );
+  }
+
+  Widget _buildSlider(
+    BuildContext context, {
+    required String label,
+    required double value,
+    required ValueChanged<double> onChanged,
+  }) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: const EdgeInsets.only(top: 16.0, left: 8.0, right: 8.0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(label,
+                  style: const TextStyle(fontWeight: FontWeight.w500)),
+              Text(
+                value.toInt().toString(),
+                style: TextStyle(
+                  color: Theme.of(context).colorScheme.primary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
+          ),
+        ),
+        Slider(
+          value: value,
+          min: 1,
+          max: 5,
+          divisions: 4,
+          label: value.toInt().toString(),
+          onChanged: onChanged,
+        ),
+      ],
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\providers\database_provider.dart ===
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../data/database/app_database.dart';
+import '../data/repositories/plant_repository.dart';
+
+/// Singleton [AppDatabase] instance shared across the app.
+final databaseProvider = Provider<AppDatabase>((ref) {
+  final db = AppDatabase();
+  ref.onDispose(db.close);
+  return db;
+});
+
+/// Singleton [PlantRepository] backed by [databaseProvider].
+final plantRepositoryProvider = Provider<PlantRepository>((ref) {
+  final db = ref.watch(databaseProvider);
+  return PlantRepository(db);
+});
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\providers\plant_providers.dart ===
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../domain/models/enums.dart';
+import '../domain/models/plant.dart';
+import '../domain/models/daily_log.dart';
+import 'database_provider.dart';
+
+// ---------------------------------------------------------------------------
+// Read-only stream / future providers
+// ---------------------------------------------------------------------------
+
+/// Streams all plants from the local database in real-time.
+final plantsStreamProvider = StreamProvider<List<Plant>>((ref) {
+  final repo = ref.watch(plantRepositoryProvider);
+  return repo.watchAllPlants();
+});
+
+/// Fetches a single plant by id.
+final plantByIdProvider =
+    FutureProvider.family<Plant?, int>((ref, id) async {
+  final repo = ref.watch(plantRepositoryProvider);
+  return repo.getPlantById(id);
+});
+
+/// Streams daily logs for a specific plant in real-time.
+final dailyLogsForPlantProvider =
+    StreamProvider.family<List<DailyLog>, int>((ref, plantId) {
+  final repo = ref.watch(plantRepositoryProvider);
+  return repo.watchLogsForPlant(plantId);
+});
+
+// ---------------------------------------------------------------------------
+// PlantFormState — manages Add/Edit form state
+// ---------------------------------------------------------------------------
+
+class PlantFormState {
+  const PlantFormState({
+    required this.name,
+    required this.type,
+    required this.plantingDate,
+    required this.currentStage,
+    required this.sunlightScore,
+    required this.waterScore,
+    required this.soilScore,
+    required this.season,
+    this.notes,
+    this.isSaving = false,
+  });
+
+  final String name;
+  final PlantType type;
+  final DateTime plantingDate;
+  final GrowthStage currentStage;
+  final double sunlightScore;
+  final double waterScore;
+  final double soilScore;
+  final Season season;
+  final String? notes;
+  final bool isSaving;
+
+  factory PlantFormState.initial() => PlantFormState(
+        name: '',
+        type: PlantType.tomato,
+        plantingDate: DateTime.now(),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 3,
+        waterScore: 3,
+        soilScore: 3,
+        season: Season.fromDate(DateTime.now()),
+      );
+
+  PlantFormState copyWith({
+    String? name,
+    PlantType? type,
+    DateTime? plantingDate,
+    GrowthStage? currentStage,
+    double? sunlightScore,
+    double? waterScore,
+    double? soilScore,
+    Season? season,
+    String? notes,
+    bool? isSaving,
+  }) {
+    return PlantFormState(
+      name: name ?? this.name,
+      type: type ?? this.type,
+      plantingDate: plantingDate ?? this.plantingDate,
+      currentStage: currentStage ?? this.currentStage,
+      sunlightScore: sunlightScore ?? this.sunlightScore,
+      waterScore: waterScore ?? this.waterScore,
+      soilScore: soilScore ?? this.soilScore,
+      season: season ?? this.season,
+      notes: notes ?? this.notes,
+      isSaving: isSaving ?? this.isSaving,
+    );
+  }
+
+  /// Convert form state to a [Plant] domain model ready to save.
+  Plant toPlant() {
+    return Plant(
+      name: name.trim().isEmpty ? type.displayName : name.trim(),
+      type: type,
+      plantingDate: plantingDate,
+      currentStage: currentStage,
+      sunlightScore: sunlightScore,
+      waterScore: waterScore,
+      soilScore: soilScore,
+      season: season,
+      notes: notes?.trim().isEmpty ?? true ? null : notes,
+    );
+  }
+}
+
+// ---------------------------------------------------------------------------
+// PlantFormNotifier
+// ---------------------------------------------------------------------------
+
+class PlantFormNotifier extends StateNotifier<PlantFormState> {
+  PlantFormNotifier(this._ref) : super(PlantFormState.initial());
+
+  final Ref _ref;
+
+  void updateName(String v) => state = state.copyWith(name: v);
+  void updateType(PlantType v) => state = state.copyWith(type: v);
+  void updatePlantingDate(DateTime v) =>
+      state = state.copyWith(plantingDate: v);
+  void updateCurrentStage(GrowthStage v) =>
+      state = state.copyWith(currentStage: v);
+  void updateSunlight(double v) => state = state.copyWith(sunlightScore: v);
+  void updateWater(double v) => state = state.copyWith(waterScore: v);
+  void updateSoil(double v) => state = state.copyWith(soilScore: v);
+  void updateSeason(Season v) => state = state.copyWith(season: v);
+  void updateNotes(String? v) => state = state.copyWith(notes: v);
+
+  /// Persist the form as a new plant. Resets state on success.
+  Future<void> save() async {
+    if (state.isSaving) return;
+    state = state.copyWith(isSaving: true);
+    try {
+      final repo = _ref.read(plantRepositoryProvider);
+      await repo.addPlant(state.toPlant());
+      state = PlantFormState.initial();
+    } catch (_) {
+      state = state.copyWith(isSaving: false);
+      rethrow;
+    }
+  }
+}
+
+final plantFormProvider =
+    StateNotifierProvider<PlantFormNotifier, PlantFormState>(
+  (ref) => PlantFormNotifier(ref),
+);
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\providers\prediction_providers.dart ===
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../domain/models/plant.dart';
+import '../domain/models/environment_profile.dart';
+import '../domain/models/day_prediction.dart';
+import '../domain/models/recommendation.dart';
+import '../domain/engine/ca_engine.dart';
+import '../domain/engine/recommendation_engine.dart';
+
+/// Singleton CA engine — pure, stateless; safe to share.
+final caEngineProvider = Provider<CaEngine>((_) => const CaEngine());
+
+/// Singleton recommendation engine.
+final recommendationEngineProvider =
+    Provider<RecommendationEngine>((_) => const RecommendationEngine());
+
+// ---------------------------------------------------------------------------
+// Per-plant prediction state
+// ---------------------------------------------------------------------------
+
+/// Derives an [EnvironmentProfile] from a [Plant]'s current scores.
+final environmentProfileProvider =
+    Provider.family<EnvironmentProfile, Plant>((ref, plant) {
+  return EnvironmentProfile(
+    sunlight: plant.sunlightScore,
+    water: plant.waterScore,
+    soil: plant.soilScore,
+    season: plant.season,
+  );
+});
+
+/// Computed environmental score for a plant (0.0–1.0).
+final envScoreProvider = Provider.family<double, Plant>((ref, plant) {
+  final engine = ref.watch(caEngineProvider);
+  final env = ref.watch(environmentProfileProvider(plant));
+  return engine.computeEnvScore(plant.type, env);
+});
+
+/// Generates a 60-day growth forecast for a plant.
+final forecastProvider =
+    Provider.family<List<DayPrediction>, Plant>((ref, plant) {
+  final engine = ref.watch(caEngineProvider);
+  final env = ref.watch(environmentProfileProvider(plant));
+  return engine.forecast(plant: plant, environment: env, forecastDays: 60);
+});
+
+/// Estimates the number of days to harvest for a plant.
+final daysToHarvestProvider = Provider.family<int, Plant>((ref, plant) {
+  final engine = ref.watch(caEngineProvider);
+  final env = ref.watch(environmentProfileProvider(plant));
+  return engine.estimateDaysToHarvest(plant: plant, environment: env);
+});
+
+/// Generates care recommendations for a plant.
+final recommendationsProvider =
+    Provider.family<List<Recommendation>, Plant>((ref, plant) {
+  final recEngine = ref.watch(recommendationEngineProvider);
+  final env = ref.watch(environmentProfileProvider(plant));
+  return recEngine.generate(
+    plant: plant,
+    environment: env,
+    currentStage: plant.currentStage,
+  );
+});
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\CMakeLists.txt ===
+# Project-level configuration.
+cmake_minimum_required(VERSION 3.13)
+project(runner LANGUAGES CXX)
+
+# The name of the executable created for the application. Change this to change
+# the on-disk name of your application.
+set(BINARY_NAME "verditech")
+# The unique GTK application identifier for this application. See:
+# https://wiki.gnome.org/HowDoI/ChooseApplicationID
+set(APPLICATION_ID "com.example.verditech")
+
+# Explicitly opt in to modern CMake behaviors to avoid warnings with recent
+# versions of CMake.
+cmake_policy(SET CMP0063 NEW)
+
+# Load bundled libraries from the lib/ directory relative to the binary.
+set(CMAKE_INSTALL_RPATH "$ORIGIN/lib")
+
+# Root filesystem for cross-building.
+if(FLUTTER_TARGET_PLATFORM_SYSROOT)
+  set(CMAKE_SYSROOT ${FLUTTER_TARGET_PLATFORM_SYSROOT})
+  set(CMAKE_FIND_ROOT_PATH ${CMAKE_SYSROOT})
+  set(CMAKE_FIND_ROOT_PATH_MODE_PROGRAM NEVER)
+  set(CMAKE_FIND_ROOT_PATH_MODE_PACKAGE ONLY)
+  set(CMAKE_FIND_ROOT_PATH_MODE_LIBRARY ONLY)
+  set(CMAKE_FIND_ROOT_PATH_MODE_INCLUDE ONLY)
+endif()
+
+# Define build configuration options.
+if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+  set(CMAKE_BUILD_TYPE "Debug" CACHE
+    STRING "Flutter build mode" FORCE)
+  set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+    "Debug" "Profile" "Release")
+endif()
+
+# Compilation settings that should be applied to most targets.
+#
+# Be cautious about adding new options here, as plugins use this function by
+# default. In most cases, you should add new options to specific targets instead
+# of modifying this function.
+function(APPLY_STANDARD_SETTINGS TARGET)
+  target_compile_features(${TARGET} PUBLIC cxx_std_14)
+  target_compile_options(${TARGET} PRIVATE -Wall -Werror)
+  target_compile_options(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:-O3>")
+  target_compile_definitions(${TARGET} PRIVATE "$<$<NOT:$<CONFIG:Debug>>:NDEBUG>")
+endfunction()
+
+# Flutter library and tool build rules.
+set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
+add_subdirectory(${FLUTTER_MANAGED_DIR})
+
+# System-level dependencies.
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
+
+# Application build; see runner/CMakeLists.txt.
+add_subdirectory("runner")
+
+# Run the Flutter tool portions of the build. This must not be removed.
+add_dependencies(${BINARY_NAME} flutter_assemble)
+
+# Only the install-generated bundle's copy of the executable will launch
+# correctly, since the resources must in the right relative locations. To avoid
+# people trying to run the unbundled copy, put it in a subdirectory instead of
+# the default top-level location.
+set_target_properties(${BINARY_NAME}
+  PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/intermediates_do_not_run"
+)
+
+
+# Generated plugin build rules, which manage building the plugins and adding
+# them to the application.
+include(flutter/generated_plugins.cmake)
+
+
+# === Installation ===
+# By default, "installing" just makes a relocatable bundle in the build
+# directory.
+set(BUILD_BUNDLE_DIR "${PROJECT_BINARY_DIR}/bundle")
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${BUILD_BUNDLE_DIR}" CACHE PATH "..." FORCE)
+endif()
+
+# Start with a clean build bundle directory every time.
+install(CODE "
+  file(REMOVE_RECURSE \"${BUILD_BUNDLE_DIR}/\")
+  " COMPONENT Runtime)
+
+set(INSTALL_BUNDLE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/data")
+set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}/lib")
+
+install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
+  COMPONENT Runtime)
+
+install(FILES "${FLUTTER_ICU_DATA_FILE}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
+  COMPONENT Runtime)
+
+install(FILES "${FLUTTER_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+  COMPONENT Runtime)
+
+foreach(bundled_library ${PLUGIN_BUNDLED_LIBRARIES})
+  install(FILES "${bundled_library}"
+    DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+    COMPONENT Runtime)
+endforeach(bundled_library)
+
+# Copy the native assets provided by the build.dart from all packages.
+set(NATIVE_ASSETS_DIR "${PROJECT_BUILD_DIR}native_assets/linux/")
+install(DIRECTORY "${NATIVE_ASSETS_DIR}"
+   DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+   COMPONENT Runtime)
+
+# Fully re-copy the assets directory on each build to avoid having stale files
+# from a previous install.
+set(FLUTTER_ASSET_DIR_NAME "flutter_assets")
+install(CODE "
+  file(REMOVE_RECURSE \"${INSTALL_BUNDLE_DATA_DIR}/${FLUTTER_ASSET_DIR_NAME}\")
+  " COMPONENT Runtime)
+install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
+  DESTINATION "${INSTALL_BUNDLE_DATA_DIR}" COMPONENT Runtime)
+
+# Install the AOT library on non-Debug builds only.
+if(NOT CMAKE_BUILD_TYPE MATCHES "Debug")
+  install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+    COMPONENT Runtime)
+endif()
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\flutter\generated_plugin_registrant.cc ===
+//
+//  Generated file. Do not edit.
+//
+
+// clang-format off
+
+#include "generated_plugin_registrant.h"
+
+#include <sqlite3_flutter_libs/sqlite3_flutter_libs_plugin.h>
+
+void fl_register_plugins(FlPluginRegistry* registry) {
+  g_autoptr(FlPluginRegistrar) sqlite3_flutter_libs_registrar =
+      fl_plugin_registry_get_registrar_for_plugin(registry, "Sqlite3FlutterLibsPlugin");
+  sqlite3_flutter_libs_plugin_register_with_registrar(sqlite3_flutter_libs_registrar);
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\flutter\generated_plugin_registrant.h ===
+//
+//  Generated file. Do not edit.
+//
+
+// clang-format off
+
+#ifndef GENERATED_PLUGIN_REGISTRANT_
+#define GENERATED_PLUGIN_REGISTRANT_
+
+#include <flutter_linux/flutter_linux.h>
+
+// Registers Flutter plugins.
+void fl_register_plugins(FlPluginRegistry* registry);
+
+#endif  // GENERATED_PLUGIN_REGISTRANT_
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\flutter\CMakeLists.txt ===
+# This file controls Flutter-level build steps. It should not be edited.
+cmake_minimum_required(VERSION 3.10)
+
+set(EPHEMERAL_DIR "${CMAKE_CURRENT_SOURCE_DIR}/ephemeral")
+
+# Configuration provided via flutter tool.
+include(${EPHEMERAL_DIR}/generated_config.cmake)
+
+# TODO: Move the rest of this into files in ephemeral. See
+# https://github.com/flutter/flutter/issues/57146.
+
+# Serves the same purpose as list(TRANSFORM ... PREPEND ...),
+# which isn't available in 3.10.
+function(list_prepend LIST_NAME PREFIX)
+    set(NEW_LIST "")
+    foreach(element ${${LIST_NAME}})
+        list(APPEND NEW_LIST "${PREFIX}${element}")
+    endforeach(element)
+    set(${LIST_NAME} "${NEW_LIST}" PARENT_SCOPE)
+endfunction()
+
+# === Flutter Library ===
+# System-level dependencies.
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(GTK REQUIRED IMPORTED_TARGET gtk+-3.0)
+pkg_check_modules(GLIB REQUIRED IMPORTED_TARGET glib-2.0)
+pkg_check_modules(GIO REQUIRED IMPORTED_TARGET gio-2.0)
+
+set(FLUTTER_LIBRARY "${EPHEMERAL_DIR}/libflutter_linux_gtk.so")
+
+# Published to parent scope for install step.
+set(FLUTTER_LIBRARY ${FLUTTER_LIBRARY} PARENT_SCOPE)
+set(FLUTTER_ICU_DATA_FILE "${EPHEMERAL_DIR}/icudtl.dat" PARENT_SCOPE)
+set(PROJECT_BUILD_DIR "${PROJECT_DIR}/build/" PARENT_SCOPE)
+set(AOT_LIBRARY "${PROJECT_DIR}/build/lib/libapp.so" PARENT_SCOPE)
+
+list(APPEND FLUTTER_LIBRARY_HEADERS
+  "fl_basic_message_channel.h"
+  "fl_binary_codec.h"
+  "fl_binary_messenger.h"
+  "fl_dart_project.h"
+  "fl_engine.h"
+  "fl_json_message_codec.h"
+  "fl_json_method_codec.h"
+  "fl_message_codec.h"
+  "fl_method_call.h"
+  "fl_method_channel.h"
+  "fl_method_codec.h"
+  "fl_method_response.h"
+  "fl_plugin_registrar.h"
+  "fl_plugin_registry.h"
+  "fl_standard_message_codec.h"
+  "fl_standard_method_codec.h"
+  "fl_string_codec.h"
+  "fl_value.h"
+  "fl_view.h"
+  "flutter_linux.h"
+)
+list_prepend(FLUTTER_LIBRARY_HEADERS "${EPHEMERAL_DIR}/flutter_linux/")
+add_library(flutter INTERFACE)
+target_include_directories(flutter INTERFACE
+  "${EPHEMERAL_DIR}"
+)
+target_link_libraries(flutter INTERFACE "${FLUTTER_LIBRARY}")
+target_link_libraries(flutter INTERFACE
+  PkgConfig::GTK
+  PkgConfig::GLIB
+  PkgConfig::GIO
+)
+add_dependencies(flutter flutter_assemble)
+
+# === Flutter tool backend ===
+# _phony_ is a non-existent file to force this command to run every time,
+# since currently there's no way to get a full input/output list from the
+# flutter tool.
+add_custom_command(
+  OUTPUT ${FLUTTER_LIBRARY} ${FLUTTER_LIBRARY_HEADERS}
+    ${CMAKE_CURRENT_BINARY_DIR}/_phony_
+  COMMAND ${CMAKE_COMMAND} -E env
+    ${FLUTTER_TOOL_ENVIRONMENT}
+    "${FLUTTER_ROOT}/packages/flutter_tools/bin/tool_backend.sh"
+      ${FLUTTER_TARGET_PLATFORM} ${CMAKE_BUILD_TYPE}
+  VERBATIM
+)
+add_custom_target(flutter_assemble DEPENDS
+  "${FLUTTER_LIBRARY}"
+  ${FLUTTER_LIBRARY_HEADERS}
+)
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\runner\main.cc ===
+#include "my_application.h"
+
+int main(int argc, char** argv) {
+  g_autoptr(MyApplication) app = my_application_new();
+  return g_application_run(G_APPLICATION(app), argc, argv);
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\runner\my_application.cc ===
+#include "my_application.h"
+
+#include <flutter_linux/flutter_linux.h>
+#ifdef GDK_WINDOWING_X11
+#include <gdk/gdkx.h>
+#endif
+
+#include "flutter/generated_plugin_registrant.h"
+
+struct _MyApplication {
+  GtkApplication parent_instance;
+  char** dart_entrypoint_arguments;
+};
+
+G_DEFINE_TYPE(MyApplication, my_application, GTK_TYPE_APPLICATION)
+
+// Called when first Flutter frame received.
+static void first_frame_cb(MyApplication* self, FlView* view) {
+  gtk_widget_show(gtk_widget_get_toplevel(GTK_WIDGET(view)));
+}
+
+// Implements GApplication::activate.
+static void my_application_activate(GApplication* application) {
+  MyApplication* self = MY_APPLICATION(application);
+  GtkWindow* window =
+      GTK_WINDOW(gtk_application_window_new(GTK_APPLICATION(application)));
+
+  // Use a header bar when running in GNOME as this is the common style used
+  // by applications and is the setup most users will be using (e.g. Ubuntu
+  // desktop).
+  // If running on X and not using GNOME then just use a traditional title bar
+  // in case the window manager does more exotic layout, e.g. tiling.
+  // If running on Wayland assume the header bar will work (may need changing
+  // if future cases occur).
+  gboolean use_header_bar = TRUE;
+#ifdef GDK_WINDOWING_X11
+  GdkScreen* screen = gtk_window_get_screen(window);
+  if (GDK_IS_X11_SCREEN(screen)) {
+    const gchar* wm_name = gdk_x11_screen_get_window_manager_name(screen);
+    if (g_strcmp0(wm_name, "GNOME Shell") != 0) {
+      use_header_bar = FALSE;
+    }
+  }
+#endif
+  if (use_header_bar) {
+    GtkHeaderBar* header_bar = GTK_HEADER_BAR(gtk_header_bar_new());
+    gtk_widget_show(GTK_WIDGET(header_bar));
+    gtk_header_bar_set_title(header_bar, "verditech");
+    gtk_header_bar_set_show_close_button(header_bar, TRUE);
+    gtk_window_set_titlebar(window, GTK_WIDGET(header_bar));
+  } else {
+    gtk_window_set_title(window, "verditech");
+  }
+
+  gtk_window_set_default_size(window, 1280, 720);
+
+  g_autoptr(FlDartProject) project = fl_dart_project_new();
+  fl_dart_project_set_dart_entrypoint_arguments(
+      project, self->dart_entrypoint_arguments);
+
+  FlView* view = fl_view_new(project);
+  GdkRGBA background_color;
+  // Background defaults to black, override it here if necessary, e.g. #00000000
+  // for transparent.
+  gdk_rgba_parse(&background_color, "#000000");
+  fl_view_set_background_color(view, &background_color);
+  gtk_widget_show(GTK_WIDGET(view));
+  gtk_container_add(GTK_CONTAINER(window), GTK_WIDGET(view));
+
+  // Show the window when Flutter renders.
+  // Requires the view to be realized so we can start rendering.
+  g_signal_connect_swapped(view, "first-frame", G_CALLBACK(first_frame_cb),
+                           self);
+  gtk_widget_realize(GTK_WIDGET(view));
+
+  fl_register_plugins(FL_PLUGIN_REGISTRY(view));
+
+  gtk_widget_grab_focus(GTK_WIDGET(view));
+}
+
+// Implements GApplication::local_command_line.
+static gboolean my_application_local_command_line(GApplication* application,
+                                                  gchar*** arguments,
+                                                  int* exit_status) {
+  MyApplication* self = MY_APPLICATION(application);
+  // Strip out the first argument as it is the binary name.
+  self->dart_entrypoint_arguments = g_strdupv(*arguments + 1);
+
+  g_autoptr(GError) error = nullptr;
+  if (!g_application_register(application, nullptr, &error)) {
+    g_warning("Failed to register: %s", error->message);
+    *exit_status = 1;
+    return TRUE;
+  }
+
+  g_application_activate(application);
+  *exit_status = 0;
+
+  return TRUE;
+}
+
+// Implements GApplication::startup.
+static void my_application_startup(GApplication* application) {
+  // MyApplication* self = MY_APPLICATION(object);
+
+  // Perform any actions required at application startup.
+
+  G_APPLICATION_CLASS(my_application_parent_class)->startup(application);
+}
+
+// Implements GApplication::shutdown.
+static void my_application_shutdown(GApplication* application) {
+  // MyApplication* self = MY_APPLICATION(object);
+
+  // Perform any actions required at application shutdown.
+
+  G_APPLICATION_CLASS(my_application_parent_class)->shutdown(application);
+}
+
+// Implements GObject::dispose.
+static void my_application_dispose(GObject* object) {
+  MyApplication* self = MY_APPLICATION(object);
+  g_clear_pointer(&self->dart_entrypoint_arguments, g_strfreev);
+  G_OBJECT_CLASS(my_application_parent_class)->dispose(object);
+}
+
+static void my_application_class_init(MyApplicationClass* klass) {
+  G_APPLICATION_CLASS(klass)->activate = my_application_activate;
+  G_APPLICATION_CLASS(klass)->local_command_line =
+      my_application_local_command_line;
+  G_APPLICATION_CLASS(klass)->startup = my_application_startup;
+  G_APPLICATION_CLASS(klass)->shutdown = my_application_shutdown;
+  G_OBJECT_CLASS(klass)->dispose = my_application_dispose;
+}
+
+static void my_application_init(MyApplication* self) {}
+
+MyApplication* my_application_new() {
+  // Set the program name to the application ID, which helps various systems
+  // like GTK and desktop environments map this running application to its
+  // corresponding .desktop file. This ensures better integration by allowing
+  // the application to be recognized beyond its binary name.
+  g_set_prgname(APPLICATION_ID);
+
+  return MY_APPLICATION(g_object_new(my_application_get_type(),
+                                     "application-id", APPLICATION_ID, "flags",
+                                     G_APPLICATION_NON_UNIQUE, nullptr));
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\runner\my_application.h ===
+#ifndef FLUTTER_MY_APPLICATION_H_
+#define FLUTTER_MY_APPLICATION_H_
+
+#include <gtk/gtk.h>
+
+G_DECLARE_FINAL_TYPE(MyApplication,
+                     my_application,
+                     MY,
+                     APPLICATION,
+                     GtkApplication)
+
+/**
+ * my_application_new:
+ *
+ * Creates a new Flutter-based application.
+ *
+ * Returns: a new #MyApplication.
+ */
+MyApplication* my_application_new();
+
+#endif  // FLUTTER_MY_APPLICATION_H_
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\linux\runner\CMakeLists.txt ===
+cmake_minimum_required(VERSION 3.13)
+project(runner LANGUAGES CXX)
+
+# Define the application target. To change its name, change BINARY_NAME in the
+# top-level CMakeLists.txt, not the value here, or `flutter run` will no longer
+# work.
+#
+# Any new source files that you add to the application should be added here.
+add_executable(${BINARY_NAME}
+  "main.cc"
+  "my_application.cc"
+  "${FLUTTER_MANAGED_DIR}/generated_plugin_registrant.cc"
+)
+
+# Apply the standard set of build settings. This can be removed for applications
+# that need different build settings.
+apply_standard_settings(${BINARY_NAME})
+
+# Add preprocessor definitions for the application ID.
+add_definitions(-DAPPLICATION_ID="${APPLICATION_ID}")
+
+# Add dependency libraries. Add any application-specific dependencies here.
+target_link_libraries(${BINARY_NAME} PRIVATE flutter)
+target_link_libraries(${BINARY_NAME} PRIVATE PkgConfig::GTK)
+
+target_include_directories(${BINARY_NAME} PRIVATE "${CMAKE_SOURCE_DIR}")
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\macos\Flutter\GeneratedPluginRegistrant.swift ===
+//
+//  Generated file. Do not edit.
+//
+
+import FlutterMacOS
+import Foundation
+
+import sqlite3_flutter_libs
+
+func RegisterGeneratedPlugins(registry: FlutterPluginRegistry) {
+  Sqlite3FlutterLibsPlugin.register(with: registry.registrar(forPlugin: "Sqlite3FlutterLibsPlugin"))
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\macos\Runner\AppDelegate.swift ===
+import Cocoa
+import FlutterMacOS
+
+@main
+class AppDelegate: FlutterAppDelegate {
+  override func applicationShouldTerminateAfterLastWindowClosed(_ sender: NSApplication) -> Bool {
+    return true
+  }
+
+  override func applicationSupportsSecureRestorableState(_ app: NSApplication) -> Bool {
+    return true
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\macos\Runner\MainFlutterWindow.swift ===
+import Cocoa
+import FlutterMacOS
+
+class MainFlutterWindow: NSWindow {
+  override func awakeFromNib() {
+    let flutterViewController = FlutterViewController()
+    let windowFrame = self.frame
+    self.contentViewController = flutterViewController
+    self.setFrame(windowFrame, display: true)
+
+    RegisterGeneratedPlugins(registry: flutterViewController)
+
+    super.awakeFromNib()
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\macos\RunnerTests\RunnerTests.swift ===
+import Cocoa
+import FlutterMacOS
+import XCTest
+
+class RunnerTests: XCTestCase {
+
+  func testExample() {
+    // If you add code to the Runner application, consider adding tests here.
+    // See https://developer.apple.com/documentation/xctest for more information about using XCTest.
+  }
+
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\test\ca_engine_test.dart ===
+import 'package:flutter_test/flutter_test.dart';
+
+import 'package:verditech/domain/engine/ca_engine.dart';
+import 'package:verditech/domain/models/enums.dart';
+import 'package:verditech/domain/models/environment_profile.dart';
+import 'package:verditech/domain/models/plant.dart';
+
+void main() {
+  const engine = CaEngine();
+
+  // ---------------------------------------------------------------------------
+  // Environmental score computation
+  // ---------------------------------------------------------------------------
+  group('CaEngine.computeEnvScore', () {
+    test('Tomato: max scores + Malamig gives near-maximum adjusted score', () {
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.malamig,
+      );
+      final score = engine.computeEnvScore(PlantType.tomato, env);
+      // Tomato weights: 0.35 sun + 0.40 water + 0.25 soil = 1.0
+      // raw = (0.35*5 + 0.40*5 + 0.25*5) / 5 = 5/5 = 1.0
+      // season modifier Malamig = 1.00 → adjusted = 1.0
+      expect(score, closeTo(1.0, 0.001));
+    });
+
+    test('Tomato: max scores + Tag-ulan is penalised', () {
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.tagUlan,
+      );
+      final score = engine.computeEnvScore(PlantType.tomato, env);
+      // season modifier Tag-ulan = 0.70 → adjusted = 0.70
+      expect(score, closeTo(0.70, 0.001));
+    });
+
+    test('Eggplant: min scores gives very low adjusted score', () {
+      const env = EnvironmentProfile(
+        sunlight: 1,
+        water: 1,
+        soil: 1,
+        season: Season.malamig,
+      );
+      final score = engine.computeEnvScore(PlantType.eggplant, env);
+      // raw = (0.30*1 + 0.35*1 + 0.35*1) / 5 = 1/5 = 0.20
+      // modifier Malamig = 0.95 → 0.19
+      expect(score, closeTo(0.19, 0.01));
+    });
+
+    test('Siling Labuyo: moderate scores give expected value', () {
+      const env = EnvironmentProfile(
+        sunlight: 3,
+        water: 3,
+        soil: 3,
+        season: Season.tagInit,
+      );
+      final score = engine.computeEnvScore(PlantType.silingLabuyo, env);
+      // raw = (0.40*3 + 0.25*3 + 0.35*3) / 5 = 3/5 = 0.60
+      // modifier Tag-init = 0.95 → 0.57
+      expect(score, closeTo(0.57, 0.01));
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Forecast
+  // ---------------------------------------------------------------------------
+  group('CaEngine.forecast', () {
+    test('Returns exactly the requested number of day predictions', () {
+      final plant = Plant(
+        name: 'Test Tomato',
+        type: PlantType.tomato,
+        plantingDate: DateTime.now().subtract(const Duration(days: 5)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 5,
+        waterScore: 5,
+        soilScore: 5,
+        season: Season.malamig,
+      );
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.malamig,
+      );
+      final forecast = engine.forecast(
+          plant: plant, environment: env, forecastDays: 30);
+      expect(forecast.length, 30);
+    });
+
+    test('All stages in forecast are valid GrowthStage values', () {
+      final plant = Plant(
+        name: 'Test Eggplant',
+        type: PlantType.eggplant,
+        plantingDate: DateTime.now().subtract(const Duration(days: 10)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 4,
+        waterScore: 4,
+        soilScore: 4,
+        season: Season.malamig,
+      );
+      const env = EnvironmentProfile(
+        sunlight: 4,
+        water: 4,
+        soil: 4,
+        season: Season.malamig,
+      );
+      final forecast = engine.forecast(plant: plant, environment: env);
+      for (final day in forecast) {
+        expect(GrowthStage.values.contains(day.predictedStage), isTrue);
+      }
+    });
+
+    test('Plant with optimal conditions eventually reaches harvestReady', () {
+      final plant = Plant(
+        name: 'Test Siling Labuyo',
+        type: PlantType.silingLabuyo,
+        plantingDate: DateTime.now().subtract(const Duration(days: 5)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 5,
+        waterScore: 5,
+        soilScore: 5,
+        season: Season.malamig,
+      );
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.malamig,
+      );
+      final forecast = engine.forecast(
+          plant: plant, environment: env, forecastDays: 120);
+      final harvestDay =
+          forecast.any((p) => p.predictedStage == GrowthStage.harvestReady);
+      expect(harvestDay, isTrue,
+          reason: 'Optimal conditions should reach harvest within 120 days');
+    });
+
+    test('Forecast stages never jump more than one step at a time', () {
+      final plant = Plant(
+        name: 'Progression Test',
+        type: PlantType.tomato,
+        plantingDate: DateTime.now().subtract(const Duration(days: 5)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 5,
+        waterScore: 5,
+        soilScore: 5,
+        season: Season.malamig,
+      );
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.malamig,
+      );
+      final forecast =
+          engine.forecast(plant: plant, environment: env, forecastDays: 80);
+      for (int i = 1; i < forecast.length; i++) {
+        final diff = (forecast[i].predictedStage.stageIndex -
+                forecast[i - 1].predictedStage.stageIndex)
+            .abs();
+        expect(diff, lessThanOrEqualTo(1),
+            reason: 'Stage should not skip more than one level per day');
+      }
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // estimateDaysToHarvest
+  // ---------------------------------------------------------------------------
+  group('CaEngine.estimateDaysToHarvest', () {
+    test('Optimal conditions return a reasonable harvest estimate', () {
+      final plant = Plant(
+        name: 'Harvest Test',
+        type: PlantType.tomato,
+        plantingDate: DateTime.now().subtract(const Duration(days: 5)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: 5,
+        waterScore: 5,
+        soilScore: 5,
+        season: Season.malamig,
+      );
+      const env = EnvironmentProfile(
+        sunlight: 5,
+        water: 5,
+        soil: 5,
+        season: Season.malamig,
+      );
+      final days = engine.estimateDaysToHarvest(plant: plant, environment: env);
+      // Tomato seedling → harvest ≈ 60 days total; we planted 5 days ago
+      // So ~55 days remaining. Allow generous range for the CA model.
+      expect(days, greaterThan(0));
+      expect(days, lessThan(180));
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // Season.fromDate auto-detection
+  // ---------------------------------------------------------------------------
+  group('Season.fromDate', () {
+    test('March is Tag-init', () {
+      expect(Season.fromDate(DateTime(2026, 3, 15)), Season.tagInit);
+    });
+    test('July is Tag-ulan', () {
+      expect(Season.fromDate(DateTime(2026, 7, 1)), Season.tagUlan);
+    });
+    test('December is Malamig', () {
+      expect(Season.fromDate(DateTime(2026, 12, 1)), Season.malamig);
+    });
+    test('February is Malamig', () {
+      expect(Season.fromDate(DateTime(2026, 2, 20)), Season.malamig);
+    });
+  });
+
+  // ---------------------------------------------------------------------------
+  // HealthStatus.fromScore
+  // ---------------------------------------------------------------------------
+  group('HealthStatus.fromScore', () {
+    test('Score 1.0 → Excellent', () {
+      expect(HealthStatus.fromScore(1.0), HealthStatus.excellent);
+    });
+    test('Score 0.70 → Good', () {
+      expect(HealthStatus.fromScore(0.70), HealthStatus.good);
+    });
+    test('Score 0.50 → Fair', () {
+      expect(HealthStatus.fromScore(0.50), HealthStatus.fair);
+    });
+    test('Score 0.25 → Poor', () {
+      expect(HealthStatus.fromScore(0.25), HealthStatus.poor);
+    });
+    test('Score 0.10 → Critical', () {
+      expect(HealthStatus.fromScore(0.10), HealthStatus.critical);
+    });
+  });
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\test\widget_test.dart ===
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:go_router/go_router.dart';
+
+import 'package:verditech/features/dashboard/presentation/dashboard_screen.dart';
+
+void main() {
+  // Create a router config that only needs the dashboard for the smoke test.
+  final testRouter = GoRouter(
+    initialLocation: '/',
+    routes: [
+      GoRoute(
+        path: '/',
+        builder: (context, state) => const DashboardScreen(),
+      ),
+      GoRoute(
+        path: '/add-plant',
+        builder: (context, state) => const Scaffold(body: Text('Add Plant')),
+      ),
+      GoRoute(
+        path: '/about',
+        builder: (context, state) => const Scaffold(body: Text('About')),
+      ),
+    ],
+  );
+
+  testWidgets('DashboardScreen smoke test — empty state renders correctly',
+      (WidgetTester tester) async {
+    // Build the app with an empty database (ProviderScope with no overrides
+    // will attempt DB access; we just verify the loading spinner appears, then
+    // the empty-state screen. In a full test suite we would inject a mock repo.)
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp.router(
+          routerConfig: testRouter,
+        ),
+      ),
+    );
+
+    // The loading spinner should appear first
+    expect(find.byType(CircularProgressIndicator), findsOneWidget);
+  });
+
+  testWidgets('DashboardScreen shows FAB for adding a plant',
+      (WidgetTester tester) async {
+    await tester.pumpWidget(
+      ProviderScope(
+        child: MaterialApp.router(
+          routerConfig: testRouter,
+        ),
+      ),
+    );
+
+    // FAB should be present immediately
+    expect(find.byType(FloatingActionButton), findsOneWidget);
+    expect(find.text('Add Plant'), findsOneWidget);
+  });
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\web\manifest.json ===
+{
+    "name": "verditech",
+    "short_name": "verditech",
+    "start_url": ".",
+    "display": "standalone",
+    "background_color": "#0175C2",
+    "theme_color": "#0175C2",
+    "description": "A new Flutter project.",
+    "orientation": "portrait-primary",
+    "prefer_related_applications": false,
+    "icons": [
+        {
+            "src": "icons/Icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
+        {
+            "src": "icons/Icon-maskable-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "maskable"
+        },
+        {
+            "src": "icons/Icon-maskable-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+        }
+    ]
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\web\index.html ===
+<!DOCTYPE html>
+<html>
+<head>
+  <!--
+    If you are serving your web app in a path other than the root, change the
+    href value below to reflect the base path you are serving from.
+
+    The path provided below has to start and end with a slash "/" in order for
+    it to work correctly.
+
+    For more details:
+    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
+
+    This is a placeholder for base href that will be replaced by the value of
+    the `--base-href` argument provided to `flutter build`.
+  -->
+  <base href="$FLUTTER_BASE_HREF">
+
+  <meta charset="UTF-8">
+  <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+  <meta name="description" content="A new Flutter project.">
+
+  <!-- iOS meta tags & icons -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="verditech">
+  <link rel="apple-touch-icon" href="icons/Icon-192.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/png" href="favicon.png"/>
+
+  <title>verditech</title>
+  <link rel="manifest" href="manifest.json">
+</head>
+<body>
+  <!--
+    You can customize the "flutter_bootstrap.js" script.
+    This is useful to provide a custom configuration to the Flutter loader
+    or to give the user feedback during the initialization process.
+
+    For more details:
+    * https://docs.flutter.dev/platform-integration/web/initialization
+  -->
+  <script src="flutter_bootstrap.js" async></script>
+</body>
+</html>
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\windows\CMakeLists.txt ===
+# Project-level configuration.
+cmake_minimum_required(VERSION 3.14)
+project(verditech LANGUAGES CXX)
+
+# The name of the executable created for the application. Change this to change
+# the on-disk name of your application.
+set(BINARY_NAME "verditech")
+
+# Explicitly opt in to modern CMake behaviors to avoid warnings with recent
+# versions of CMake.
+cmake_policy(VERSION 3.14...3.25)
+
+# Define build configuration option.
+get_property(IS_MULTICONFIG GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if(IS_MULTICONFIG)
+  set(CMAKE_CONFIGURATION_TYPES "Debug;Profile;Release"
+    CACHE STRING "" FORCE)
+else()
+  if(NOT CMAKE_BUILD_TYPE AND NOT CMAKE_CONFIGURATION_TYPES)
+    set(CMAKE_BUILD_TYPE "Debug" CACHE
+      STRING "Flutter build mode" FORCE)
+    set_property(CACHE CMAKE_BUILD_TYPE PROPERTY STRINGS
+      "Debug" "Profile" "Release")
+  endif()
+endif()
+# Define settings for the Profile build mode.
+set(CMAKE_EXE_LINKER_FLAGS_PROFILE "${CMAKE_EXE_LINKER_FLAGS_RELEASE}")
+set(CMAKE_SHARED_LINKER_FLAGS_PROFILE "${CMAKE_SHARED_LINKER_FLAGS_RELEASE}")
+set(CMAKE_C_FLAGS_PROFILE "${CMAKE_C_FLAGS_RELEASE}")
+set(CMAKE_CXX_FLAGS_PROFILE "${CMAKE_CXX_FLAGS_RELEASE}")
+
+# Use Unicode for all projects.
+add_definitions(-DUNICODE -D_UNICODE)
+
+# Compilation settings that should be applied to most targets.
+#
+# Be cautious about adding new options here, as plugins use this function by
+# default. In most cases, you should add new options to specific targets instead
+# of modifying this function.
+function(APPLY_STANDARD_SETTINGS TARGET)
+  target_compile_features(${TARGET} PUBLIC cxx_std_17)
+  target_compile_options(${TARGET} PRIVATE /W4 /WX /wd"4100")
+  target_compile_options(${TARGET} PRIVATE /EHsc)
+  target_compile_definitions(${TARGET} PRIVATE "_HAS_EXCEPTIONS=0")
+  target_compile_definitions(${TARGET} PRIVATE "$<$<CONFIG:Debug>:_DEBUG>")
+endfunction()
+
+# Flutter library and tool build rules.
+set(FLUTTER_MANAGED_DIR "${CMAKE_CURRENT_SOURCE_DIR}/flutter")
+add_subdirectory(${FLUTTER_MANAGED_DIR})
+
+# Application build; see runner/CMakeLists.txt.
+add_subdirectory("runner")
+
+
+# Generated plugin build rules, which manage building the plugins and adding
+# them to the application.
+include(flutter/generated_plugins.cmake)
+
+
+# === Installation ===
+# Support files are copied into place next to the executable, so that it can
+# run in place. This is done instead of making a separate bundle (as on Linux)
+# so that building and running from within Visual Studio will work.
+set(BUILD_BUNDLE_DIR "$<TARGET_FILE_DIR:${BINARY_NAME}>")
+# Make the "install" step default, as it's required to run.
+set(CMAKE_VS_INCLUDE_INSTALL_TO_DEFAULT_BUILD 1)
+if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
+  set(CMAKE_INSTALL_PREFIX "${BUILD_BUNDLE_DIR}" CACHE PATH "..." FORCE)
+endif()
+
+set(INSTALL_BUNDLE_DATA_DIR "${CMAKE_INSTALL_PREFIX}/data")
+set(INSTALL_BUNDLE_LIB_DIR "${CMAKE_INSTALL_PREFIX}")
+
+install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION "${CMAKE_INSTALL_PREFIX}"
+  COMPONENT Runtime)
+
+install(FILES "${FLUTTER_ICU_DATA_FILE}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
+  COMPONENT Runtime)
+
+install(FILES "${FLUTTER_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+  COMPONENT Runtime)
+
+if(PLUGIN_BUNDLED_LIBRARIES)
+  install(FILES "${PLUGIN_BUNDLED_LIBRARIES}"
+    DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+    COMPONENT Runtime)
+endif()
+
+# Copy the native assets provided by the build.dart from all packages.
+set(NATIVE_ASSETS_DIR "${PROJECT_BUILD_DIR}native_assets/windows/")
+install(DIRECTORY "${NATIVE_ASSETS_DIR}"
+   DESTINATION "${INSTALL_BUNDLE_LIB_DIR}"
+   COMPONENT Runtime)
+
+# Fully re-copy the assets directory on each build to avoid having stale files
+# from a previous install.
+set(FLUTTER_ASSET_DIR_NAME "flutter_assets")
+install(CODE "
+  file(REMOVE_RECURSE \"${INSTALL_BUNDLE_DATA_DIR}/${FLUTTER_ASSET_DIR_NAME}\")
+  " COMPONENT Runtime)
+install(DIRECTORY "${PROJECT_BUILD_DIR}/${FLUTTER_ASSET_DIR_NAME}"
+  DESTINATION "${INSTALL_BUNDLE_DATA_DIR}" COMPONENT Runtime)
+
+# Install the AOT library on non-Debug builds only.
+install(FILES "${AOT_LIBRARY}" DESTINATION "${INSTALL_BUNDLE_DATA_DIR}"
+  CONFIGURATIONS Profile;Release
+  COMPONENT Runtime)
+
+==================

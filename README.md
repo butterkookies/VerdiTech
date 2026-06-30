@@ -6,17 +6,17 @@
 
 | Field       | Details                                |
 |-------------|----------------------------------------|
-| **Status**  | 🟡 Pre-Development (Requirements Gathering) |
+| **Status**  | 🟡 In Progress (Polish & Delivery)     |
 | **Client**  | Senior High School Student             |
 | **Framework** | Flutter (Dart)                       |
 | **Platform** | Android                               |
-| **Phase**   | Phase 0 — Requirements Gathering       |
+| **Phase**   | Phase 5 — Polish & Delivery            |
 
 ---
 
 ## 📁 Project Structure
 
-```
+```text
 Temp/
 ├── README.md                          # ← You are here
 ├── memory/                            # Project memory & knowledge base
@@ -53,8 +53,7 @@ Temp/
 ## 🔗 Quick Links
 
 - **[Feature List](memory/features.md)** — All planned features and descriptions
-- **[Technical Spec](docs/specs/verditech_spec.md)** — Full technical specification *(pending)*
-- **[Client Questionnaire](docs/questionnaire/client_questionnaire.md)** — Client Q&A for requirements gathering *(pending)*
+- **[Architecture & Flow](docs/architecture_flow.html)** — Interactive Architecture Diagram
 - **[Tech Stack](memory/techstack.md)** — Technology choices and rationale
 - **[Decisions Log](memory/decisions.md)** — Key architectural and design decisions
 - **[Requirements](memory/requirements.md)** — Functional & non-functional requirements
@@ -63,22 +62,24 @@ Temp/
 
 ## 🚦 Current Phase
 
-### Phase 0 — Requirements Gathering
+### Phase 5 — Polish & Delivery
 
-We are currently in the **requirements gathering** phase. The goal is to fully understand what the client needs before writing any code.
+The core app, UI, CA prediction engine, and daily staging logs have been fully implemented and verified on-device. We are now in the final polish and delivery phase.
 
 **Completed:**
 - [x] Initial project structure created
 - [x] Memory files initialized
+- [x] Requirements & Specifications finalized
+- [x] CA Prediction Engine developed and tested
+- [x] Core UI and Forms built
+- [x] Riverpod state management and Local Database integrated
+- [x] Staging logs and live timeline implemented
+- [x] App verified working on Android emulator/device
 
-**In Progress:**
-- [ ] Client questionnaire preparation
-- [ ] Feature brainstorming
-
-**Up Next:**
-- [ ] Awaiting client questionnaire responses
-- [ ] Requirements finalization
-- [ ] Technical specification drafting
+**Up Next (Final Polish):**
+- [ ] Fix any remaining minor bugs
+- [ ] Incorporate dynamic crop webp assets (Staging illustrations)
+- [ ] Build release APK
 
 ---
 
@@ -86,22 +87,21 @@ We are currently in the **requirements gathering** phase. The goal is to fully u
 
 | Phase | Name                        | Status      |
 |-------|-----------------------------|-------------|
-| 0     | Requirements Gathering      | 🟡 Active   |
-| 1     | Specification & Design      | ⬜ Pending  |
-| 2     | Project Initialization      | ⬜ Pending  |
-| 3     | Core Development            | ⬜ Pending  |
-| 4     | Testing & Refinement        | ⬜ Pending  |
-| 5     | Delivery & Documentation    | ⬜ Pending  |
+| 0     | Requirements Gathering      | ✅ Complete |
+| 1     | Specification & Design      | ✅ Complete |
+| 2     | Project Initialization      | ✅ Complete |
+| 3     | Core Development            | ✅ Complete |
+| 4     | Testing & Refinement        | ✅ Complete |
+| 5     | Delivery & Documentation    | 🟡 Active   |
 
 ---
 
 ## ⏭️ Next Steps
 
-1. **Awaiting client questionnaire responses** — Need answers to finalize requirements
-2. Draft technical specification based on responses
-3. Confirm tech stack with client
-4. Initialize Flutter project in `src/`
+1. Add graphic assets for dynamic crop staging and hook them up to the timeline.
+2. Final visual polish and minor bug testing.
+3. Generate the Release APK.
 
 ---
 
-*Last updated: 2026-06-27*
+*Last updated: 2026-06-30*

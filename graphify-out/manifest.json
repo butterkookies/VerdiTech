@@ -1,0 +1,762 @@
+{
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\build.gradle.kts": {
+    "mtime": 1782614270.9882393,
+    "ast_hash": "803fe22651fbe96ed401eb0b66a492d1",
+    "semantic_hash": "803fe22651fbe96ed401eb0b66a492d1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\settings.gradle.kts": {
+    "mtime": 1782614270.9902394,
+    "ast_hash": "087a01c04d081ae02a8e5db89f4bf3f3",
+    "semantic_hash": "087a01c04d081ae02a8e5db89f4bf3f3"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\build.gradle.kts": {
+    "mtime": 1782614270.963859,
+    "ast_hash": "d0940f51369bb12e1f23dbd66f064a45",
+    "semantic_hash": "d0940f51369bb12e1f23dbd66f064a45"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\kotlin\\com\\example\\verditech\\MainActivity.kt": {
+    "mtime": 1782614270.9819753,
+    "ast_hash": "651a418776258e1b97d0588e64b1932b",
+    "semantic_hash": "651a418776258e1b97d0588e64b1932b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\AppDelegate.swift": {
+    "mtime": 1782614270.9979918,
+    "ast_hash": "9e1de9c329a3fe4931876063de95132b",
+    "semantic_hash": "9e1de9c329a3fe4931876063de95132b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Runner-Bridging-Header.h": {
+    "mtime": 1782614271.0086336,
+    "ast_hash": "7ad7b5cea096132de13ba526b2b9efbe",
+    "semantic_hash": "7ad7b5cea096132de13ba526b2b9efbe"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\SceneDelegate.swift": {
+    "mtime": 1782614271.0086336,
+    "ast_hash": "0c3e86af131f6a9e547c80b5ed058914",
+    "semantic_hash": "0c3e86af131f6a9e547c80b5ed058914"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Contents.json": {
+    "mtime": 1782614270.998992,
+    "ast_hash": "31a08e429403e265cabfb31b3d65f049",
+    "semantic_hash": "31a08e429403e265cabfb31b3d65f049"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\Contents.json": {
+    "mtime": 1782614271.004992,
+    "ast_hash": "b9e927ac17345f2d5f052fe68a3487f9",
+    "semantic_hash": "b9e927ac17345f2d5f052fe68a3487f9"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\RunnerTests\\RunnerTests.swift": {
+    "mtime": 1782614271.0096426,
+    "ast_hash": "24e5d095048eb86c30423f4e04b6e57b",
+    "semantic_hash": "24e5d095048eb86c30423f4e04b6e57b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\main.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "a96655035ae551b0eb23947b2180eb43",
+    "semantic_hash": "a96655035ae551b0eb23947b2180eb43"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\app_database.dart": {
+    "mtime": 1782730094.7635686,
+    "ast_hash": "924f85d778f2998be6d791ae1b85f450",
+    "semantic_hash": "924f85d778f2998be6d791ae1b85f450"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\app_database.g.dart": {
+    "mtime": 1782730094.7645752,
+    "ast_hash": "8dace92e606a48bbcc4606764bc03658",
+    "semantic_hash": "8dace92e606a48bbcc4606764bc03658"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\daos\\daily_log_dao.dart": {
+    "mtime": 1782730094.7655694,
+    "ast_hash": "e9e2d5daf6928a38b4f068b8e15c86cd",
+    "semantic_hash": "e9e2d5daf6928a38b4f068b8e15c86cd"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\daos\\daily_log_dao.g.dart": {
+    "mtime": 1782730094.7655694,
+    "ast_hash": "bdba7407c349c9e22df2d1a482ee9a11",
+    "semantic_hash": "bdba7407c349c9e22df2d1a482ee9a11"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\daos\\plant_dao.dart": {
+    "mtime": 1782730094.7655694,
+    "ast_hash": "306a2c78f6ee7f7e5782aaeb86761ff7",
+    "semantic_hash": "306a2c78f6ee7f7e5782aaeb86761ff7"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\daos\\plant_dao.g.dart": {
+    "mtime": 1782730094.7665744,
+    "ast_hash": "ff1bc3667193b056ef05c150fcba845a",
+    "semantic_hash": "ff1bc3667193b056ef05c150fcba845a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\tables\\daily_log_table.dart": {
+    "mtime": 1782730094.7665744,
+    "ast_hash": "e1531cd17a96eff78a30a323a99d123e",
+    "semantic_hash": "e1531cd17a96eff78a30a323a99d123e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\database\\tables\\plant_table.dart": {
+    "mtime": 1782730094.7675755,
+    "ast_hash": "415ef31769f6d0717071d75d05db060e",
+    "semantic_hash": "415ef31769f6d0717071d75d05db060e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\mappers\\daily_log_mapper.dart": {
+    "mtime": 1782730094.7675755,
+    "ast_hash": "9355ff33541e91b8f68056915f89f6a0",
+    "semantic_hash": "9355ff33541e91b8f68056915f89f6a0"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\mappers\\plant_mapper.dart": {
+    "mtime": 1782730094.7685738,
+    "ast_hash": "9cf564b38c4025dbbee0514c8fb7d00d",
+    "semantic_hash": "9cf564b38c4025dbbee0514c8fb7d00d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\data\\repositories\\plant_repository.dart": {
+    "mtime": 1782730094.7685738,
+    "ast_hash": "1ad99a2f0ec89c5effa6b6242cb574e1",
+    "semantic_hash": "1ad99a2f0ec89c5effa6b6242cb574e1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\engine\\ca_engine.dart": {
+    "mtime": 1782730094.7695744,
+    "ast_hash": "87f5a5899e84734a8eef5339c6852cfc",
+    "semantic_hash": "87f5a5899e84734a8eef5339c6852cfc"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\engine\\recommendation_engine.dart": {
+    "mtime": 1782730094.770079,
+    "ast_hash": "b4f52c46baa869d6f81e683b0ce37e4f",
+    "semantic_hash": "b4f52c46baa869d6f81e683b0ce37e4f"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\daily_log.dart": {
+    "mtime": 1782730094.770079,
+    "ast_hash": "134bc9dbf843b7d6fa52d0fc6b784d6d",
+    "semantic_hash": "134bc9dbf843b7d6fa52d0fc6b784d6d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\day_prediction.dart": {
+    "mtime": 1782730094.771093,
+    "ast_hash": "0bdf5dc5a6b9d2ec3062f993e7fd8644",
+    "semantic_hash": "0bdf5dc5a6b9d2ec3062f993e7fd8644"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\enums.dart": {
+    "mtime": 1782730094.771093,
+    "ast_hash": "91e49ec5e79d99e0ce04017dc7b5f8e8",
+    "semantic_hash": "91e49ec5e79d99e0ce04017dc7b5f8e8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\environment_profile.dart": {
+    "mtime": 1782730094.771093,
+    "ast_hash": "a96588ff1b3bc55f6747df32abce420c",
+    "semantic_hash": "a96588ff1b3bc55f6747df32abce420c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\plant.dart": {
+    "mtime": 1782730094.772093,
+    "ast_hash": "de26f75af56caad147f7f010c8657b3d",
+    "semantic_hash": "de26f75af56caad147f7f010c8657b3d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\domain\\models\\recommendation.dart": {
+    "mtime": 1782730094.772093,
+    "ast_hash": "f1316022b7ffa24ba3dd3ab41b67441d",
+    "semantic_hash": "f1316022b7ffa24ba3dd3ab41b67441d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\features\\about\\presentation\\about_screen.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "12f3eddc587b52d404d6c0ca9ba09ac8",
+    "semantic_hash": "12f3eddc587b52d404d6c0ca9ba09ac8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\features\\ca_visualization\\presentation\\ca_visualization_screen.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "2e96db8a038feca2af471e917471fff9",
+    "semantic_hash": "2e96db8a038feca2af471e917471fff9"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\features\\dashboard\\presentation\\dashboard_screen.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "3bf1ab68d5482b58f1856c6c33b8d1a3",
+    "semantic_hash": "3bf1ab68d5482b58f1856c6c33b8d1a3"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\features\\plant_detail\\presentation\\plant_details_screen.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "0696e70e5c3625ab0d9cf2eec6e3a7ec",
+    "semantic_hash": "0696e70e5c3625ab0d9cf2eec6e3a7ec"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\features\\plant_form\\presentation\\add_plant_screen.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "9eb958f4c5f1fc33824f1942077f0d42",
+    "semantic_hash": "9eb958f4c5f1fc33824f1942077f0d42"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\providers\\database_provider.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "6fb53fa8f6c93072f4b7946c26541ba9",
+    "semantic_hash": "6fb53fa8f6c93072f4b7946c26541ba9"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\providers\\plant_providers.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "dbc7c83048c7312c62aba1db450157ed",
+    "semantic_hash": "dbc7c83048c7312c62aba1db450157ed"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\lib\\providers\\prediction_providers.dart": {
+    "mtime": 1782730094.7730901,
+    "ast_hash": "dbe4bcc15ec6ee653ddcc599b7b615f0",
+    "semantic_hash": "dbe4bcc15ec6ee653ddcc599b7b615f0"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\flutter\\generated_plugin_registrant.cc": {
+    "mtime": 1782730094.779636,
+    "ast_hash": "5001890ff475e53f3810c3f1f6b384eb",
+    "semantic_hash": "5001890ff475e53f3810c3f1f6b384eb"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\flutter\\generated_plugin_registrant.h": {
+    "mtime": 1782614271.0146437,
+    "ast_hash": "0208db974972d7b29a0ac368be83644b",
+    "semantic_hash": "0208db974972d7b29a0ac368be83644b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\runner\\main.cc": {
+    "mtime": 1782614271.0156379,
+    "ast_hash": "539395bcd63dba20afed0838d136189f",
+    "semantic_hash": "539395bcd63dba20afed0838d136189f"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\runner\\my_application.cc": {
+    "mtime": 1782614271.0156379,
+    "ast_hash": "75d3f71065f959adcd172e33002cf323",
+    "semantic_hash": "75d3f71065f959adcd172e33002cf323"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\runner\\my_application.h": {
+    "mtime": 1782614271.0169744,
+    "ast_hash": "ffa1a7c0a2ad45a2c14a921596516ff8",
+    "semantic_hash": "ffa1a7c0a2ad45a2c14a921596516ff8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Flutter\\GeneratedPluginRegistrant.swift": {
+    "mtime": 1782730094.780159,
+    "ast_hash": "345f2084b56895f90cdb8090a32b1832",
+    "semantic_hash": "345f2084b56895f90cdb8090a32b1832"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\AppDelegate.swift": {
+    "mtime": 1782614271.021979,
+    "ast_hash": "4b52e0b89ebfef9baf45b04548c463d6",
+    "semantic_hash": "4b52e0b89ebfef9baf45b04548c463d6"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\MainFlutterWindow.swift": {
+    "mtime": 1782614271.0289824,
+    "ast_hash": "93c22dae2d93f3dc1402e121901f582b",
+    "semantic_hash": "93c22dae2d93f3dc1402e121901f582b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Contents.json": {
+    "mtime": 1782614271.0229778,
+    "ast_hash": "1d48e925145d4b573a3b5d7960a1c585",
+    "semantic_hash": "1d48e925145d4b573a3b5d7960a1c585"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\RunnerTests\\RunnerTests.swift": {
+    "mtime": 1782614271.0299869,
+    "ast_hash": "8059f5d27a19c556eeafb49b3f9b7bdd",
+    "semantic_hash": "8059f5d27a19c556eeafb49b3f9b7bdd"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\test\\ca_engine_test.dart": {
+    "mtime": 1782730094.780159,
+    "ast_hash": "8e4c9fe4f96b854ae14737079acd2fff",
+    "semantic_hash": "8e4c9fe4f96b854ae14737079acd2fff"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\test\\widget_test.dart": {
+    "mtime": 1782730094.780159,
+    "ast_hash": "8cb7f2ef0388000668337aae309fb68d",
+    "semantic_hash": "8cb7f2ef0388000668337aae309fb68d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\manifest.json": {
+    "mtime": 1782614271.0346785,
+    "ast_hash": "647c6d1d84470b45c06ce93a947aee03",
+    "semantic_hash": "647c6d1d84470b45c06ce93a947aee03"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\flutter\\generated_plugin_registrant.cc": {
+    "mtime": 1782730094.780159,
+    "ast_hash": "e99f452faa8316a2cde4716ad6f48d04",
+    "semantic_hash": "e99f452faa8316a2cde4716ad6f48d04"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\flutter\\generated_plugin_registrant.h": {
+    "mtime": 1782614271.0366929,
+    "ast_hash": "0c3df6700414e7f332dfa2582a1ae29e",
+    "semantic_hash": "0c3df6700414e7f332dfa2582a1ae29e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\flutter_window.cpp": {
+    "mtime": 1782614271.0396874,
+    "ast_hash": "2f463f9b7da67a2d692a012f9ea85e0c",
+    "semantic_hash": "2f463f9b7da67a2d692a012f9ea85e0c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\flutter_window.h": {
+    "mtime": 1782614271.0396874,
+    "ast_hash": "7defcc89d4a26d56e801241d624d48fb",
+    "semantic_hash": "7defcc89d4a26d56e801241d624d48fb"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\main.cpp": {
+    "mtime": 1782614271.0406876,
+    "ast_hash": "fb77f7851b54aa920617d058b26ad6b0",
+    "semantic_hash": "fb77f7851b54aa920617d058b26ad6b0"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\resource.h": {
+    "mtime": 1782614271.0406876,
+    "ast_hash": "1ade5dd15e613479a15e8832ed276f2b",
+    "semantic_hash": "1ade5dd15e613479a15e8832ed276f2b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\utils.cpp": {
+    "mtime": 1782614271.0416934,
+    "ast_hash": "e18900a4c2c2962ad732d3b83f0396b9",
+    "semantic_hash": "e18900a4c2c2962ad732d3b83f0396b9"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\utils.h": {
+    "mtime": 1782614271.0426943,
+    "ast_hash": "fd81e143f5614eb6fd75efe539002853",
+    "semantic_hash": "fd81e143f5614eb6fd75efe539002853"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\win32_window.cpp": {
+    "mtime": 1782614271.0426943,
+    "ast_hash": "571eb8234dbc2661be03aa5f2a4d2fca",
+    "semantic_hash": "571eb8234dbc2661be03aa5f2a4d2fca"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\win32_window.h": {
+    "mtime": 1782614271.0426943,
+    "ast_hash": "7569387d58711ab975940f4df3b4bcda",
+    "semantic_hash": "7569387d58711ab975940f4df3b4bcda"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\tool\\choose_skill.dart": {
+    "mtime": 1782730094.780159,
+    "ast_hash": "dafca67a40cc586d269c0ab0fa286538",
+    "semantic_hash": "dafca67a40cc586d269c0ab0fa286538"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\README.md": {
+    "mtime": 1782542056.440598,
+    "ast_hash": "adb5ecabf7358485ac02b971f3d373c7",
+    "semantic_hash": "adb5ecabf7358485ac02b971f3d373c7"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\AGENTS.md": {
+    "mtime": 1782730094.753253,
+    "ast_hash": "f4f3f2072d452c3fd3877b4bd3cb9452",
+    "semantic_hash": "f4f3f2072d452c3fd3877b4bd3cb9452"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-add-integration-test\\SKILL.md": {
+    "mtime": 1782730094.754324,
+    "ast_hash": "5eb8e43c9003b77922fcfee4ef769e5e",
+    "semantic_hash": "5eb8e43c9003b77922fcfee4ef769e5e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-add-widget-preview\\SKILL.md": {
+    "mtime": 1782730094.7548606,
+    "ast_hash": "ed986e89480f34737bf75c684153ea92",
+    "semantic_hash": "ed986e89480f34737bf75c684153ea92"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-add-widget-test\\SKILL.md": {
+    "mtime": 1782730094.7559154,
+    "ast_hash": "2f164d9f31c6b986fc05a431f933c642",
+    "semantic_hash": "2f164d9f31c6b986fc05a431f933c642"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-apply-architecture-best-practices\\SKILL.md": {
+    "mtime": 1782730094.7564454,
+    "ast_hash": "c475304b95d37c3f58d411ba603e5034",
+    "semantic_hash": "c475304b95d37c3f58d411ba603e5034"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-build-responsive-layout\\SKILL.md": {
+    "mtime": 1782730094.7569816,
+    "ast_hash": "e8b3e480ed870a8cd53ffbe507af3c49",
+    "semantic_hash": "e8b3e480ed870a8cd53ffbe507af3c49"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-fix-layout-issues\\SKILL.md": {
+    "mtime": 1782730094.7569816,
+    "ast_hash": "c7e786747a5dc7cd564798147a5b4a32",
+    "semantic_hash": "c7e786747a5dc7cd564798147a5b4a32"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-implement-json-serialization\\SKILL.md": {
+    "mtime": 1782730094.7579923,
+    "ast_hash": "ad23384ac06d048d63ed1833e72dcb9a",
+    "semantic_hash": "ad23384ac06d048d63ed1833e72dcb9a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-setup-declarative-routing\\SKILL.md": {
+    "mtime": 1782730094.7579923,
+    "ast_hash": "89dbf25c6b248881072d1e5fde1c8ecf",
+    "semantic_hash": "89dbf25c6b248881072d1e5fde1c8ecf"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-setup-localization\\SKILL.md": {
+    "mtime": 1782730094.7595632,
+    "ast_hash": "8592da5f0e92210344e1a6cec892c34d",
+    "semantic_hash": "8592da5f0e92210344e1a6cec892c34d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\.agents\\skills\\flutter-use-http-package\\SKILL.md": {
+    "mtime": 1782730094.7605748,
+    "ast_hash": "06ccfed6b8e5ad6cc798e1cb65268f57",
+    "semantic_hash": "06ccfed6b8e5ad6cc798e1cb65268f57"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\assets\\README.md": {
+    "mtime": 1782542057.04119,
+    "ast_hash": "678d162f86a5cca4335dec2973c1b22b",
+    "semantic_hash": "678d162f86a5cca4335dec2973c1b22b"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\assets\\icons\\README.md": {
+    "mtime": 1782542063.84645,
+    "ast_hash": "eeb18d8cb7d5a6a8980cecee2e20f4ee",
+    "semantic_hash": "eeb18d8cb7d5a6a8980cecee2e20f4ee"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\assets\\images\\README.md": {
+    "mtime": 1782542059.753981,
+    "ast_hash": "096d17d5a6679a6c9b7f3c500a1ff54a",
+    "semantic_hash": "096d17d5a6679a6c9b7f3c500a1ff54a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\assets\\mockups\\README.md": {
+    "mtime": 1782542067.0272632,
+    "ast_hash": "8b312741da3b4eb149ced75d19f373ab",
+    "semantic_hash": "8b312741da3b4eb149ced75d19f373ab"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\assets\\references\\README.md": {
+    "mtime": 1782542074.1876502,
+    "ast_hash": "ca3b5956b96cec4395f652d4852be831",
+    "semantic_hash": "ca3b5956b96cec4395f652d4852be831"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\deliverables\\README.md": {
+    "mtime": 1782542088.4138515,
+    "ast_hash": "2e87b3f1fd61cfb30f61499c76de9c23",
+    "semantic_hash": "2e87b3f1fd61cfb30f61499c76de9c23"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\architecture_and_tech_stack.md": {
+    "mtime": 1782623883.7826943,
+    "ast_hash": "6ef85b19061d9daa1931756db804ac9d",
+    "semantic_hash": "6ef85b19061d9daa1931756db804ac9d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\architecture_flow.html": {
+    "mtime": 1782730094.7615743,
+    "ast_hash": "75c525cea4be4e0275a65cea0f3e3aa5",
+    "semantic_hash": "75c525cea4be4e0275a65cea0f3e3aa5"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\README.md": {
+    "mtime": 1782542044.784749,
+    "ast_hash": "69b692a869b93a861b9f989901b335b1",
+    "semantic_hash": "69b692a869b93a861b9f989901b335b1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\academic\\README.md": {
+    "mtime": 1782542116.44485,
+    "ast_hash": "75baec0a74c1f62930187014993c7122",
+    "semantic_hash": "75baec0a74c1f62930187014993c7122"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\design\\README.md": {
+    "mtime": 1782542116.443857,
+    "ast_hash": "d4bbd4476aeba12923e5715d2ab848a4",
+    "semantic_hash": "d4bbd4476aeba12923e5715d2ab848a4"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\design\\screen_flow.md": {
+    "mtime": 1782542116.443857,
+    "ast_hash": "d4a591fd7441f981f04b57c20e6e8646",
+    "semantic_hash": "d4a591fd7441f981f04b57c20e6e8646"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\questionnaire\\client_questionnaire.md": {
+    "mtime": 1782542116.443857,
+    "ast_hash": "22f935d68d783768f973bc8c615b1f4a",
+    "semantic_hash": "22f935d68d783768f973bc8c615b1f4a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\questionnaire\\client_responses.md": {
+    "mtime": 1782542116.443857,
+    "ast_hash": "20041542d40588865ad794dc1e968c50",
+    "semantic_hash": "20041542d40588865ad794dc1e968c50"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\specs\\ca_model_spec.md": {
+    "mtime": 1782542116.4428499,
+    "ast_hash": "233348c6f15cd30fcb2310de818820be",
+    "semantic_hash": "233348c6f15cd30fcb2310de818820be"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\specs\\data_models.md": {
+    "mtime": 1782623856.8361163,
+    "ast_hash": "4217f41b7e625efda4b84ce9aa4188d1",
+    "semantic_hash": "4217f41b7e625efda4b84ce9aa4188d1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\docs\\specs\\verditech_spec.md": {
+    "mtime": 1782542116.4428499,
+    "ast_hash": "4460cd7a27f9a75de4c0181b0d3e2aec",
+    "semantic_hash": "4460cd7a27f9a75de4c0181b0d3e2aec"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\changelog.md": {
+    "mtime": 1782730094.7615743,
+    "ast_hash": "eb3c82714e0a85e01106d938c118a7d8",
+    "semantic_hash": "eb3c82714e0a85e01106d938c118a7d8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\client_communication.md": {
+    "mtime": 1782614270.9578526,
+    "ast_hash": "53568457ad96084392120f75c88e35ca",
+    "semantic_hash": "53568457ad96084392120f75c88e35ca"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\constraints.md": {
+    "mtime": 1782542295.3759089,
+    "ast_hash": "868dd8228da27b7b04de76164c368d65",
+    "semantic_hash": "868dd8228da27b7b04de76164c368d65"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\decisions.md": {
+    "mtime": 1782730094.7625697,
+    "ast_hash": "8669c7591195dd12b5e2f41073ef02e5",
+    "semantic_hash": "8669c7591195dd12b5e2f41073ef02e5"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\domain_knowledge.md": {
+    "mtime": 1782614270.9588604,
+    "ast_hash": "7bf10b896ed0e689beb77e444a63235a",
+    "semantic_hash": "7bf10b896ed0e689beb77e444a63235a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\errors_and_solutions.md": {
+    "mtime": 1782730094.7625697,
+    "ast_hash": "1f3fa645e42669e7eb5498f740c184e8",
+    "semantic_hash": "1f3fa645e42669e7eb5498f740c184e8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\features.md": {
+    "mtime": 1782623862.3681476,
+    "ast_hash": "2d3614b9337cfb9552681276c2d93fb7",
+    "semantic_hash": "2d3614b9337cfb9552681276c2d93fb7"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\milestones.md": {
+    "mtime": 1782730094.7635686,
+    "ast_hash": "50f7c36fcc6569e425c2ab759a6f7467",
+    "semantic_hash": "50f7c36fcc6569e425c2ab759a6f7467"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\references.md": {
+    "mtime": 1782542436.5677104,
+    "ast_hash": "7176c0b5c5bd39c0f1862e17f1cddc13",
+    "semantic_hash": "7176c0b5c5bd39c0f1862e17f1cddc13"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\requirements.md": {
+    "mtime": 1782623867.0243802,
+    "ast_hash": "e3e8bcb02ae1859d206194d329e1fa8a",
+    "semantic_hash": "e3e8bcb02ae1859d206194d329e1fa8a"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\research.md": {
+    "mtime": 1782542327.6128285,
+    "ast_hash": "047eb85516b704ffde8b3cb933ca4d2d",
+    "semantic_hash": "047eb85516b704ffde8b3cb933ca4d2d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\risks.md": {
+    "mtime": 1782542368.3822222,
+    "ast_hash": "99391ead16845471dcac3ab31ae67d72",
+    "semantic_hash": "99391ead16845471dcac3ab31ae67d72"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\scope.md": {
+    "mtime": 1782623876.270637,
+    "ast_hash": "ddd5f0891a0e15c1c2fe36e3677963ba",
+    "semantic_hash": "ddd5f0891a0e15c1c2fe36e3677963ba"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\memory\\techstack.md": {
+    "mtime": 1782614270.9608612,
+    "ast_hash": "2cfc1ea0e3051c34621c81598033fe15",
+    "semantic_hash": "2cfc1ea0e3051c34621c81598033fe15"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\analysis_options.yaml": {
+    "mtime": 1782614270.961862,
+    "ast_hash": "9e65f4b9beebb674c0dc252f70a5c177",
+    "semantic_hash": "9e65f4b9beebb674c0dc252f70a5c177"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\pubspec.yaml": {
+    "mtime": 1782614271.030987,
+    "ast_hash": "6faacbb22cc1124a8c8b34e056cee3ed",
+    "semantic_hash": "6faacbb22cc1124a8c8b34e056cee3ed"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\README.md": {
+    "mtime": 1782542080.964829,
+    "ast_hash": "8929c04172092e366f1f54720d2e1693",
+    "semantic_hash": "8929c04172092e366f1f54720d2e1693"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\README.md": {
+    "mtime": 1782614271.007098,
+    "ast_hash": "f7ee1b402881509d197f34963e569927",
+    "semantic_hash": "f7ee1b402881509d197f34963e569927"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\CMakeLists.txt": {
+    "mtime": 1782614271.0136383,
+    "ast_hash": "ebc2fcd570230167621e567399c6a636",
+    "semantic_hash": "ebc2fcd570230167621e567399c6a636"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\flutter\\CMakeLists.txt": {
+    "mtime": 1782614271.0136383,
+    "ast_hash": "2195470ce31675d31db5a37590d011f6",
+    "semantic_hash": "2195470ce31675d31db5a37590d011f6"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\linux\\runner\\CMakeLists.txt": {
+    "mtime": 1782614271.0156379,
+    "ast_hash": "30cc1614b16214b66c014af09ba699eb",
+    "semantic_hash": "30cc1614b16214b66c014af09ba699eb"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\index.html": {
+    "mtime": 1782614271.0346785,
+    "ast_hash": "b6afff0b09379be7e5808033b3c20b8e",
+    "semantic_hash": "b6afff0b09379be7e5808033b3c20b8e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\CMakeLists.txt": {
+    "mtime": 1782614271.035682,
+    "ast_hash": "8bfedff3e9973d5f2cb5bbd2ed9e579f",
+    "semantic_hash": "8bfedff3e9973d5f2cb5bbd2ed9e579f"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\flutter\\CMakeLists.txt": {
+    "mtime": 1782614271.0366929,
+    "ast_hash": "bbf66fed5180bd9ae8198b8d7c4a0001",
+    "semantic_hash": "bbf66fed5180bd9ae8198b8d7c4a0001"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\windows\\runner\\CMakeLists.txt": {
+    "mtime": 1782614271.0376892,
+    "ast_hash": "028602ab9754bffe716659ada7590d29",
+    "semantic_hash": "028602ab9754bffe716659ada7590d29"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\tests\\README.md": {
+    "mtime": 1782542088.2436764,
+    "ast_hash": "999a188fe5f98101f4cf21d9e7348f0c",
+    "semantic_hash": "999a188fe5f98101f4cf21d9e7348f0c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png": {
+    "mtime": 1782614270.9839716,
+    "ast_hash": "13e9c72ec37fac220397aa819fa1ef2d",
+    "semantic_hash": "13e9c72ec37fac220397aa819fa1ef2d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png": {
+    "mtime": 1782614270.9839716,
+    "ast_hash": "6270344430679711b81476e29878caa7",
+    "semantic_hash": "6270344430679711b81476e29878caa7"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\res\\mipmap-xhdpi\\ic_launcher.png": {
+    "mtime": 1782614270.9849706,
+    "ast_hash": "a0a8db5985280b3679d99a820ae2db79",
+    "semantic_hash": "a0a8db5985280b3679d99a820ae2db79"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher.png": {
+    "mtime": 1782614270.9859712,
+    "ast_hash": "afe1b655b9f32da22f9a4301bb8e6ba8",
+    "semantic_hash": "afe1b655b9f32da22f9a4301bb8e6ba8"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\android\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png": {
+    "mtime": 1782614270.9859712,
+    "ast_hash": "57838d52c318faff743130c3fcfae0c6",
+    "semantic_hash": "57838d52c318faff743130c3fcfae0c6"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-1024x1024@1x.png": {
+    "mtime": 1782614270.9999914,
+    "ast_hash": "c785f8932297af4acd5f5ccb7630f01c",
+    "semantic_hash": "c785f8932297af4acd5f5ccb7630f01c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-20x20@1x.png": {
+    "mtime": 1782614270.9999914,
+    "ast_hash": "a2f8558fb1d42514111fbbb19fb67314",
+    "semantic_hash": "a2f8558fb1d42514111fbbb19fb67314"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-20x20@2x.png": {
+    "mtime": 1782614270.9999914,
+    "ast_hash": "2247a840b6ee72b8a069208af170e5b1",
+    "semantic_hash": "2247a840b6ee72b8a069208af170e5b1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-20x20@3x.png": {
+    "mtime": 1782614271.0009966,
+    "ast_hash": "1b3b1538136316263c7092951e923e9d",
+    "semantic_hash": "1b3b1538136316263c7092951e923e9d"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-29x29@1x.png": {
+    "mtime": 1782614271.0009966,
+    "ast_hash": "be8887071dd7ec39cb754d236aa9584f",
+    "semantic_hash": "be8887071dd7ec39cb754d236aa9584f"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-29x29@2x.png": {
+    "mtime": 1782614271.0009966,
+    "ast_hash": "043119ef4faa026ff82bd03f241e5338",
+    "semantic_hash": "043119ef4faa026ff82bd03f241e5338"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-29x29@3x.png": {
+    "mtime": 1782614271.0019925,
+    "ast_hash": "2b1452c4c1bda6177b4fbbb832df217f",
+    "semantic_hash": "2b1452c4c1bda6177b4fbbb832df217f"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-40x40@1x.png": {
+    "mtime": 1782614271.0019925,
+    "ast_hash": "2247a840b6ee72b8a069208af170e5b1",
+    "semantic_hash": "2247a840b6ee72b8a069208af170e5b1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-40x40@2x.png": {
+    "mtime": 1782614271.0019925,
+    "ast_hash": "8245359312aea1b0d2412f79a07b0ca5",
+    "semantic_hash": "8245359312aea1b0d2412f79a07b0ca5"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-40x40@3x.png": {
+    "mtime": 1782614271.0029912,
+    "ast_hash": "5b3c0902200ce596e9848f22e1f0fe0e",
+    "semantic_hash": "5b3c0902200ce596e9848f22e1f0fe0e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-60x60@2x.png": {
+    "mtime": 1782614271.0029912,
+    "ast_hash": "5b3c0902200ce596e9848f22e1f0fe0e",
+    "semantic_hash": "5b3c0902200ce596e9848f22e1f0fe0e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-60x60@3x.png": {
+    "mtime": 1782614271.0029912,
+    "ast_hash": "e419d22a37bc40ba185aca1acb6d4ac6",
+    "semantic_hash": "e419d22a37bc40ba185aca1acb6d4ac6"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-76x76@1x.png": {
+    "mtime": 1782614271.0029912,
+    "ast_hash": "36c0d7a7132bdde18898ffdfcfcdc4d2",
+    "semantic_hash": "36c0d7a7132bdde18898ffdfcfcdc4d2"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-76x76@2x.png": {
+    "mtime": 1782614271.0039916,
+    "ast_hash": "643842917530acf4c5159ae851b0baf2",
+    "semantic_hash": "643842917530acf4c5159ae851b0baf2"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\AppIcon.appiconset\\Icon-App-83.5x83.5@2x.png": {
+    "mtime": 1782614271.0039916,
+    "ast_hash": "665cb5e3c5729da6d639d26eff47a503",
+    "semantic_hash": "665cb5e3c5729da6d639d26eff47a503"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage.png": {
+    "mtime": 1782614271.004992,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage@2x.png": {
+    "mtime": 1782614271.0059984,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\ios\\Runner\\Assets.xcassets\\LaunchImage.imageset\\LaunchImage@3x.png": {
+    "mtime": 1782614271.0059984,
+    "ast_hash": "978c1bee49d7ad5fc1a4d81099b13e18",
+    "semantic_hash": "978c1bee49d7ad5fc1a4d81099b13e18"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_1024.png": {
+    "mtime": 1782614271.0239787,
+    "ast_hash": "c9becc9105f8cabce934d20c7bfb6aac",
+    "semantic_hash": "c9becc9105f8cabce934d20c7bfb6aac"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_128.png": {
+    "mtime": 1782614271.0239787,
+    "ast_hash": "3ded30823804caaa5ccc944067c54a36",
+    "semantic_hash": "3ded30823804caaa5ccc944067c54a36"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_16.png": {
+    "mtime": 1782614271.0249789,
+    "ast_hash": "8bf511604bc6ed0a6aeb380c5113fdcf",
+    "semantic_hash": "8bf511604bc6ed0a6aeb380c5113fdcf"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_256.png": {
+    "mtime": 1782614271.0249789,
+    "ast_hash": "dfe2c93d1536ae02f085cc63faa3430e",
+    "semantic_hash": "dfe2c93d1536ae02f085cc63faa3430e"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_32.png": {
+    "mtime": 1782614271.0259786,
+    "ast_hash": "8e0ae58e362a6636bdfccbc04da2c58c",
+    "semantic_hash": "8e0ae58e362a6636bdfccbc04da2c58c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_512.png": {
+    "mtime": 1782614271.0259786,
+    "ast_hash": "0ad44039155424738917502c69667699",
+    "semantic_hash": "0ad44039155424738917502c69667699"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\macos\\Runner\\Assets.xcassets\\AppIcon.appiconset\\app_icon_64.png": {
+    "mtime": 1782614271.0264828,
+    "ast_hash": "04e7b6ef05346c70b663ca1d97de3ad5",
+    "semantic_hash": "04e7b6ef05346c70b663ca1d97de3ad5"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\favicon.png": {
+    "mtime": 1782614271.032689,
+    "ast_hash": "5dcef449791fa27946b3d35ad8803796",
+    "semantic_hash": "5dcef449791fa27946b3d35ad8803796"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\icons\\Icon-192.png": {
+    "mtime": 1782614271.032689,
+    "ast_hash": "ac9a721a12bbc803b44f645561ecb1e1",
+    "semantic_hash": "ac9a721a12bbc803b44f645561ecb1e1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\icons\\Icon-512.png": {
+    "mtime": 1782614271.0336933,
+    "ast_hash": "96e752610906ba2a93c65f8abe1645f1",
+    "semantic_hash": "96e752610906ba2a93c65f8abe1645f1"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\icons\\Icon-maskable-192.png": {
+    "mtime": 1782614271.0336933,
+    "ast_hash": "c457ef57daa1d16f64b27b786ec2ea3c",
+    "semantic_hash": "c457ef57daa1d16f64b27b786ec2ea3c"
+  },
+  "C:\\Users\\user\\Documents\\ANDREI_FILES\\DEVFILES\\COMMISSIONS\\Temp\\src\\web\\icons\\Icon-maskable-512.png": {
+    "mtime": 1782614271.0346785,
+    "ast_hash": "301a7604d45b3e739efc881eb04896ea",
+    "semantic_hash": "301a7604d45b3e739efc881eb04896ea"
+  }
+}

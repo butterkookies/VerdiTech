@@ -169,6 +169,7 @@ class _PlantDetailsContent extends ConsumerWidget {
                       : isCurrentOrFuture
                           ? Colors.grey
                           : Colors.green,
+                  imagePath: _imageForStage(stage),
                 );
               },
             ),
@@ -243,12 +244,23 @@ class _PlantDetailsContent extends ConsumerWidget {
     }
   }
 
+  String _imageForStage(GrowthStage stage) {
+    switch (stage) {
+      case GrowthStage.seedling: return 'assets/images/seedling.png';
+      case GrowthStage.youngPlant: return 'assets/images/young_plant.png';
+      case GrowthStage.flowering: return 'assets/images/flowering.png';
+      case GrowthStage.fruiting: return 'assets/images/fruiting.png';
+      case GrowthStage.harvestReady: return 'assets/images/harvest_ready.png';
+    }
+  }
+
   Widget _buildTimelineItem(
     BuildContext context, {
     required String title,
     required String subtitle,
     required IconData icon,
     required Color color,
+    String? imagePath,
   }) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 16.0),
@@ -259,7 +271,7 @@ class _PlantDetailsContent extends ConsumerWidget {
             children: [
               Icon(icon, color: color),
               const SizedBox(height: 4),
-              Container(width: 2, height: 30, color: Colors.grey.shade300),
+              Container(width: 2, height: imagePath != null ? 70 : 30, color: Colors.grey.shade300),
             ],
           ),
           const SizedBox(width: 16),
@@ -273,6 +285,18 @@ class _PlantDetailsContent extends ConsumerWidget {
                 const SizedBox(height: 4),
                 Text(subtitle,
                     style: TextStyle(color: Colors.grey.shade600)),
+                if (imagePath != null) ...[
+                  const SizedBox(height: 8),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(8),
+                    child: Image.asset(
+                      imagePath,
+                      height: 60,
+                      fit: BoxFit.contain,
+                      gaplessPlayback: true,
+                    ),
+                  ),
+                ],
               ],
             ),
           ),

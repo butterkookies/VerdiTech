@@ -179,7 +179,8 @@ gantt
 - [ ] Performance optimization
 - [ ] Final UI polish (animations, transitions, error states)
 - [ ] Build release APK
-- [ ] Test release APK on physical device
+- [x] App verified working on emulator/physical device by client
+- [ ] **NEW**: Integrate "Living Earth" Figma Make UI enhancements (Branch: `feature/ui-enhancements-living-earth`)
 - [ ] Prepare user guide / documentation (if needed for thesis)
 - [ ] Prepare demo script for thesis defense (if requested)
 - [ ] Final code cleanup and documentation

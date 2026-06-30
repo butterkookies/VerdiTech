@@ -34,9 +34,12 @@ class DashboardScreen extends ConsumerWidget {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(Icons.local_florist,
-                      size: 64, color: Colors.grey.shade400),
-                  const SizedBox(height: 16),
+                  Image.asset(
+                    'assets/images/empty_pot.png',
+                    height: 120,
+                    fit: BoxFit.contain,
+                  ),
+                  const SizedBox(height: 24),
                   Text(
                     'No plants tracked yet.',
                     style: Theme.of(context).textTheme.titleLarge,
@@ -51,7 +54,10 @@ class DashboardScreen extends ConsumerWidget {
             padding: const EdgeInsets.all(16),
             itemCount: plants.length,
             itemBuilder: (context, index) =>
-                _PlantCard(plant: plants[index]),
+                _PlantCard(
+                  key: ValueKey(plants[index].id),
+                  plant: plants[index],
+                ),
           );
         },
       ),
@@ -65,7 +71,7 @@ class DashboardScreen extends ConsumerWidget {
 }
 
 class _PlantCard extends ConsumerWidget {
-  const _PlantCard({required this.plant});
+  const _PlantCard({super.key, required this.plant});
 
   final Plant plant;
 

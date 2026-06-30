@@ -14,6 +14,7 @@ class AddDailyLogDialog extends ConsumerWidget {
     final notifier = ref.read(dailyLogFormProvider.notifier);
 
     return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       title: const Text('Add Daily Log'),
       content: SingleChildScrollView(
         child: Column(
@@ -40,9 +41,9 @@ class AddDailyLogDialog extends ConsumerWidget {
             ),
             const SizedBox(height: 16),
             TextField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 labelText: 'Notes (optional)',
-                border: OutlineInputBorder(),
+                border: OutlineInputBorder(borderRadius: BorderRadius.circular(12)),
               ),
               maxLines: 3,
               onChanged: notifier.updateNote,
@@ -77,7 +78,7 @@ class AddDailyLogDialog extends ConsumerWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         const SizedBox(height: 8),
-        Text('$label: ${value.toInt()}'),
+        Text('$label: ${value.toInt()}', style: Theme.of(context).textTheme.titleSmall),
         Slider(
           value: value,
           min: 1,

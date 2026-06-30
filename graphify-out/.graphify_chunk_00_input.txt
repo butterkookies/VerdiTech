@@ -1,0 +1,2609 @@
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\README.md ===
+# 🌱 VerdiTech *(Temporary Name)*
+
+> **Plant Growth Prediction & Monitoring App using Cellular Automata**
+
+---
+
+| Field       | Details                                |
+|-------------|----------------------------------------|
+| **Status**  | 🟡 Pre-Development (Requirements Gathering) |
+| **Client**  | Senior High School Student             |
+| **Framework** | Flutter (Dart)                       |
+| **Platform** | Android                               |
+| **Phase**   | Phase 0 — Requirements Gathering       |
+
+---
+
+## 📁 Project Structure
+
+```
+Temp/
+├── README.md                          # ← You are here
+├── memory/                            # Project memory & knowledge base
+│   ├── decisions.md                   #   Architectural & design decisions
+│   ├── errors_and_solutions.md        #   Known issues & fixes
+│   ├── features.md                    #   Feature list & descriptions
+│   ├── techstack.md                   #   Technology stack details
+│   ├── requirements.md                #   Functional & non-functional requirements
+│   ├── client_communication.md        #   Client interaction log
+│   ├── changelog.md                   #   Project changelog
+│   ├── constraints.md                 #   Project constraints & limitations
+│   ├── research.md                    #   Research notes (CA algorithms, etc.)
+│   ├── risks.md                       #   Risk register
+│   ├── milestones.md                  #   Project milestones & timeline
+│   ├── scope.md                       #   Project scope definition
+│   └── references.md                  #   External references & resources
+├── docs/                              # Documentation
+│   ├── specs/                         #   Technical specifications
+│   ├── questionnaire/                 #   Client questionnaire & responses
+│   ├── design/                        #   UI/UX design docs
+│   └── academic/                      #   Thesis/capstone deliverables
+├── assets/                            # Design assets
+│   ├── images/                        #   Plant images & app graphics
+│   ├── icons/                         #   App icons & UI icons
+│   ├── mockups/                       #   UI/UX mockup files
+│   └── references/                    #   Reference images & design inspiration
+├── src/                               # Source code (Flutter project)
+├── tests/                             # Test files
+└── deliverables/                      # Final outputs (APK, docs, etc.)
+```
+
+---
+
+## 🔗 Quick Links
+
+- **[Feature List](memory/features.md)** — All planned features and descriptions
+- **[Technical Spec](docs/specs/verditech_spec.md)** — Full technical specification *(pending)*
+- **[Client Questionnaire](docs/questionnaire/client_questionnaire.md)** — Client Q&A for requirements gathering *(pending)*
+- **[Tech Stack](memory/techstack.md)** — Technology choices and rationale
+- **[Decisions Log](memory/decisions.md)** — Key architectural and design decisions
+- **[Requirements](memory/requirements.md)** — Functional & non-functional requirements
+
+---
+
+## 🚦 Current Phase
+
+### Phase 0 — Requirements Gathering
+
+We are currently in the **requirements gathering** phase. The goal is to fully understand what the client needs before writing any code.
+
+**Completed:**
+- [x] Initial project structure created
+- [x] Memory files initialized
+
+**In Progress:**
+- [ ] Client questionnaire preparation
+- [ ] Feature brainstorming
+
+**Up Next:**
+- [ ] Awaiting client questionnaire responses
+- [ ] Requirements finalization
+- [ ] Technical specification drafting
+
+---
+
+## 🗺️ Phase Roadmap
+
+| Phase | Name                        | Status      |
+|-------|-----------------------------|-------------|
+| 0     | Requirements Gathering      | 🟡 Active   |
+| 1     | Specification & Design      | ⬜ Pending  |
+| 2     | Project Initialization      | ⬜ Pending  |
+| 3     | Core Development            | ⬜ Pending  |
+| 4     | Testing & Refinement        | ⬜ Pending  |
+| 5     | Delivery & Documentation    | ⬜ Pending  |
+
+---
+
+## ⏭️ Next Steps
+
+1. **Awaiting client questionnaire responses** — Need answers to finalize requirements
+2. Draft technical specification based on responses
+3. Confirm tech stack with client
+4. Initialize Flutter project in `src/`
+
+---
+
+*Last updated: 2026-06-27*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\assets\README.md ===
+# 📦 Assets
+
+All design and media assets for the VerdiTech project.
+
+---
+
+## 📂 Subfolders
+
+| Folder          | Purpose                                                       |
+|-----------------|---------------------------------------------------------------|
+| **`images/`**   | Plant images, app graphics, and general image assets          |
+| **`icons/`**    | App icons (launcher icons) and in-app UI icons                |
+| **`mockups/`**  | UI/UX mockup files — Figma exports, wireframes, screenshots   |
+| **`references/`** | Reference images and design inspiration collected during research |
+
+---
+
+## 📝 Notes
+
+- Keep assets organized in their respective subfolders
+- Use descriptive filenames (e.g., `home_screen_mockup_v1.png`, not `screenshot1.png`)
+- For Figma files, export as PNG/SVG and place in `mockups/`
+- Original high-resolution files should be kept alongside compressed versions
+
+---
+
+*This directory will be populated during Phases 1–3.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\assets\icons\README.md ===
+# 🎨 Icons
+
+App icons and UI icons go here.
+
+---
+
+## Expected Contents
+
+- **Launcher icons** — App icon in all required sizes (mdpi through xxxhdpi)
+- **UI icons** — Custom icons used within the app interface
+- **Adaptive icons** — Foreground and background layers for Android adaptive icons
+- **SVG sources** — Vector source files for all icons
+
+---
+
+*This folder is currently empty. Icons will be added during the design phase.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\assets\images\README.md ===
+# 🖼️ Images
+
+Plant images and app graphics go here.
+
+---
+
+## Expected Contents
+
+- Plant photography and botanical illustrations
+- App background images and decorative graphics
+- Splash screen artwork
+- In-app illustrations and visual elements
+
+---
+
+*This folder is currently empty. Assets will be added during the design phase.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\assets\mockups\README.md ===
+# 🎯 Mockups
+
+UI/UX mockup files go here (Figma exports, screenshots, etc.)
+
+---
+
+## Expected Contents
+
+- **Wireframes** — Low-fidelity screen layouts
+- **High-fidelity mockups** — Pixel-perfect screen designs
+- **Figma exports** — PNG/SVG exports from Figma design files
+- **Screen flow diagrams** — Navigation and user flow maps
+- **Interactive prototype screenshots** — Captures from prototype walkthroughs
+
+---
+
+## Naming Convention
+
+```
+[screen_name]_[version]_[fidelity].[ext]
+```
+
+Examples:
+- `home_screen_v1_wireframe.png`
+- `plant_detail_v2_hifi.png`
+- `navigation_flow_v1.svg`
+
+---
+
+*This folder is currently empty. Mockups will be added during Phase 1 (Specification & Design).*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\assets\references\README.md ===
+# 💡 References
+
+Reference images and design inspiration go here.
+
+---
+
+## Expected Contents
+
+- Screenshots of similar apps for design inspiration
+- Color palette references
+- Typography samples
+- Plant/nature themed UI examples
+- Cellular automata visualization references
+- Academic paper figures and diagrams
+
+---
+
+*This folder is currently empty. References will be collected during the research and design phases.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\deliverables\README.md ===
+# 📤 Deliverables
+
+Final outputs for the VerdiTech project.
+
+---
+
+## 📱 APK Builds
+
+| Type        | Filename                | Description                          |
+|-------------|-------------------------|--------------------------------------|
+| **Debug**   | `verditech-debug.apk`   | Debug build for testing              |
+| **Release** | `verditech-release.apk` | Signed release build for deployment  |
+
+> APK files will be generated during Phase 4–5. Each build should be versioned and dated.
+
+---
+
+## 📄 Documentation Exports
+
+- Technical specification (PDF)
+- User manual / guide
+- API documentation (if applicable)
+- System architecture diagrams
+
+---
+
+## 🎤 Presentation Materials
+
+- Project presentation slides (PowerPoint / Google Slides)
+- Demo video or screen recordings
+- Poster or infographic (if required)
+
+---
+
+## 🎓 Academic Submissions
+
+- Thesis / Capstone paper (final draft)
+- Abstract and keywords
+- Defense presentation slides
+- Signed approval forms
+- Any supplementary academic documents
+
+---
+
+## 📝 Notes
+
+- All deliverables should include version numbers and dates
+- Keep both draft and final versions where applicable
+- Use the naming convention: `[document_name]_v[version]_[date].[ext]`
+
+---
+
+*This folder is currently empty. Deliverables will be produced during Phases 4–5.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\architecture_and_tech_stack.md ===
+# VerdiTech — Architecture & Tech Stack Guide
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+This guide explains the architectural patterns, state management, and database choices selected for the VerdiTech mobile application. It is written in plain terms to serve as both a developer reference and a resource for the capstone/thesis documentation.
+
+---
+
+## 1. Architectural Pattern: Feature-First (Domain-Driven)
+
+VerdiTech uses a **Feature-First** directory structure. This means the codebase is organized around concrete features (such as `plants` and `predictions`) rather than generic technical layers (like `screens`, `models`, and `controllers`).
+
+### Why Feature-First?
+- **Readability**: Anyone looking at the project can immediately see what the app *does* (its features) rather than just how it is built.
+- **Maintainability**: If you need to modify the Cellular Automata logic, all related code (the formula, the state management, and the result screen) is grouped together.
+- **Thesis Defense Friendly**: Makes it simple to explain the boundaries of the code to a panel.
+
+### The Three Layers of a Feature
+Inside each feature folder, code is separated into three distinct layers to enforce separation of concerns:
+
+```
+lib/features/predictions/
+├── domain/       # 1. Pure Rules & Models (e.g. CA algorithm, Stage durations)
+├── data/         # 2. Database interaction (e.g. Saving prediction history)
+└── presentation/ # 3. Flutter UI (e.g. Input Form, Timeline widgets)
+```
+
+1. **Domain (Business Logic)**: The heart of the feature. Contains the pure mathematical rules of the Cellular Automata engine and the data shapes (Entities). It does not know about databases or Flutter UI widgets.
+2. **Data (Infrastructure)**: Handles communications with local databases (SQLite/Drift).
+3. **Presentation (User Interface)**: Holds the Flutter widgets, buttons, input fields, and layouts that the user interacts with.
+
+---
+
+## 2. Tech Stack Choices & Explanation
+
+The libraries and packages used are defined in the project's [pubspec.yaml](file:///c:/Andrei.dev/Projects/VerdiTech/src/pubspec.yaml).
+
+### Local Relational Database: Drift & SQLite
+- **SQLite**: The industry standard for local data storage on mobile devices. It saves data as tables (rows and columns) inside a secure file on the device.
+- **Drift**: A Dart-friendly ORM (Object-Relational Mapper) wrapper around SQLite.
+  - *Why it's used*: Instead of writing raw SQL database queries (which are easy to mistype and break), Drift allows developers to write query logic using pure Dart. It translates Dart queries to SQLite commands automatically and provides compile-time safety (meaning errors are caught before the app runs).
+  - *Relation to VerdiTech*: Critical for storing multiple plant profiles, saving daily environmental logs (Sunlight, Water, Soil Quality ratings), and maintaining a record of care notes. This supports a time-series history that fuels the prediction engine.
+
+### File Storage Access: Path & Path Provider
+- **Path Provider**: A Flutter package that safely requests folder paths from Android/iOS.
+  - *Why it's used*: Modern mobile operating systems restrict where apps can write files. Path Provider asks Android for the specific app-directory where it is legally allowed to store the database file.
+- **Path**: A small helper library.
+  - *Why it's used*: Ensures file addresses are constructed correctly regardless of the platform (since Windows addresses use `\` and Android uses `/`).
+
+### State Management: Riverpod (with Riverpod Generator)
+- **What is State Management?**: State is any data that changes dynamically in the app (e.g., changing sunlight from Low to High, adding a plant, or displaying prediction results). A state manager coordinates updating the UI when these values change.
+- **Riverpod**: The modern brain of the application.
+  - *Why it's used*: It is compile-safe, testable, and highly reactive. When a user updates sunlight, Riverpod detects the change, triggers the Cellular Automata engine, and instantly updates the Timeline screen without reloading the entire app.
+- **Riverpod Generator**: An automation package.
+  - *Why it's used*: It automatically writes the boilerplate code for Riverpod providers, letting developers focus on writing the actual logic.
+
+---
+
+## 3. Automation: Build Runner
+
+Several of our chosen tools (Drift and Riverpod Generator) require code generation.
+
+- **What is Build Runner?**: A standard tool provided by the Dart team that scans the source code, reads developer annotations (like `@drift` or `@riverpod`), and automatically writes the secondary, complex setup code.
+- **Why we use it**: It automates the creation of database tables and state wiring, keeping the manually written codebase clean and easy to understand.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\architecture_flow.html ===
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VerdiTech Architecture & App Flow</title>
+    <style>
+        :root {
+            --primary: #2E7D32;
+            --primary-light: #C8E6C9;
+            --secondary: #1565C0;
+            --secondary-light: #BBDEFB;
+            --accent: #F57F17;
+            --accent-light: #FFF9C4;
+            --text-dark: #333;
+            --text-light: #fff;
+            --bg-color: #f4f6f8;
+            --card-bg: #ffffff;
+            --border-radius: 8px;
+            
+            /* UI Mockup Colors */
+            --ui-primary: #4CAF50;
+            --ui-primary-dark: #388E3C;
+            --ui-bg: #F5F7F8;
+            --ui-text: #202124;
+            --ui-subtext: #5F6368;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-dark);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary);
+            margin-bottom: 10px;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        button.toggle-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            border: 2px solid var(--primary);
+            background-color: transparent;
+            color: var(--primary);
+            border-radius: 20px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        button.toggle-btn:hover {
+            background-color: var(--primary-light);
+        }
+
+        button.toggle-btn.active {
+            background-color: var(--primary);
+            color: var(--text-light);
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 95%;
+            margin: 0 auto;
+        }
+
+        .section {
+            background: var(--card-bg);
+            border-radius: var(--border-radius);
+            padding: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: opacity 0.4s ease;
+        }
+
+        .section.hidden {
+            display: none;
+            opacity: 0;
+        }
+
+        .section-title {
+            text-align: center;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        /* Architecture Styles */
+        .arch-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            position: relative;
+        }
+
+        .layer {
+            border: 2px dashed #ccc;
+            border-radius: var(--border-radius);
+            padding: 20px;
+            position: relative;
+        }
+
+        .layer-title {
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--card-bg);
+            padding: 0 10px;
+            font-weight: bold;
+            color: #666;
+        }
+
+        .layer-content {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 10px;
+        }
+
+        .component {
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 15px;
+            border-radius: var(--border-radius);
+            text-align: center;
+            min-width: 150px;
+            font-weight: 600;
+            border: 1px solid var(--primary);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        
+        .component.domain {
+            background: var(--secondary-light);
+            color: var(--secondary);
+            border-color: var(--secondary);
+        }
+
+        .component.data {
+            background: var(--accent-light);
+            color: #d84315;
+            border-color: #d84315;
+        }
+
+        .arrow-down {
+            text-align: center;
+            color: #999;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+
+        /* Android Phone Mockup Styles */
+        .phone-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            flex-direction: column;
+        }
+
+        .phone-frame {
+            width: 320px;
+            height: 640px;
+            background-color: #f0f0f0;
+            border: 12px solid #222;
+            border-radius: 36px;
+            position: relative;
+            box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            margin-bottom: 20px;
+        }
+
+        .phone-camera {
+            position: absolute;
+            top: 12px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background-color: #111;
+            border-radius: 50%;
+            z-index: 10;
+        }
+
+        .status-bar {
+            height: 30px;
+            background-color: var(--primary);
+            color: white;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            padding: 0 15px 5px;
+            font-size: 12px;
+            font-weight: bold;
+            z-index: 5;
+        }
+
+        .app-header {
+            background-color: var(--primary);
+            color: white;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: bold;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            z-index: 5;
+        }
+
+        .phone-screen {
+            flex-grow: 1;
+            background-color: #fafafa;
+            padding: 20px;
+            overflow-y: auto;
+            position: relative;
+        }
+
+        .app-flow-step {
+            display: none;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .app-flow-step.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .step-indicator {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+
+        .step-title {
+            color: var(--primary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--primary-light);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+        }
+
+        /* Phone Navigation Footer */
+        .phone-nav {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            background-color: #fff;
+            border-top: 1px solid #ddd;
+        }
+
+        .phone-nav button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .phone-nav button:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+
+        .os-nav-bar {
+            height: 20px;
+            background-color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding-bottom: 5px;
+        }
+        
+        .os-nav-handle {
+            width: 80px;
+            height: 4px;
+            background-color: #ccc;
+            border-radius: 2px;
+        }
+
+
+        /* =========================================
+           ACTUAL UI MOCKUP SPECIFIC STYLES 
+           ========================================= */
+        
+        .ui-status-bar {
+            background-color: var(--ui-primary-dark);
+        }
+        
+        .ui-header {
+            background-color: var(--ui-primary);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .ui-header-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        .ui-screen {
+            background-color: var(--ui-bg);
+            padding: 0;
+        }
+
+        .ui-card {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            margin: 16px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .ui-card-icon {
+            width: 48px;
+            height: 48px;
+            background-color: #E8F5E9;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            color: var(--ui-primary);
+        }
+
+        .ui-card-content h4 {
+            margin: 0 0 4px 0;
+            color: var(--ui-text);
+            font-size: 16px;
+        }
+
+        .ui-card-content p {
+            margin: 0;
+            color: var(--ui-subtext);
+            font-size: 13px;
+        }
+
+        .ui-fab {
+            position: absolute;
+            bottom: 24px;
+            right: 24px;
+            width: 56px;
+            height: 56px;
+            background-color: var(--ui-primary);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.4);
+            cursor: pointer;
+        }
+
+        /* Form UI Styles */
+        .ui-form-group {
+            margin: 16px;
+        }
+        .ui-label {
+            font-size: 12px;
+            color: var(--ui-primary);
+            font-weight: bold;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .ui-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background-color: white;
+            box-sizing: border-box;
+            color: var(--ui-text);
+            font-family: inherit;
+        }
+        .ui-slider-container {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .ui-slider {
+            flex-grow: 1;
+            height: 4px;
+            background: #ddd;
+            border-radius: 2px;
+            position: relative;
+        }
+        .ui-slider-fill {
+            height: 100%;
+            background: var(--ui-primary);
+            width: 60%;
+            border-radius: 2px;
+        }
+        .ui-slider-thumb {
+            width: 16px;
+            height: 16px;
+            background: var(--ui-primary);
+            border-radius: 50%;
+            position: absolute;
+            top: -6px;
+            left: 60%;
+        }
+        .ui-btn-primary {
+            background-color: var(--ui-primary);
+            color: white;
+            text-align: center;
+            padding: 14px;
+            border-radius: 24px;
+            margin: 24px 16px;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.3);
+            cursor: pointer;
+        }
+
+        /* Prediction UI / Unified Timeline & Staging Logs Styles */
+        .ui-growth-ring-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 16px;
+        }
+        .ui-growth-ring {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+            border: 8px solid var(--ui-primary);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            background: white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .ui-growth-ring h4 {
+            margin: 0;
+            font-size: 11px;
+            color: var(--ui-subtext);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .ui-growth-ring h3 {
+            margin: 2px 0;
+            font-size: 18px;
+            font-weight: bold;
+            color: var(--ui-text);
+        }
+        .ui-growth-ring span {
+            font-size: 11px;
+            color: var(--ui-primary-dark);
+            font-weight: bold;
+        }
+        .ui-timeline-list {
+            padding: 0 16px 20px 16px;
+        }
+        .ui-timeline-card {
+            background: white;
+            border-radius: 12px;
+            padding: 12px 14px;
+            margin-bottom: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            border: 2px solid transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+        }
+        .ui-timeline-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06);
+        }
+        .ui-timeline-card.today {
+            border-color: var(--ui-primary);
+            box-shadow: 0 4px 12px rgba(76, 175, 80, 0.12);
+            position: relative;
+        }
+        .ui-timeline-card.today::after {
+            content: 'TODAY';
+            position: absolute;
+            top: -9px;
+            right: 12px;
+            background: var(--ui-primary);
+            color: white;
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 5px;
+            border-radius: 10px;
+        }
+        .ui-timeline-card.predicted {
+            border: 1px dashed #bbb;
+            opacity: 0.6;
+            background: #fafafa;
+        }
+        .ui-timeline-card-icon {
+            font-size: 24px;
+            width: 40px;
+            height: 40px;
+            background: #E8F5E9;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .ui-timeline-card.predicted .ui-timeline-card-icon {
+            background: #EEEEEE;
+            border: 1px dashed #888;
+        }
+        .ui-timeline-card-info {
+            flex-grow: 1;
+        }
+        .ui-timeline-card-info h5 {
+            margin: 0 0 3px 0;
+            font-size: 13px;
+            color: var(--ui-text);
+            font-weight: bold;
+        }
+        .ui-timeline-card-info p {
+            margin: 0;
+            font-size: 11px;
+            color: var(--ui-subtext);
+        }
+        .ui-timeline-card-metrics {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            gap: 2px;
+        }
+        .ui-metric-badge {
+            font-size: 8px;
+            font-weight: bold;
+            padding: 1px 4px;
+            border-radius: 4px;
+            background: #E8F5E9;
+            color: var(--ui-primary-dark);
+        }
+        .ui-metric-badge.water-low {
+            background: #FFE0B2;
+            color: #E65100;
+        }
+        .ui-bottom-sheet-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.4);
+            z-index: 100;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+        .ui-bottom-sheet-overlay.active {
+            display: block;
+            opacity: 1;
+        }
+        .ui-bottom-sheet {
+            position: absolute;
+            bottom: -360px;
+            left: 0;
+            width: 100%;
+            background: white;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.15);
+            z-index: 101;
+            transition: bottom 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+            padding: 16px;
+            box-sizing: border-box;
+            text-align: left;
+        }
+        .ui-bottom-sheet.active {
+            bottom: 0;
+        }
+        .ui-sheet-handle {
+            width: 40px;
+            height: 4px;
+            background: #ccc;
+            border-radius: 2px;
+            margin: 0 auto 12px auto;
+        }
+        .ui-sheet-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: var(--ui-text);
+            margin: 0 0 12px 0;
+        }
+        .ui-slider-label {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: var(--ui-subtext);
+            margin-bottom: 2px;
+        }
+        .ui-sheet-input-group {
+            margin-bottom: 12px;
+        }
+        .ui-sheet-slider {
+            width: 100%;
+            margin: 4px 0 8px 0;
+            accent-color: var(--ui-primary);
+        }
+
+        /* Codebase Visualization Styles */
+        .code-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .code-layer {
+            background: #fff;
+            border: 1px solid #e0e0e0;
+            border-radius: var(--border-radius);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 20px;
+            position: relative;
+        }
+        .code-layer.presentation { border-top: 4px solid var(--primary); }
+        .code-layer.state { border-top: 4px solid #9C27B0; }
+        .code-layer.domain { border-top: 4px solid var(--secondary); }
+        .code-layer.data { border-top: 4px solid var(--accent); }
+        .code-layer-title {
+            font-size: 16px;
+            font-weight: bold;
+            color: #333;
+            margin-top: 0;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+            position: relative;
+            cursor: help;
+        }
+        .code-folder {
+            font-weight: bold;
+            color: #555;
+            margin-top: 10px;
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: help;
+        }
+        .code-folder::before {
+            content: '📁';
+            margin-right: 8px;
+            font-size: 12px;
+        }
+        .code-file {
+            background: #f9f9f9;
+            border: 1px solid #eee;
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            margin-bottom: 5px;
+            margin-left: 20px;
+            cursor: help;
+            position: relative;
+            color: #333;
+            transition: all 0.2s ease;
+        }
+        .code-file::before {
+            content: '📄';
+            margin-right: 6px;
+            font-size: 12px;
+        }
+        .code-file:hover {
+            background: #f0f0f0;
+            border-color: #ccc;
+            transform: translateX(3px);
+        }
+        .code-entrypoint .tooltip, .code-layer-title .tooltip, .code-folder .tooltip, .code-file .tooltip {
+            visibility: hidden;
+            background-color: #333;
+            color: #fff;
+            text-align: left;
+            padding: 8px 12px;
+            border-radius: 4px;
+            position: absolute;
+            z-index: 100;
+            left: 20px;
+            top: 105%;
+            width: 250px;
+            font-family: sans-serif;
+            font-size: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+            white-space: normal;
+            font-weight: normal;
+        }
+        .code-file .tooltip {
+            left: 105%;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+        .code-entrypoint:hover .tooltip, .code-layer-title:hover .tooltip, .code-folder:hover .tooltip, .code-file:hover .tooltip {
+            visibility: visible;
+            opacity: 1;
+        }
+        .code-entrypoint {
+            background: #222;
+            color: #fff;
+            padding: 15px;
+            border-radius: var(--border-radius);
+            font-family: monospace;
+            text-align: center;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        .code-entrypoint::after {
+            content: '↓';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #222;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        /* Interactive Wire Styles */
+        .split-view-container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            position: relative;
+            align-items: flex-start;
+        }
+        .split-left {
+            flex: 0 0 350px;
+            position: sticky;
+            top: 20px;
+        }
+        .split-right {
+            flex: 1;
+        }
+        #code-wires {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 50;
+        }
+        .wire-path {
+            fill: none;
+            stroke-width: 4px;
+            stroke-linecap: round;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        .wire-path.glowing {
+            opacity: 1;
+            animation: lightPulse 1.5s infinite;
+        }
+        .wire-path.primary { stroke: var(--ui-primary); filter: drop-shadow(0 0 6px var(--ui-primary)); }
+        .wire-path.state { stroke: #9C27B0; filter: drop-shadow(0 0 6px #9C27B0); }
+        .wire-path.domain { stroke: var(--secondary); filter: drop-shadow(0 0 6px var(--secondary)); }
+        .wire-path.data { stroke: var(--accent); filter: drop-shadow(0 0 6px var(--accent)); }
+        
+        @keyframes lightPulse {
+            0% { stroke-opacity: 0.4; }
+            50% { stroke-opacity: 1; stroke-width: 6px; }
+            100% { stroke-opacity: 0.4; }
+        }
+
+        .highlighted-file {
+            transform: scale(1.05);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            z-index: 10;
+            background-color: #fff !important;
+            border-color: #333 !important;
+        }
+
+        .dynamic-tooltip {
+            position: absolute;
+            background-color: var(--ui-primary);
+            color: white;
+            padding: 8px 14px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-family: sans-serif;
+            font-weight: bold;
+            z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+            animation: popIn 0.3s forwards ease-out;
+            max-width: 250px;
+        }
+        @keyframes popIn {
+            0% { transform: scale(0.8) translateX(-10px); opacity: 0; }
+            100% { transform: scale(1) translateX(0); opacity: 1; }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>VerdiTech Visualization</h1>
+        <p>Interactive System Architecture, Logic Flow, & UI Mockups</p>
+    </header>
+
+    <div class="controls">
+        <button id="btn-all" class="toggle-btn active" onclick="toggleView('all')">Show Complete View</button>
+        <button id="btn-arch" class="toggle-btn" onclick="toggleView('arch')">System Architecture Only</button>
+        <button id="btn-flow" class="toggle-btn" onclick="toggleView('flow')">Logic Flow Only</button>
+        <button id="btn-ui" class="toggle-btn" onclick="toggleView('ui')" style="background-color: var(--ui-primary); color: white; border-color: var(--ui-primary-dark);">Actual UI Mockups</button>
+        <button id="btn-code" class="toggle-btn" onclick="toggleView('code')">Codebase Visualization</button>
+    </div>
+
+    <div class="container">
+        
+        <!-- ==========================================
+             ARCHITECTURE SECTION
+             ========================================== -->
+        <div id="sec-arch" class="section">
+            <h2 class="section-title">System Architecture (Clean Architecture + Riverpod)</h2>
+            <div class="arch-grid">
+                <div class="layer">
+                    <div class="layer-title">Presentation Layer (Flutter UI)</div>
+                    <div class="layer-content">
+                        <div class="component">Dashboard Screen</div>
+                        <div class="component">Add Plant Screen</div>
+                        <div class="component">Unified Timeline Screen</div>
+                        <div class="component">Quick-Log Bottom Sheet</div>
+                        <div class="component">CA Visualizer Screen</div>
+                    </div>
+                    <div class="arrow-down">⬇ Riverpod Providers (State Management) ⬇</div>
+                </div>
+                <div class="layer">
+                    <div class="layer-title">Domain / Core Layer (Business Logic)</div>
+                    <div class="layer-content">
+                        <div class="component domain">CA Engine (1D Time-Series)</div>
+                        <div class="component domain">Recommendation Engine</div>
+                        <div class="component domain">Entities (PlantProfile, DailyLog, Seasons)</div>
+                    </div>
+                    <div class="arrow-down">⬇ Repositories ⬇</div>
+                </div>
+                <div class="layer">
+                    <div class="layer-title">Data Layer (Storage)</div>
+                    <div class="layer-content">
+                        <div class="component data">Drift (SQLite) Database (plants & daily_logs)</div>
+                        <div class="component data">Local Data Sources</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             APP LOGIC FLOW SECTION
+             ========================================== -->
+        <div id="sec-flow" class="section">
+            <h2 class="section-title">Application Logic Flow & CA Pipeline</h2>
+            <div class="phone-container">
+                <div class="phone-frame">
+                    <div class="phone-camera"></div>
+                    <div class="status-bar">
+                        <span>10:42</span>
+                        <div class="status-icons"><span>📶</span><span>🔋</span></div>
+                    </div>
+                    <div class="app-header">VerdiTech Flow</div>
+                    <div class="phone-screen">
+                        
+                        <!-- Step 1 -->
+                        <div class="app-flow-step active" id="flow-step-1">
+                            <div class="step-indicator">Step 1 of 5</div>
+                            <h3 class="step-title">1. Plant Profile Setup</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Select Crop:</strong> Tomato, Eggplant, Siling Labuyo</li>
+                                    <li><strong>Set Date:</strong> Select planting date</li>
+                                    <li><strong>Initial Stage:</strong> Seedling/Young Plant</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div class="app-flow-step" id="flow-step-2">
+                            <div class="step-indicator">Step 2 of 5</div>
+                            <h3 class="step-title">2. Daily Logging (Symptoms)</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Frictionless Check:</strong> Rate Sun, Water, Soil (1-5)</li>
+                                    <li><strong>Write Notes:</strong> Log specific issues or observations</li>
+                                    <li><strong>Device Storage:</strong> Local saving in Drift database</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div class="app-flow-step" id="flow-step-3">
+                            <div class="step-indicator">Step 3 of 5</div>
+                            <h3 class="step-title">3. Time-Series CA Engine</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Historical Sweep:</strong> Runs CA rules step-by-step from planting date to today using logged inputs</li>
+                                    <li><strong>Future Projections:</strong> Simulates future steps based on historical averages</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div class="app-flow-step" id="flow-step-4">
+                            <div class="step-indicator">Step 4 of 5</div>
+                            <h3 class="step-title">4. Unified Timeline Display</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li><strong>Historical Cards:</strong> Solid colors showing logged stage/health drawings</li>
+                                    <li><strong>Focus Item:</strong> Prominent "Today" card for fast updates</li>
+                                    <li><strong>Forecast Cards:</strong> Dotted predicted stage timeline</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div class="app-flow-step" id="flow-step-5">
+                            <div class="step-indicator">Step 5 of 5</div>
+                            <h3 class="step-title">5. dynamic Advisories</h3>
+                            <div class="step-content">
+                                <ul>
+                                    <li>Deficiencies analyzed dynamically</li>
+                                    <li>Generates specific recommendations based on crop, stage, and season</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="phone-nav">
+                        <button id="nav-flow-prev" onclick="changeFlowStep(-1)" disabled>Back</button>
+                        <button id="nav-flow-next" onclick="changeFlowStep(1)">Next Step</button>
+                    </div>
+                    <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             CODEBASE VISUALIZATION SECTION
+             ========================================== -->
+        <div id="sec-code" class="section hidden">
+            <h2 class="section-title">Interactive Codebase (Feature-First Architecture)</h2>
+            <p style="text-align: center; color: var(--ui-subtext); margin-bottom: 20px;">Click the <b>+ button</b> or a <b>Plant Card</b> on the phone to see the data flow through the codebase!</p>
+            
+            <div class="split-view-container">
+                <svg id="code-wires"></svg>
+                
+                <!-- LEFT SIDE: PHONE MOCKUP -->
+                <div class="split-left">
+                    <div class="phone-frame" style="margin-bottom: 0;">
+                        <div class="phone-camera"></div>
+                        <div class="status-bar ui-status-bar">
+                            <span>10:42</span><div class="status-icons"><span>📶</span><span>🔋</span></div>
+                        </div>
+                        <div class="phone-screen ui-screen">
+                            
+                            <!-- UI MOCKUP 1: Dashboard -->
+                            <div class="app-flow-step active" id="code-ui-step-1">
+                                <div class="app-header ui-header">
+                                    VerdiTech
+                                </div>
+                                <div style="padding: 16px; font-weight: bold; color: var(--ui-subtext);">My Garden</div>
+                                
+                                <div class="ui-card" id="ui-plant-card" style="cursor: pointer; position: relative; z-index: 60;" onclick="triggerPlantCard()">
+                                    <div class="ui-card-icon">🍅</div>
+                                    <div class="ui-card-content">
+                                        <h4>Tomato (Roma)</h4>
+                                        <p>Flowering • Health: Good</p>
+                                    </div>
+                                </div>
+                                
+                                <div class="ui-card" onclick="triggerPlantCard()" style="cursor: pointer; position: relative; z-index: 60;">
+                                    <div class="ui-card-icon">🍆</div>
+                                    <div class="ui-card-content">
+                                        <h4>Eggplant</h4>
+                                        <p>Young Plant • Health: Excellent</p>
+                                    </div>
+                                </div>
+
+                                <div class="ui-fab" id="ui-fab" style="cursor: pointer; position: relative; z-index: 60;" onclick="triggerAddPlant()">+</div>
+                            </div>
+
+                            <!-- UI MOCKUP 2: Add Plant Form -->
+                            <div class="app-flow-step" id="code-ui-step-2">
+                                <div class="app-header ui-header">
+                                    <span class="ui-header-icon" onclick="changeCodeUiStep(1)">←</span>
+                                    Add New Plant
+                                </div>
+                                
+                                <div class="ui-form-group">
+                                    <label class="ui-label">PLANT TYPE</label>
+                                    <select class="ui-input">
+                                        <option>Tomato</option>
+                                        <option>Eggplant</option>
+                                        <option>Siling Labuyo</option>
+                                    </select>
+                                </div>
+
+                                <div class="ui-form-group">
+                                    <label class="ui-label">PLANTING DATE</label>
+                                    <input type="date" class="ui-input" value="2026-06-28">
+                                </div>
+
+                                <div class="ui-form-group">
+                                    <label class="ui-label">INITIAL GROWTH STAGE</label>
+                                    <select class="ui-input">
+                                        <option>Seedling</option>
+                                        <option>Young Plant</option>
+                                    </select>
+                                </div>
+
+                                <div class="ui-btn-primary" onclick="triggerSavePlant()">
+                                    Create Plant Profile
+                                </div>
+                            </div>
+
+                            <!-- UI MOCKUP 3: Unified Timeline & Logs -->
+                            <div class="app-flow-step" id="code-ui-step-3">
+                                <div class="app-header ui-header">
+                                    <span class="ui-header-icon" onclick="changeCodeUiStep(1)">←</span>
+                                    Tomato (Roma)
+                                </div>
+                                
+                                <!-- Circular Growth Stage Ring -->
+                                <div class="ui-growth-ring-container">
+                                    <div class="ui-growth-ring">
+                                        <h4>Flowering</h4>
+                                        <h3>Day 5 of 12</h3>
+                                        <span>Health: Good</span>
+                                    </div>
+                                </div>
+                                
+                                <div style="padding: 0 16px; font-weight: bold; color: var(--ui-subtext); margin-top: 10px; font-size: 13px;">Unified Staging Timeline</div>
+                                
+                                <div class="ui-timeline-list" style="height: 250px; overflow-y: auto;">
+                                    <!-- Day 1 (Logged Seedling) -->
+                                    <div class="ui-timeline-card">
+                                        <div class="ui-timeline-card-icon">🌱</div>
+                                        <div class="ui-timeline-card-info">
+                                            <h5>Day 1: Seedling</h5>
+                                            <p>June 28 • Logged</p>
+                                        </div>
+                                        <div class="ui-timeline-card-metrics">
+                                            <span class="ui-metric-badge">☀️ 4</span>
+                                            <span class="ui-metric-badge">💧 4</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Day 3 (Logged Young Plant) -->
+                                    <div class="ui-timeline-card">
+                                        <div class="ui-timeline-card-icon">🌿</div>
+                                        <div class="ui-timeline-card-info">
+                                            <h5>Day 3: Young Plant</h5>
+                                            <p>June 30 • Logged</p>
+                                        </div>
+                                        <div class="ui-timeline-card-metrics">
+                                            <span class="ui-metric-badge">☀️ 4</span>
+                                            <span class="ui-metric-badge">💧 3</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Day 5 (Today - Flowering) -->
+                                    <div class="ui-timeline-card today" onclick="triggerTodayLog()" id="ui-today-card" style="cursor: pointer; position: relative; z-index: 60;">
+                                        <div class="ui-timeline-card-icon">🌸</div>
+                                        <div class="ui-timeline-card-info">
+                                            <h5>Day 5: Flowering</h5>
+                                            <p>July 2 • Tap to Log Care</p>
+                                        </div>
+                                        <div class="ui-timeline-card-metrics">
+                                            <span class="ui-metric-badge">☀️ 4</span>
+                                            <span class="ui-metric-badge water-low">💧 2 (Low)</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Day 12 (Predicted Fruiting) -->
+                                    <div class="ui-timeline-card predicted">
+                                        <div class="ui-timeline-card-icon">🍅</div>
+                                        <div class="ui-timeline-card-info">
+                                            <h5>Day 12: Fruiting</h5>
+                                            <p>Predicted on July 9</p>
+                                        </div>
+                                        <div class="ui-timeline-card-metrics">
+                                            <span class="ui-metric-badge" style="background:#e0e0e0; color:#555;">CA Forecast</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Bottom Sheet Overlay -->
+                        <div class="ui-bottom-sheet-overlay" id="code-sheet-overlay" onclick="closeCodeBottomSheet()"></div>
+                        <div class="ui-bottom-sheet" id="code-bottom-sheet">
+                            <div class="ui-sheet-handle"></div>
+                            <div class="ui-sheet-title">Log Today's Care</div>
+                            
+                            <div class="ui-sheet-input-group">
+                                <div class="ui-slider-label">
+                                    <span>Sunlight Exposure</span>
+                                    <span>4/5 (Optimal)</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="4" class="ui-sheet-slider">
+                            </div>
+
+                            <div class="ui-sheet-input-group">
+                                <div class="ui-slider-label">
+                                    <span>Water Availability</span>
+                                    <span>2/5 (Low)</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="2" class="ui-sheet-slider">
+                            </div>
+
+                            <div class="ui-sheet-input-group">
+                                <div class="ui-slider-label">
+                                    <span>Soil Quality</span>
+                                    <span>3/5 (Medium)</span>
+                                </div>
+                                <input type="range" min="1" max="5" value="3" class="ui-sheet-slider">
+                            </div>
+
+                            <div class="ui-sheet-input-group" style="margin-bottom: 20px;">
+                                <label class="ui-label">CARE NOTES</label>
+                                <input type="text" class="ui-input" placeholder="e.g. soil dry, leaves look good" style="padding: 8px;">
+                            </div>
+
+                            <div class="ui-btn-primary" style="margin: 0; padding: 10px;" onclick="triggerSaveLog()">Save Log</div>
+                        </div>
+
+                        <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
+                    </div>
+                </div>
+
+                <!-- RIGHT SIDE: CODEBASE -->
+                <div class="split-right">
+                    <div class="code-entrypoint" id="file-main">
+                        📄 lib/main.dart
+                        <span class="tooltip">The application entry point. Initializes Flutter, local databases, Riverpod ProviderScope, and mounts the root widget.</span>
+                    </div>
+                    
+                    <div class="code-grid">
+                        <!-- Presentation Layer -->
+                        <div class="code-layer presentation">
+                            <div class="code-layer-title">Presentation Layer (Features)<span class="tooltip">Contains all UI screens, widgets, and Riverpod view-models organized by specific features. Purely UI focused.</span></div>
+                            <div class="code-folder">features/dashboard<span class="tooltip">Houses all UI code relating strictly to the main garden overview.</span></div>
+                            <div class="code-file" id="file-dashboard">dashboard_screen.dart<span class="tooltip">Main garden overview displaying all plants and the unified timeline.</span></div>
+                            
+                            <div class="code-folder">features/plant_form<span class="tooltip">Contains UI forms for creating and editing plant profiles.</span></div>
+                            <div class="code-file" id="file-add-plant">add_plant_screen.dart<span class="tooltip">Form for adding a new crop, setting planting date, and initial stage.</span></div>
+                            
+                            <div class="code-folder">features/plant_detail<span class="tooltip">Dedicated to the deep-dive analytics and detailed history of a single plant.</span></div>
+                            <div class="code-file" id="file-plant-detail">plant_details_screen.dart<span class="tooltip">Detailed view of a specific plant and its health metrics.</span></div>
+                        </div>
+
+                        <!-- State Management -->
+                        <div class="code-layer state">
+                            <div class="code-layer-title">State Management (Riverpod)<span class="tooltip">The reactive glue layer. Exposes domain logic and data to the presentation layer via state providers.</span></div>
+                            <div class="code-folder">providers<span class="tooltip">Global and scoped Riverpod providers.</span></div>
+                            <div class="code-file" id="file-database-provider">database_provider.dart<span class="tooltip">Exposes the Drift local database instance to the rest of the application.</span></div>
+                            <div class="code-file" id="file-plant-provider">plant_providers.dart<span class="tooltip">Manages the reactive state of the user's plant list and actively handles UI actions (save/delete).</span></div>
+                            <div class="code-file" id="file-prediction-provider">prediction_providers.dart<span class="tooltip">Caches and manages the state of Cellular Automata predictions, preventing unnecessary recalculations.</span></div>
+                        </div>
+
+                        <!-- Domain Layer -->
+                        <div class="code-layer domain">
+                            <div class="code-layer-title">Domain Layer (Core Logic)<span class="tooltip">Contains pure business logic, calculations, rules, and entity models. No UI code here.</span></div>
+                            <div class="code-folder">domain/engine<span class="tooltip">Heavy computational systems like predictions.</span></div>
+                            <div class="code-file" id="file-ca-engine">ca_engine.dart<span class="tooltip">Runs the 1D Cellular Automata simulation on daily logs to predict future growth and stress.</span></div>
+                            <div class="code-file">recommendation_engine.dart<span class="tooltip">Analyzes CA results to output human-readable advice (e.g. "Water tomorrow").</span></div>
+                            <div class="code-folder">domain/models<span class="tooltip">Core Dart data classes representing application entities.</span></div>
+                            <div class="code-file">plant.dart<span class="tooltip">The Plant entity model holding name, type, and relationships.</span></div>
+                            <div class="code-file">daily_log.dart<span class="tooltip">The Daily Log entity containing sun, water, and soil metrics.</span></div>
+                        </div>
+
+                        <!-- Data Layer -->
+                        <div class="code-layer data">
+                            <div class="code-layer-title">Data Layer (Persistence)<span class="tooltip">Handles data storage, API calls, and local persistence via SQLite/Drift.</span></div>
+                            <div class="code-folder">data/database<span class="tooltip">Core Drift database setup.</span></div>
+                            <div class="code-file" id="file-app-database">app_database.dart<span class="tooltip">The main Drift database configuration and table definitions.</span></div>
+                            <div class="code-folder">data/database/tables<span class="tooltip">SQL Table schemas.</span></div>
+                            <div class="code-file" id="file-plant-table">plant_table.dart<span class="tooltip">Schema definition for the 'plants' table.</span></div>
+                            <div class="code-folder">data/database/daos<span class="tooltip">Data Access Objects (SQL queries).</span></div>
+                            <div class="code-file" id="file-plant-dao">plant_dao.dart<span class="tooltip">Contains specific SQL queries for fetching, inserting, and deleting plants.</span></div>
+                            <div class="code-file" id="file-daily-log-dao">daily_log_dao.dart<span class="tooltip">Contains SQL queries for inserting and aggregating care logs over time.</span></div>
+                            <div class="code-folder">data/repositories<span class="tooltip">Abstracts database calls into clean APIs for the Domain layer to use.</span></div>
+                            <div class="code-file" id="file-plant-repository">plant_repository.dart<span class="tooltip">Mediates between DAOs and Domain models, handling caching and validation.</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ==========================================
+             ACTUAL UI MOCKUP SECTION
+             ========================================== -->
+        <div id="sec-ui" class="section">
+            <h2 class="section-title">Actual UI Mockup (What users will see)</h2>
+            <div class="phone-container">
+                <div class="phone-frame">
+                    <div class="phone-camera"></div>
+                    
+                    <div class="status-bar ui-status-bar">
+                        <span>10:42</span>
+                        <div class="status-icons"><span>📶</span><span>🔋</span></div>
+                    </div>
+
+                    <div class="phone-screen ui-screen">
+                        
+                        <!-- UI MOCKUP 1: Dashboard -->
+                        <div class="app-flow-step active" id="ui-step-1">
+                            <div class="app-header ui-header">
+                                VerdiTech
+                            </div>
+                            <div style="padding: 16px; font-weight: bold; color: var(--ui-subtext);">My Garden</div>
+                            
+                            <div class="ui-card" onclick="changeUiStep(2)" style="cursor: pointer;">
+                                <div class="ui-card-icon">🍅</div>
+                                <div class="ui-card-content">
+                                    <h4>Tomato (Roma)</h4>
+                                    <p>Flowering • Health: Good</p>
+                                </div>
+                            </div>
+                            
+                            <div class="ui-card" onclick="changeUiStep(2)" style="cursor: pointer;">
+                                <div class="ui-card-icon">🍆</div>
+                                <div class="ui-card-content">
+                                    <h4>Eggplant</h4>
+                                    <p>Young Plant • Health: Excellent</p>
+                                </div>
+                            </div>
+
+                            <div class="ui-fab" onclick="changeUiStep(1)">+</div>
+                        </div>
+
+                        <!-- UI MOCKUP 2: Add Plant Form -->
+                        <div class="app-flow-step" id="ui-step-2">
+                            <div class="app-header ui-header">
+                                <span class="ui-header-icon" onclick="changeUiStep(-1)">←</span>
+                                Add New Plant
+                            </div>
+                            
+                            <div class="ui-form-group">
+                                <label class="ui-label">PLANT TYPE</label>
+                                <select class="ui-input">
+                                    <option>Tomato</option>
+                                    <option>Eggplant</option>
+                                    <option>Siling Labuyo</option>
+                                </select>
+                            </div>
+
+                            <div class="ui-form-group">
+                                <label class="ui-label">PLANTING DATE</label>
+                                <input type="date" class="ui-input" value="2026-06-28">
+                            </div>
+
+                            <div class="ui-form-group">
+                                <label class="ui-label">INITIAL GROWTH STAGE</label>
+                                <select class="ui-input">
+                                    <option>Seedling</option>
+                                    <option>Young Plant</option>
+                                </select>
+                            </div>
+
+                            <div class="ui-btn-primary" onclick="changeUiStep(1)">
+                                Create Plant Profile
+                            </div>
+                        </div>
+
+                        <!-- UI MOCKUP 3: Unified Timeline & Logs -->
+                        <div class="app-flow-step" id="ui-step-3">
+                            <div class="app-header ui-header">
+                                <span class="ui-header-icon" onclick="changeUiStep(-2)">←</span>
+                                Tomato (Roma)
+                            </div>
+                            
+                            <!-- Circular Growth Stage Ring -->
+                            <div class="ui-growth-ring-container">
+                                <div class="ui-growth-ring" id="dashboard-ring">
+                                    <h4>Flowering</h4>
+                                    <h3 id="ring-stage-title">Day 5 of 12</h3>
+                                    <span id="ring-health-text">Health: Good</span>
+                                </div>
+                            </div>
+                            
+                            <div style="padding: 0 16px; font-weight: bold; color: var(--ui-subtext); margin-top: 10px; font-size: 13px;">Unified Staging Timeline</div>
+                            
+                            <div class="ui-timeline-list">
+                                <!-- Day 1 (Logged Seedling) -->
+                                <div class="ui-timeline-card">
+                                    <div class="ui-timeline-card-icon">🌱</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 1: Seedling</h5>
+                                        <p>June 28 • Logged</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge">💧 4</span>
+                                    </div>
+                                </div>
+
+                                <!-- Day 3 (Logged Young Plant) -->
+                                <div class="ui-timeline-card">
+                                    <div class="ui-timeline-card-icon">🌿</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 3: Young Plant</h5>
+                                        <p>June 30 • Logged</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge">💧 3</span>
+                                    </div>
+                                </div>
+
+                                <!-- Day 5 (Today - Flowering) -->
+                                <div class="ui-timeline-card today" onclick="openBottomSheet()" id="timeline-card-today">
+                                    <div class="ui-timeline-card-icon" id="today-stage-icon">🌸</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 5: Flowering</h5>
+                                        <p>July 2 • Tap to Log Care</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics" id="today-metrics-container">
+                                        <span class="ui-metric-badge">☀️ 4</span>
+                                        <span class="ui-metric-badge water-low" id="today-water-badge">💧 2 (Low)</span>
+                                    </div>
+                                </div>
+
+                                <!-- Day 12 (Predicted Fruiting) -->
+                                <div class="ui-timeline-card predicted" id="predicted-timeline-card">
+                                    <div class="ui-timeline-card-icon">🍅</div>
+                                    <div class="ui-timeline-card-info">
+                                        <h5>Day 12: Fruiting</h5>
+                                        <p id="prediction-date-text">Predicted on July 9</p>
+                                    </div>
+                                    <div class="ui-timeline-card-metrics">
+                                        <span class="ui-metric-badge" style="background:#e0e0e0; color:#555;">CA Forecast</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    
+                    <!-- Bottom Sheet Overlay and Container inside the phone frame -->
+                    <div class="ui-bottom-sheet-overlay" id="sheet-overlay" onclick="closeBottomSheet()"></div>
+                    <div class="ui-bottom-sheet" id="bottom-sheet">
+                        <div class="ui-sheet-handle"></div>
+                        <div class="ui-sheet-title">Log Today's Care (Day 5)</div>
+                        
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Sunlight Exposure</span>
+                                <span id="label-sun">4/5 (Optimal)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="4" class="ui-sheet-slider" id="slider-sun" oninput="updateSliderLabel('sun', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Water Availability</span>
+                                <span id="label-water">2/5 (Low)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="2" class="ui-sheet-slider" id="slider-water" oninput="updateSliderLabel('water', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group">
+                            <div class="ui-slider-label">
+                                <span>Soil Quality</span>
+                                <span id="label-soil">3/5 (Medium)</span>
+                            </div>
+                            <input type="range" min="1" max="5" value="3" class="ui-sheet-slider" id="slider-soil" oninput="updateSliderLabel('soil', this.value)">
+                        </div>
+
+                        <div class="ui-sheet-input-group" style="margin-bottom: 20px;">
+                            <label class="ui-label">CARE NOTES</label>
+                            <input type="text" class="ui-input" placeholder="e.g. soil dry, leaves look good" style="padding: 8px;" id="input-notes">
+                        </div>
+
+                        <div class="ui-btn-primary" style="margin: 0; padding: 10px;" onclick="saveBottomSheetLog()">
+                            Save & Update Prediction
+                        </div>
+                    </div>
+
+                    <div class="os-nav-bar"><div class="os-nav-handle"></div></div>
+                </div>
+                
+                <div style="text-align: center; color: #666; margin-top: 10px;">
+                    <em>Interact with the UI buttons (+, ←, Tomato card, Today card) to navigate and log care.</em>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main view toggles
+        function toggleView(view) {
+            document.querySelectorAll('button.toggle-btn').forEach(btn => {
+                btn.classList.remove('active');
+                if(btn.id !== 'btn-ui') {
+                    btn.style.backgroundColor = 'transparent';
+                    btn.style.color = 'var(--primary)';
+                } else {
+                    btn.style.backgroundColor = 'var(--ui-primary)';
+                    btn.style.color = 'white';
+                }
+            });
+            
+            const activeBtn = document.getElementById('btn-' + view);
+            activeBtn.classList.add('active');
+            if(view !== 'ui') {
+                activeBtn.style.backgroundColor = 'var(--primary)';
+                activeBtn.style.color = 'white';
+            } else {
+                activeBtn.style.backgroundColor = 'var(--ui-primary-dark)';
+            }
+
+            const arch = document.getElementById('sec-arch');
+            const flow = document.getElementById('sec-flow');
+            const uiMock = document.getElementById('sec-ui');
+            const code = document.getElementById('sec-code');
+
+            if (view === 'all') {
+                arch.classList.remove('hidden');
+                flow.classList.remove('hidden');
+                uiMock.classList.remove('hidden');
+                code.classList.remove('hidden');
+            } else if (view === 'arch') {
+                arch.classList.remove('hidden');
+                flow.classList.add('hidden');
+                uiMock.classList.add('hidden');
+                code.classList.add('hidden');
+            } else if (view === 'flow') {
+                arch.classList.add('hidden');
+                flow.classList.remove('hidden');
+                uiMock.classList.add('hidden');
+                code.classList.add('hidden');
+            } else if (view === 'ui') {
+                arch.classList.add('hidden');
+                flow.classList.add('hidden');
+                uiMock.classList.remove('hidden');
+                code.classList.add('hidden');
+            } else if (view === 'code') {
+                arch.classList.add('hidden');
+                flow.classList.add('hidden');
+                uiMock.classList.add('hidden');
+                code.classList.remove('hidden');
+            }
+        }
+
+        // Logic Flow Phone Mockup navigation
+        let currentFlowStep = 1;
+        const totalFlowSteps = 5;
+
+        function changeFlowStep(direction) {
+            document.getElementById(`flow-step-${currentFlowStep}`).classList.remove('active');
+            currentFlowStep += direction;
+            document.getElementById(`flow-step-${currentFlowStep}`).classList.add('active');
+            
+            document.getElementById('nav-flow-prev').disabled = currentFlowStep === 1;
+            const nextBtn = document.getElementById('nav-flow-next');
+            if (currentFlowStep === totalFlowSteps) {
+                nextBtn.innerText = "Finish";
+                nextBtn.disabled = true;
+            } else {
+                nextBtn.innerText = "Next Step";
+                nextBtn.disabled = false;
+            }
+        }
+
+        // UI Mockup Phone navigation
+        let currentUiStep = 1;
+        function changeUiStep(direction) {
+            document.getElementById(`ui-step-${currentUiStep}`).classList.remove('active');
+            currentUiStep += direction;
+            document.getElementById(`ui-step-${currentUiStep}`).classList.add('active');
+        }
+
+        // Bottom Sheet & Dynamic CA Logic Mockup
+        function openBottomSheet() {
+            document.getElementById('sheet-overlay').classList.add('active');
+            document.getElementById('bottom-sheet').classList.add('active');
+        }
+
+        function closeBottomSheet() {
+            document.getElementById('sheet-overlay').classList.remove('active');
+            document.getElementById('bottom-sheet').classList.remove('active');
+        }
+
+        function updateSliderLabel(factor, value) {
+            let desc = "";
+            if (factor === "sun") {
+                if (value <= 2) desc = "Low (Shade)";
+                else if (value <= 3) desc = "Medium (Partial Sun)";
+                else desc = "Optimal (Full Sun)";
+            } else if (factor === "water") {
+                if (value <= 1) desc = "Critical (Dry)";
+                else if (value <= 2) desc = "Low (Underwatered)";
+                else if (value <= 4) desc = "Optimal (Moist)";
+                else desc = "Excessive (Wet Feet)";
+            } else if (factor === "soil") {
+                if (value <= 2) desc = "Poor (Nutrient-depleted)";
+                else if (value <= 3) desc = "Medium (Loam)";
+                else desc = "Optimal (Organic Compost)";
+            }
+            document.getElementById(`label-${factor}`).innerText = `${value}/5 (${desc})`;
+        }
+
+        function saveBottomSheetLog() {
+            // Fetch inputs
+            const sunVal = parseInt(document.getElementById('slider-sun').value);
+            const waterVal = parseInt(document.getElementById('slider-water').value);
+            const soilVal = parseInt(document.getElementById('slider-soil').value);
+
+            // Compute Mock CA Engine Response
+            let health = "Good";
+            let healthColor = "#4CAF50";
+            let forecastDays = 7;
+            let forecastDate = "July 9";
+            let stageTitle = "Day 5 of 12";
+            let waterBadgeClass = "ui-metric-badge";
+            let waterBadgeText = "💧 " + waterVal;
+            let iconEmoji = "🌸";
+
+            // Rules simulation
+            if (waterVal === 5) {
+                // Excessive Water
+                health = "Stressed (Wet Feet)";
+                healthColor = "#FFB74D";
+                forecastDays = 9;
+                forecastDate = "July 11";
+                stageTitle = "Day 5 of 14";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 5 (Excessive)";
+                iconEmoji = "🥀";
+            } else if (waterVal >= 3 && waterVal <= 4 && sunVal >= 4) {
+                // Optimal water & sun
+                health = "Excellent";
+                healthColor = "#2E7D32";
+                forecastDays = 5;
+                forecastDate = "July 7";
+                stageTitle = "Day 5 of 10";
+                waterBadgeText = "💧 " + waterVal + " (Optimal)";
+            } else if (waterVal <= 1) {
+                // Critical Dry
+                health = "Critical (Drought)";
+                healthColor = "#E53935";
+                forecastDays = 12;
+                forecastDate = "July 14";
+                stageTitle = "Stressed (Flowering Paused)";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 1 (Critical)";
+                iconEmoji = "🍂";
+            } else if (waterVal === 2) {
+                // Low water (Defaults)
+                health = "Good";
+                healthColor = "#4CAF50";
+                forecastDays = 7;
+                forecastDate = "July 9";
+                stageTitle = "Day 5 of 12";
+                waterBadgeClass = "ui-metric-badge water-low";
+                waterBadgeText = "💧 2 (Low)";
+            }
+
+            // Update UI Ring
+            const ring = document.getElementById('dashboard-ring');
+            ring.style.borderColor = healthColor;
+            document.getElementById('ring-stage-title').innerText = stageTitle;
+            document.getElementById('ring-health-text').innerText = "Health: " + health;
+            document.getElementById('ring-health-text').style.color = healthColor;
+
+            // Update Timeline Card
+            document.getElementById('today-stage-icon').innerText = iconEmoji;
+            
+            // Update Badges
+            let metricsHTML = `<span class="ui-metric-badge">☀️ ${sunVal}</span>`;
+            metricsHTML += `<span class="${waterBadgeClass}">${waterBadgeText}</span>`;
+            document.getElementById('today-metrics-container').innerHTML = metricsHTML;
+
+            // Update Forecast Card
+            document.getElementById('prediction-date-text').innerText = "Predicted on " + forecastDate;
+
+            // Close Bottom Sheet
+            closeBottomSheet();
+        }
+        // Interactive Codebase Wires Logic
+        let wireTimeouts = [];
+        
+        function clearWires() {
+            const svg = document.getElementById('code-wires');
+            if(svg) svg.innerHTML = '';
+            document.querySelectorAll('.highlighted-file').forEach(el => el.classList.remove('highlighted-file'));
+            document.querySelectorAll('.dynamic-tooltip').forEach(el => el.remove());
+            wireTimeouts.forEach(t => clearTimeout(t));
+            wireTimeouts = [];
+        }
+
+        function drawWire(startId, endId, colorClass, delay, tooltipText) {
+            const startEl = document.getElementById(startId);
+            const endEl = document.getElementById(endId);
+            const svg = document.getElementById('code-wires');
+            const container = document.querySelector('.split-view-container');
+            
+            if (!startEl || !endEl || !svg || !container) return;
+
+            const t = setTimeout(() => {
+                const containerRect = container.getBoundingClientRect();
+                const startRect = startEl.getBoundingClientRect();
+                const endRect = endEl.getBoundingClientRect();
+
+                // Start at right edge of start element
+                const startX = startRect.right - containerRect.left;
+                const startY = startRect.top + (startRect.height / 2) - containerRect.top;
+                
+                // End at left edge of end element
+                const endX = endRect.left - containerRect.left;
+                const endY = endRect.top + (endRect.height / 2) - containerRect.top;
+
+                // Orthogonal routing logic
+                let pathData = '';
+                if (endX > startX + 50) {
+                    // Normal left to right
+                    const midX = startX + (endX - startX) / 2;
+                    pathData = `M ${startX} ${startY} L ${midX} ${startY} L ${midX} ${endY} L ${endX} ${endY}`;
+                } else {
+                    // Top to bottom or bottom to top within the same vertical column block
+                    const startBottomX = startRect.left + (startRect.width / 2) - containerRect.left;
+                    const startEdgeY = endRect.top > startRect.top ? startRect.bottom : startRect.top;
+                    const startYAdjusted = startEdgeY - containerRect.top;
+                    
+                    const endTopX = endRect.left + (endRect.width / 2) - containerRect.left;
+                    const endEdgeY = endRect.top > startRect.top ? endRect.top : endRect.bottom;
+                    const endYAdjusted = endEdgeY - containerRect.top;
+                    
+                    const midY = startYAdjusted + (endYAdjusted - startYAdjusted) / 2;
+                    pathData = `M ${startBottomX} ${startYAdjusted} L ${startBottomX} ${midY} L ${endTopX} ${midY} L ${endTopX} ${endYAdjusted}`;
+                }
+                
+                const path = document.createElementNS("http://www.w3.org/2000/svg", "path");
+                path.setAttribute("d", pathData);
+                path.setAttribute("class", `wire-path ${colorClass}`);
+                
+                svg.appendChild(path);
+                
+                // Trigger animation
+                requestAnimationFrame(() => {
+                    path.classList.add('glowing');
+                    endEl.classList.add('highlighted-file');
+                    
+                    if (tooltipText) {
+                        const tooltip = document.createElement('div');
+                        tooltip.className = 'dynamic-tooltip';
+                        tooltip.innerText = tooltipText;
+                        tooltip.style.left = (endRect.right - containerRect.left + 15) + 'px';
+                        tooltip.style.top = (endRect.top - containerRect.top) + 'px';
+                        if (colorClass === 'state') tooltip.style.backgroundColor = '#9C27B0';
+                        if (colorClass === 'domain') tooltip.style.backgroundColor = 'var(--secondary)';
+                        if (colorClass === 'data') tooltip.style.backgroundColor = 'var(--accent)';
+                        container.appendChild(tooltip);
+                        
+                        setTimeout(() => {
+                            if (container.contains(tooltip)) {
+                                tooltip.style.opacity = '0';
+                                setTimeout(() => tooltip.remove(), 300);
+                            }
+                        }, 5000);
+                    }
+                });
+                
+                // Clean up after 5.5 seconds (glow stays longer)
+                setTimeout(() => {
+                    path.classList.remove('glowing');
+                    endEl.classList.remove('highlighted-file');
+                    setTimeout(() => {
+                        if (svg.contains(path)) svg.removeChild(path);
+                    }, 300);
+                }, 5500);
+            }, delay);
+            
+            wireTimeouts.push(t);
+        }
+
+        // Unified Codebase Sandbox Handlers
+        function changeCodeUiStep(stepNumber) {
+            clearWires();
+            document.querySelectorAll('#sec-code .app-flow-step').forEach(step => step.classList.remove('active'));
+            const targetStep = document.getElementById(`code-ui-step-${stepNumber}`);
+            if (targetStep) targetStep.classList.add('active');
+        }
+
+        function openCodeBottomSheet() {
+            document.getElementById('code-sheet-overlay').classList.add('active');
+            document.getElementById('code-bottom-sheet').classList.add('active');
+        }
+
+        function closeCodeBottomSheet() {
+            document.getElementById('code-sheet-overlay').classList.remove('active');
+            document.getElementById('code-bottom-sheet').classList.remove('active');
+            clearWires();
+        }
+
+        function triggerAddPlant() {
+            changeCodeUiStep(2);
+            // Slower sequential flow: 0, 1500
+            drawWire('ui-fab', 'file-add-plant', 'primary', 0, "UI capturing user input for the new crop profile.");
+            drawWire('file-add-plant', 'file-plant-provider', 'state', 1500, "Provider updates the reactive state to prepare data storage.");
+        }
+
+        function triggerSavePlant() {
+            changeCodeUiStep(1);
+            // Slower sequential flow: 0, 1500, 3000
+            drawWire('file-plant-provider', 'file-plant-repository', 'domain', 0, "Repository validates the domain entity (Plant).");
+            drawWire('file-plant-repository', 'file-plant-dao', 'data', 1500, "Data Access Object constructs the SQL insertion query.");
+            drawWire('file-plant-dao', 'file-plant-table', 'data', 3000, "Drift executing INSERT INTO plants table in SQLite.");
+        }
+
+        function triggerPlantCard() {
+            changeCodeUiStep(3);
+            // Slower sequential flow: 0, 1500, 3000, 4500
+            drawWire('ui-plant-card', 'file-dashboard', 'primary', 0, "Dashboard navigating to specific plant timeline.");
+            drawWire('file-dashboard', 'file-prediction-provider', 'state', 1500, "Provider triggers a new prediction sweep.");
+            drawWire('file-prediction-provider', 'file-ca-engine', 'domain', 3000, "CA Engine running 1D time-series calculations based on logs.");
+            drawWire('file-ca-engine', 'file-plant-table', 'data', 4500, "Retrieving historical data for CA simulation from SQLite.");
+        }
+
+        function triggerTodayLog() {
+            openCodeBottomSheet();
+            drawWire('ui-today-card', 'file-plant-detail', 'primary', 0, "UI requesting the active log data for today.");
+            drawWire('file-plant-detail', 'file-database-provider', 'state', 1500, "State providing the Drift database instance connection.");
+        }
+
+        function triggerSaveLog() {
+            closeCodeBottomSheet();
+            drawWire('file-database-provider', 'file-daily-log-dao', 'data', 0, "Passing connection to the Log Data Access Object.");
+            drawWire('file-daily-log-dao', 'file-app-database', 'data', 1500, "Committing the daily log row into local storage.");
+        }
+    </script>
+</body>
+</html>
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\README.md ===
+# VerdiTech — Documentation Index
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+---
+
+## 📁 Documentation Structure
+
+| Folder | Contents |
+|--------|----------|
+| [`specs/`](specs/) | Technical specifications — app spec, CA model, data models |
+| [`questionnaire/`](questionnaire/) | Client questionnaire and recorded responses |
+| [`design/`](design/) | UI/UX design documentation, screen flows, visual assets |
+| [`academic/`](academic/) | Thesis/capstone deliverables, manuscripts, presentations |
+
+---
+
+## 📄 File Index
+
+### `specs/` — Technical Specifications
+
+| File | Description |
+|------|-------------|
+| [`verditech_spec.md`](specs/verditech_spec.md) | Original client specification — features, scope, platform |
+| [`ca_model_spec.md`](specs/ca_model_spec.md) | Cellular Automata model — states, transitions, scoring formula |
+| [`data_models.md`](specs/data_models.md) | Data models & enums — Plant, Environment, Prediction, Recommendation |
+
+### `questionnaire/` — Client Communication
+
+| File | Description |
+|------|-------------|
+| [`client_questionnaire.md`](questionnaire/client_questionnaire.md) | 25-question questionnaire (7 sections) with context and options |
+| [`client_responses.md`](questionnaire/client_responses.md) | Template for recording client answers with impact/action fields |
+
+### `design/` — Design Documentation
+
+| File | Description |
+|------|-------------|
+| [`README.md`](design/README.md) | Design documentation index — mockups, palette, typography, screens |
+| [`screen_flow.md`](design/screen_flow.md) | Screen architecture — navigation flow and screen descriptions |
+
+### `academic/` — Academic Deliverables
+
+| File | Description |
+|------|-------------|
+| [`README.md`](academic/README.md) | Academic deliverables index — thesis, slides, user manual |
+
+---
+
+## 🌱 About VerdiTech
+
+**VerdiTech** is a Flutter mobile application that predicts and monitors the growth of vegetable plants (Tomato, Eggplant, Siling Labuyo) using a Cellular Automata model. It provides growth stage predictions, health monitoring, and actionable recommendations based on environmental factors.
+
+**Client**: Senior High School student (Thesis/Capstone project)  
+**Platform**: Android (Flutter) — iOS TBD  
+**Core Technology**: Cellular Automata for growth simulation
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\academic\README.md ===
+# VerdiTech — Academic
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+- Thesis/Capstone manuscript (placeholder)
+- Presentation slides (placeholder)
+- User manual (placeholder)
+- Methodology (placeholder — note: awaiting client response on required methodology)
+- Defense preparation notes (placeholder)
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\design\README.md ===
+# VerdiTech — Design
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+- UI/UX Mockups (placeholder)
+- Color Palette (placeholder)
+- Typography (placeholder)
+- Component Library (placeholder)
+- Screen Flow (placeholder)
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\design\screen_flow.md ===
+# VerdiTech — Screen Flow
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Screen: Splash/Onboarding → Home Dashboard → Add Plant Form → Plant Detail View → Growth Timeline / Health Status / Recommendations
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\questionnaire\client_questionnaire.md ===
+# VerdiTech — Client Questionnaire
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+(See main questionnaire document for the 25 questions)
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\questionnaire\client_responses.md ===
+# VerdiTech — Client Responses
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Template for recording client responses once received.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\specs\ca_model_spec.md ===
+# VerdiTech — CA Model Spec
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+- **Model type**: 1D Timeline CA (recommended) with optional 2D spatial visualization
+- **States**: SEED, SEEDLING, YOUNG_PLANT, FLOWERING, FRUITING
+- **Health overlays**: HEALTHY, STRESSED, CRITICAL
+- **Environmental scoring formula**: E_score = w_sun * S_sun + w_water * S_water + w_soil * S_soil
+- **Plant-specific weights table**: (Tomato: 0.40/0.35/0.25, Eggplant: 0.35/0.35/0.30, Siling Labuyo: 0.35/0.25/0.40)
+- **Season modifiers table**: (Tag-init, Tag-ulan, Malamig with per-plant multipliers)
+- **Stage duration parameters table**: (min/max days per transition per plant)
+- **Transition rule pseudocode**: [See Analysis]
+- **Neighbor influence mechanics**: (momentum, consistency penalty, cascade effect)
+- **State transition diagram description**: [See Analysis]
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\specs\data_models.md ===
+# VerdiTech — Data Models
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+- **Plant model** (id, type, plantingDate, currentStage, environment, predictions)
+- **EnvironmentProfile model** (sunlight, water, soil, season)
+- **DayPrediction model** (date, predictedStage, healthStatus, issues)
+- **DailyLog model** (id, plantId, date, sunlightScore, waterScore, soilScore, note)
+- **Recommendation model** (category, priority, message, forStage)
+- **Enums**: PlantType, GrowthStage, SunlightLevel, WaterLevel, SoilQuality, Season, HealthStatus, Priority
+
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\docs\specs\verditech_spec.md ===
+# VerdiTech — Project Spec
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+**Overview:** A mobile application that predicts and monitors the growth of vegetable plants using a Cellular Automata model.
+
+**Main Features:**
+1. **User Input**: Vegetable type (Tomato, Eggplant, Siling Labuyo), Planting date, Current growth stage, Season, Sunlight exposure, Water availability, Soil quality
+2. **Growth Prediction System**: Uses Cellular Automata logic to predict growth stages: Seedling, Young plant, Flowering, Fruiting
+3. **Plant Monitoring**: Displays health status, flags missing/insufficient factors (low sunlight, insufficient water, poor soil)
+4. **Recommendation System**: Actionable tips (more sunlight, adjust watering, improve soil)
+5. **Platform & Tech**: Android (iOS TBD), Flutter
+6. **Expected Output**: Predicted growth stage, Plant condition, Recommended actions
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\changelog.md ===
+# VerdiTech — Changelog
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Chronological record of all project changes, releases, and milestones. Follows [Semantic Versioning](https://semver.org/) principles adapted for this project.
+
+---
+
+## Versioning Scheme
+
+- **Major (X.0.0)** — Significant feature releases or milestones (e.g., v1.0.0 = thesis-ready release)
+- **Minor (0.X.0)** — New features or substantial additions
+- **Patch (0.0.X)** — Bug fixes, refinements, documentation updates
+
+---
+
+## Changelog
+
+### v0.0.1 — Project Initialization (June 27, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📁 Project folder structure created under `COMMISSIONS/Temp/`
+- 📊 Comprehensive technical analysis of client specification completed
+- 📝 Client questionnaire prepared and sent (15+ clarification questions)
+- 🧠 Project memory system established with 13 tracking files:
+  - `decisions.md` — Decision log with 7 initial decisions
+  - `errors_and_solutions.md` — Error tracking (empty, pre-development)
+  - `features.md` — 10 features catalogued (F001–F010)
+  - `techstack.md` — Technology stack candidates identified
+  - `requirements.md` — 24 functional + 7 non-functional requirements documented
+  - `client_communication.md` — 2 communication entries logged
+  - `changelog.md` — This file
+  - `constraints.md` — 8 project constraints identified
+  - `research.md` — CA theory, plant data, Philippine seasons documented
+  - `risks.md` — 5 risks assessed with mitigations
+  - `milestones.md` — 6-phase project plan outlined
+  - `scope.md` — In/Out/Pending scope defined
+  - `references.md` — Reference sources catalogued
+- 🌱 Three plants identified: Tomato, Eggplant, Siling Labuyo
+- 🔬 1D Cellular Automata recommended as prediction engine (hybrid with optional 2D viz)
+- 📱 Android confirmed as primary platform; Flutter confirmed as framework
+
+**Status:** Phase 0 (Requirements Gathering) — Awaiting client questionnaire responses.
+
+### v0.1.0 — Design & Spec Confirmation (June 27, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📝 Core specification (F001-F005) explicitly confirmed by client.
+- 🎨 Interactive Architecture and App Flow visualization created (`docs/architecture_flow.html`).
+- 📱 Actual UI Mockups designed and integrated (Material Design, green accents).
+- 🧠 Domain knowledge guide generated, capturing plant biology, Philippine agriculture context, and 1D CA theory.
+- 🗂️ Memory files updated (requirements, scope, milestones, decisions) to reflect confirmed Phase 0 and Phase 1 completion.
+
+**Status:** Phase 2 (Core Development) — In Progress.
+
+---
+
+### v0.2.0 — Staging Logs & Unified Timeline Planning (June 28, 2026)
+
+**Author:** Developer
+
+**Changes:**
+- 📝 Proposed and approved **Unified Live Timeline** & **Daily Staging Logs** (Flo-app cycle tracking concept).
+- 🧠 Documented new specifications and data models for `DailyLog` entity.
+- 🗂️ Promoted local database persistence and dashboard tracking features to confirmed core scope.
+- 🎨 Planned integration of 24 dynamic staging illustrations.
+
+**Status:** Phase 2 (Core Development) — DB & CA Engine implementation scheduled.
+
+---
+
+### v0.4.0 — Core Engine & UI Implementation (June 28, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- ⚙️ **Prediction Engine**: Fully implemented `CaEngine` for 1D growth state transitions, factoring in plant type, seasons (Tag-init, Tag-ulan, Malamig), and 3 environmental factors.
+- 💡 **Recommendation Engine**: Intelligent `RecommendationEngine` added for situational care tips.
+- 🗄️ **Database Layer**: Drift schema, DAOs, and Repositories built for local persistence.
+- 🔄 **State Management**: Integrated full Riverpod provider suite (Streams and StateNotifiers).
+- 🎨 **UI/UX**: Feature-first screens created for dashboard, plant forms, details, CA visualizations, and about pages.
+- 🧪 **Testing**: Added smoke tests and `ca_engine_test.dart` to verify logic.
+- 🛠️ **Static Analysis**: Resolved all linting, deprecations, and generated type issues.
+
+**Status:** Phase 4 (Integration) — Complete. App is ready for physical device testing.
+
+---
+
+### Upcoming
+
+- **v0.5.0** — Integration & Asset Packing (WebP crop drawings)
+- **v1.0.0** — Thesis-ready release (polished, tested, documented)
+
+*Dates TBD — awaiting client deadline confirmation.*
+
+---
+
+## Notes
+
+- Every code commit or significant change should have a corresponding changelog entry.
+- Group related changes under a single version bump when possible.
+- Reference related decisions (`decisions.md`) and features (`features.md`) in change descriptions.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\client_communication.md ===
+# VerdiTech — Client Communication Log
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Chronological record of all client communications, decisions made during discussions, and action items. This ensures nothing falls through the cracks and provides a clear history of project direction.
+
+---
+
+## Communication Log
+
+### Entry #1 — Initial Specification Received
+
+| Field | Details |
+|-------|---------|
+| **Date** | June 27, 2026 |
+| **Type** | 📩 Message (specification delivery) |
+| **Participants** | Client → Developer |
+| **Summary** | Client provided initial project specification for a Flutter mobile app that predicts plant growth using Cellular Automata. The spec included: three target plants (Tomato, Eggplant, Siling Labuyo), mention of environmental factors, use of Cellular Automata algorithm, and Flutter as the required framework. Spec was a high-level brief requiring further analysis and clarification. |
+| **Key Information Received** | • App purpose: Plant growth prediction<br>• Algorithm: Cellular Automata<br>• Framework: Flutter<br>• Plants: Tomato, Eggplant, Siling Labuyo<br>• Client context: Senior High School student (thesis/capstone) |
+| **Action Items** | ✅ Analyze spec and identify gaps<br>✅ Prepare technical analysis document<br>✅ Create comprehensive questionnaire for client |
+| **Next Steps** | Complete technical analysis; prepare and send questionnaire |
+
+---
+
+### Entry #2 — Technical Analysis Completed & Questionnaire Sent
+
+| Field | Details |
+|-------|---------|
+| **Date** | June 27, 2026 |
+| **Type** | 📤 Message (questionnaire delivery) |
+| **Participants** | Developer → Client |
+| **Summary** | Completed thorough technical analysis of the client's specification. Identified key areas needing clarification: scope of features (core vs. nice-to-have), CA model details (1D vs 2D), data persistence requirements, notification needs, UI preferences, thesis panel expectations, and project timeline/deadline. A comprehensive questionnaire was prepared covering all these areas and sent to the client. |
+| **Key Deliverables Sent** | • Technical analysis summary<br>• Detailed questionnaire (~15+ questions covering scope, features, timeline, technical preferences, and thesis requirements) |
+| **Action Items** | ⏳ Awaiting client responses to questionnaire |
+| **Next Steps** | Wait for client responses; begin Phase 1 (Design) once answers are received |
+
+### Entry #3 — Detailed Core Spec Confirmation
+
+| Field | Details |
+|-------|---------|
+| **Date** | June 27, 2026 |
+| **Type** | 📩 Message (detailed specification) |
+| **Participants** | Client → Developer |
+| **Summary** | Client explicitly detailed the main features required: User Input (Veg type, Date, Stage, Season, Sun, Water, Soil), Prediction System (CA logic, 4 stages), Plant Monitoring (Health status, factor deficiencies), Recommendation System (Actionable tips), Android/Flutter platform, and the Expected Output. |
+| **Key Decisions** | Core scope (F001-F005) is 100% confirmed by the client. The 4 stages and 3 environmental factors are also confirmed. |
+| **Action Items** | ✅ Update memory files (requirements, scope, decisions) to reflect confirmed status. ✅ Move to Phase 2 (Core Development). |
+| **Next Steps** | Begin implementing the CA engine and Riverpod architecture. |
+
+---
+
+## Pending Client Responses
+
+| Item | Question/Topic | Sent Date | Response Date | Status |
+|------|---------------|-----------|---------------|--------|
+| Q1 | App name confirmation ('VerdiTech') | 2026-06-27 | — | ⏳ Waiting |
+| Q2 | Feature scope (core vs. nice-to-have features) | 2026-06-27 | 2026-06-27 | ✅ Confirmed (Core) |
+| Q3 | CA model preference (1D vs 2D vs hybrid) | 2026-06-27 | 2026-06-27 | ✅ Confirmed (1D logic) |
+| Q4 | Data persistence requirement | 2026-06-27 | — | ⏳ Waiting |
+| Q5 | Push notifications desired? | 2026-06-27 | — | ⏳ Waiting |
+| Q6 | Thesis defense date / project deadline | 2026-06-27 | — | ⏳ Waiting |
+| Q7 | Thesis panel specific requirements | 2026-06-27 | — | ⏳ Waiting |
+| Q8 | UI style preferences | 2026-06-27 | 2026-06-27 | ✅ Confirmed (Material) |
+| Q9 | Language preference (English/Filipino/Both) | 2026-06-27 | — | ⏳ Waiting |
+| Q10 | Multiple plant tracking needed? | 2026-06-27 | — | ⏳ Waiting |
+
+---
+
+## Communication Template
+
+For future entries, use this format:
+
+```markdown
+### Entry #N — [Brief Title]
+
+| Field | Details |
+|-------|---------|
+| **Date** | [Date] |
+| **Type** | [📩 Message / 📞 Call / 📧 Email / 🤝 Meeting / 📤 Delivery] |
+| **Participants** | [Who was involved] |
+| **Summary** | [What was discussed/decided] |
+| **Key Decisions** | [Any decisions made — also log in decisions.md] |
+| **Action Items** | [Tasks arising from this communication] |
+| **Next Steps** | [What happens next] |
+```
+
+---
+
+## Notes
+
+- Always log communications promptly — don't rely on memory.
+- Cross-reference decisions made during communications to `decisions.md`.
+- If a communication results in a scope change, update `scope.md` and `features.md` accordingly.
+- Keep tone professional but friendly — remember the client is a student.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\constraints.md ===
+# VerdiTech — Constraints & Limitations
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+This file documents all known constraints, limitations, and boundaries that affect project decisions, scope, and implementation. Constraints are facts we must work within — not problems to solve, but realities to acknowledge and plan around.
+
+---
+
+## Client Constraints
+
+| ID | Constraint | Details | Impact on Project | Mitigation |
+|----|-----------|---------|-------------------|------------|
+| C001 | **Client is a Senior High School student** | Likely a thesis or capstone project for SHS (Grade 11–12). Academic context means the app must demonstrate understanding of the algorithm, not just be a polished product. | Documentation and "How It Works" section may be weighted heavily by thesis panel. Code complexity should be reasonable. | Include educational content in-app (F010). Prepare thesis-friendly documentation. Keep architecture clean but not over-engineered. |
+| C002 | **Budget: Likely limited or zero** | SHS students typically have minimal budget for software development commissions. No budget for paid APIs, assets, hosting, or services. | All resources must be free/open-source. No cloud services, no premium packages, no paid design assets. | Use open-source packages, Material Design (free), free icon sets, self-hosted fonts via Google Fonts. |
+| C003 | **Timeline: Unknown** | Client has not yet provided a project deadline or thesis defense date. Timeline could be anywhere from weeks to months. | Cannot create a reliable schedule until deadline is known. Risk of time pressure if deadline is near. | Asked in questionnaire. Use phased delivery so core features are ready first. Always have a "minimum viable" version ready. |
+| C004 | **Thesis panel requirements: Unknown** | Different schools and panels have varying expectations for thesis apps. Some require specific documentation, specific features, or live demonstrations. | Unknown requirements may surface mid-development, causing scope changes. | Asked in questionnaire. Request any rubric, evaluation criteria, or panel guidelines the client has. |
+
+---
+
+## Technical Constraints
+
+| ID | Constraint | Details | Impact on Project | Mitigation |
+|----|-----------|---------|-------------------|------------|
+| C005 | **Three plant types only (v1)** | App supports exactly three plants: Tomato, Eggplant, Siling Labuyo. No mechanism for users to add custom plants. | Limited variety may feel restrictive to users. Data models must be comprehensive for these three but don't need to be extensible for v1. | Design data models to be easily extensible for future plants. Focus on depth (accuracy) over breadth (variety). |
+| C006 | **Three environmental factors only** | Sunlight, Water, and Soil Quality are the only inputs to the CA model. Temperature, humidity, pH, fertilizer, and pests are excluded. | Simplified model may produce less accurate predictions. Fewer inputs means simpler UX but less nuanced results. | Acknowledge simplification in the "How It Works" section. Ensure the three chosen factors have meaningful impact on predictions. |
+| C007 | **Android only for v1** | Primary and possibly only target platform is Android. iOS support is not confirmed. | No need to test on iOS. Can use Android-specific features if beneficial. | Flutter inherently supports iOS — minimal additional effort if client later requests it. |
+| C008 | **No real-time data sources** | No weather API integration, no soil sensors, no camera-based analysis. All environmental data is user-reported. | Prediction accuracy depends entirely on user's ability to assess their environment. Subjective ratings may vary. | Provide clear guidance for each rating level (e.g., "Low sunlight = less than 4 hours direct sun per day"). |
+| C009 | **Offline-first requirement (TBD)** | App should likely work without internet since it targets home gardeners who may not always have connectivity. | No cloud features, no real-time data fetching, no analytics. | All computation is local. All data stored on-device. No network dependencies in core features. |
+
+---
+
+## Data & Accuracy Constraints
+
+| ID | Constraint | Details | Impact on Project | Mitigation |
+|----|-----------|---------|-------------------|------------|
+| C010 | **Botanical data is approximated** | Growth stage durations, environmental preferences, and seasonal modifiers are based on general agricultural references — not field-tested research specific to the app's CA model. | Predictions may not match real-world outcomes precisely. Results are estimates, not scientific guarantees. | Include a disclaimer in the app. Cite data sources. Use conservative ranges rather than exact numbers. Allow for calibration if real-world feedback is available. |
+| C011 | **Philippine-specific context** | Seasonal data (Tag-init, Tag-ulan, Malamig) and plant selections are specific to the Philippines. App may not be directly applicable to other climates/regions. | Limits international applicability. Seasons and plant behavior are tailored to tropical climate. | Clearly scope the app as Philippine-focused. This is actually a strength for thesis presentation — shows local relevance. |
+| C012 | **CA model is a simplification** | Cellular Automata is being used as a demonstrable algorithm for a thesis, not as the most scientifically accurate growth prediction method. Real agricultural models are far more complex. | The CA model may be questioned by panel members on accuracy. | Frame the CA as a "computational model demonstrating algorithmic prediction" rather than a "scientifically validated growth predictor." Emphasize the educational value of the algorithm. |
+
+---
+
+## Resource Constraints
+
+| ID | Constraint | Details | Impact on Project |
+|----|-----------|---------|-------------------|
+| C013 | **Single developer** | Project is being developed by one person. | No peer review, no parallel workstreams. Quality depends on self-review and testing. |
+| C014 | **No dedicated tester** | No QA team or dedicated tester. Testing is developer-responsibility. | May miss edge cases. Rely on automated tests and systematic manual testing. |
+| C015 | **No designer** | No dedicated UI/UX designer. Design decisions made by developer. | UI may be functional but not professionally designed. Use Material Design guidelines as a framework. |
+
+---
+
+## Constraint Status Legend
+
+| Status | Meaning |
+|--------|---------|
+| 🔒 Fixed | Cannot be changed — fundamental constraint |
+| ⏳ TBD | May change based on client response |
+| 🔄 Flexible | Can be adjusted if needed |
+
+---
+
+## Notes
+
+- Constraints are not problems — they're boundaries. Design within them, don't fight them.
+- When a constraint changes (e.g., client confirms deadline), update this file and log the change in `decisions.md`.
+- Some constraints may become features (e.g., Philippine-specific focus is a selling point for the thesis).
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\decisions.md ===
+# VerdiTech — Decision Log
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+This file tracks all major project decisions, their rationale, and current status. Every architectural choice, scope change, or client-confirmed direction is recorded here for traceability.
+
+---
+
+## Decision Record
+
+| # | Date | Decision | Rationale | Status | Decided By |
+|---|------|----------|-----------|--------|------------|
+| D001 | 2026-06-27 | App name is temporarily **'Temp'** (pending client confirmation of **'VerdiTech'**) | Client has not yet confirmed the proposed name. 'VerdiTech' was suggested as a blend of 'Verde' (green) + 'Tech' (technology), fitting the plant growth prediction theme. Working folder uses 'Temp' until confirmed. | ⏳ Pending Client | Developer |
+| D002 | 2026-06-27 | Using **Flutter** framework | Client specified Flutter as the required framework. Aligns with cross-platform capability and Dart language. Likely a thesis/capstone requirement. | ✅ Confirmed | Client |
+| D003 | 2026-06-27 | Target platform: **Android** (iOS TBD) | Primary target is Android due to prevalence in the Philippine market and likely thesis demo requirements. iOS support may be added later if needed, since Flutter supports both. | ✅ Confirmed (Android) / ⏳ Pending (iOS) | Developer + Client |
+| D004 | 2026-06-27 | Using **1D Cellular Automata** for prediction engine (recommended hybrid with optional 2D visualization) | 1D CA is sufficient for modeling plant growth stages as a linear progression influenced by environmental factors. A hybrid approach is recommended: 1D CA handles the core prediction logic, while an optional 2D grid visualization can provide a more engaging user experience. Pure 2D CA would add complexity without proportional benefit for this use case. | ✅ Confirmed | Developer + Client |
+| D005 | 2026-06-27 | Three vegetables selected: **Tomato**, **Eggplant**, **Siling Labuyo** | Client specified these three crops. All are common Philippine vegetables with well-documented growth patterns. Siling Labuyo is a native Philippine chili pepper, adding local relevance to the project. | ✅ Confirmed | Client |
+| D006 | 2026-06-27 | Four growth stages: **Seedling → Young Plant → Flowering → Fruiting** | Simplified growth model appropriate for the app's scope. Covers the key observable stages a home gardener would recognize. More granular stages (germination, transplanting, harvesting) excluded for simplicity but could be added later. | ✅ Confirmed | Developer + Client |
+| D007 | 2026-06-27 | Three environmental factors: **Sunlight**, **Water**, **Soil Quality** | These are the most impactful and user-observable factors for home gardening. Temperature, humidity, and pH were considered but excluded to keep the input model simple for SHS-level understanding and user experience. Each factor will be rated on a scale (e.g., Low/Medium/High or 1–5). | ✅ Confirmed | Developer + Client |
+| D008 | 2026-06-27 | State Management: **Riverpod (v3.x)** | Chosen over BLoC due to lower boilerplate, better async data handling, and compile-time safety. It's the modern industry standard and easier to explain in an academic defense than strict event-driven architectures. | ✅ Confirmed | Developer |
+| D009 | 2026-06-27 | Local Database: **Drift** | Chosen over NoSQL options (Hive/ObjectBox) because the app handles relational data (Plants have multiple Predictions). Drift provides a type-safe ORM over SQLite with excellent offline-first reactive streams. | ✅ Confirmed | Developer |
+| D010 | 2026-06-27 | Architecture Pattern: **Feature-First (Domain-Driven)** | Chosen over strict layer-by-layer Clean Architecture. Organizing folders by feature (e.g., `plants/`, `predictions/`) makes the codebase more cohesive and significantly easier to present during a thesis defense. | ✅ Confirmed | Developer |
+| D011 | 2026-06-28 | Unified Live Timeline & Staging Logs System | User confirmed implementation of daily log history + dynamic CA future forecast (concept analogous to Flo app's cycle tracker) to improve UI/UX engagement and panel demonstrability. | ✅ Confirmed | Developer + Client |
+| D012 | 2026-06-28 | **Automated Skill Chooser for Implementation** | Utilized Antigravity 2.0 agent rules (`AGENTS.md`) and specialized skills (`.agents/skills/`) to automatically map Flutter architectural patterns, UI standards, and testing setups to their respective domains during codebase construction. | ✅ Confirmed | Developer + Client |
+---
+
+## Decision Status Legend
+
+| Status | Meaning |
+|--------|---------|
+| ✅ Confirmed | Agreed upon by client and developer |
+| ⏳ Pending Client | Awaiting client response/confirmation |
+| 🔄 Revised | Previously decided, now changed |
+| ❌ Rejected | Proposed but not accepted |
+
+---
+
+## Notes
+
+- Remaining decisions will be confirmed once client finishes the questionnaire.
+- Decision numbering is sequential. Never reuse a decision number; mark old decisions as Revised if they change.
+- All decisions should reference the relevant questionnaire item or communication entry where applicable.
+
+==================

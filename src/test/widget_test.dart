@@ -6,24 +6,25 @@ import 'package:go_router/go_router.dart';
 import 'package:verditech/features/dashboard/presentation/dashboard_screen.dart';
 
 void main() {
-  // Create a router config that only needs the dashboard for the smoke test.
-  final testRouter = GoRouter(
-    initialLocation: '/',
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const DashboardScreen(),
-      ),
-      GoRoute(
-        path: '/add-plant',
-        builder: (context, state) => const Scaffold(body: Text('Add Plant')),
-      ),
-      GoRoute(
-        path: '/about',
-        builder: (context, state) => const Scaffold(body: Text('About')),
-      ),
-    ],
-  );
+  GoRouter createTestRouter() {
+    return GoRouter(
+      initialLocation: '/',
+      routes: [
+        GoRoute(
+          path: '/',
+          builder: (context, state) => const DashboardScreen(),
+        ),
+        GoRoute(
+          path: '/add-plant',
+          builder: (context, state) => const Scaffold(body: Text('Add Plant')),
+        ),
+        GoRoute(
+          path: '/about',
+          builder: (context, state) => const Scaffold(body: Text('About')),
+        ),
+      ],
+    );
+  }
 
   testWidgets('DashboardScreen smoke test — empty state renders correctly',
       (WidgetTester tester) async {
@@ -33,7 +34,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp.router(
-          routerConfig: testRouter,
+          routerConfig: createTestRouter(),
         ),
       ),
     );
@@ -47,7 +48,7 @@ void main() {
     await tester.pumpWidget(
       ProviderScope(
         child: MaterialApp.router(
-          routerConfig: testRouter,
+          routerConfig: createTestRouter(),
         ),
       ),
     );

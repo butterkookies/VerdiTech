@@ -111,10 +111,33 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 ---
 
+### v0.5.0 — Staging Logs & Unified Timeline Implementation (June 30, 2026)
+
+**Author:** Developer & Client
+
+**Changes:**
+- ✨ **Daily Staging Logs**: Fully implemented the `add_daily_log_dialog.dart` and `daily_log_providers.dart` allowing users to record actual environmental inputs over time.
+- 🕒 **Unified Live Timeline**: Successfully integrated historical daily logs with the CA engine's forecasted growth timeline inside `plant_details_screen.dart`.
+- 📱 **Client Verification**: App successfully built and verified on a physical device/emulator. Core flow, predictions, and UI have been signed off.
+
+**Status:** Phase 5 (Polish & Delivery) — In Progress.
+
+### v0.5.1 — Phase 5 Polish Paused & UI Redesign Branch (June 30, 2026)
+
+**Author:** Developer & Client
+
+**Changes:**
+- ✨ **UI Redesign Planned**: Received "Living Earth" Figma Make UI code.
+- 🌿 **Branch Created**: `feature/ui-enhancements-living-earth` branch created to integrate the premium UI over the functional Phase 5 codebase.
+- 💾 **Memory Updated**: Saved raw Figma Make output to `memory/figma_make_living_earth_ui.md` for safe incremental integration.
+
+**Status:** Phase 5 (Polish & Delivery) — UI Redesign in progress on feature branch.
+
+---
+
 ### Upcoming
 
-- **v0.5.0** — Integration & Asset Packing (WebP crop drawings)
-- **v1.0.0** — Thesis-ready release (polished, tested, documented)
+- **v1.0.0** — Thesis-ready release (Final polish, assets, and documentation)
 
 *Dates TBD — awaiting client deadline confirmation.*
 

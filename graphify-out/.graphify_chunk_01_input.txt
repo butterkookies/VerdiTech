@@ -1,0 +1,1716 @@
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\domain_knowledge.md ===
+# VerdiTech Domain Knowledge Guide
+
+Welcome to the crash course on plant biology and computational modeling! Since you are building an app that predicts plant growth, it's crucial to understand the logic behind the scenes so you can build the code with confidence. 
+
+Here is everything you need to know, broken down into simple concepts.
+
+---
+
+## 1. What is Cellular Automata (CA)?
+
+The client specifically requested using **Cellular Automata** to predict growth. This sounds intimidating, but it's actually a very elegant way to simulate complex systems using simple rules.
+
+### The Basics
+In a traditional 2D Cellular Automata (like Conway's "Game of Life"), you have a grid of cells (like a chessboard). 
+*   **Cells:** Each square on the board.
+*   **State:** A cell can be "Alive" or "Dead".
+*   **Time Steps:** The simulation moves forward one "tick" or "day" at a time.
+*   **Rules:** What happens to a cell in the next tick depends on its neighbors. (e.g., If a dead cell is surrounded by 3 living cells, it comes to life).
+
+### How We Apply CA to Plant Growth (1D CA)
+For VerdiTech, we are using a **1D Time-Series Cellular Automata**. 
+Instead of a 2D grid spreading out in space, think of a 1D line representing **Time (Days)**.
+
+*   **The Cell:** The plant on a specific day (Day 1, Day 2, Day 3...).
+*   **The State:** The growth stage the plant is currently in (e.g., Seedling, Flowering).
+*   **The Rules:** Instead of looking at neighboring cells, the plant looks at its **Environment** (Sun, Water, Soil). 
+    *   *Rule Example:* IF current state is `Seedling` AND `Water` is high AND `Sunlight` is high, THEN next state progresses towards `Young Plant`.
+    *   *Rule Example:* IF `Water` is critically low, THEN next state is `Stressed` (growth pauses).
+
+By running this rule loop day by day, the CA algorithm "predicts" exactly when the plant will reach the next stage.
+
+---
+
+## 2. The Plant Growth Stages (Phenology)
+
+"Phenology" is just the scientific term for the stages of a plant's life cycle. For this app, we are tracking four main stages:
+
+1.  **Seedling:** The baby plant has just sprouted from the seed. It's very fragile and needs consistent moisture.
+2.  **Young Plant (Vegetative Stage):** The plant focuses on growing big leaves and strong stems. It's building the "solar panels" (leaves) it needs to produce energy.
+3.  **Flowering:** The plant produces flowers. This is a critical stage—if conditions are bad (e.g., too hot, not enough water), the flowers will drop off, and there will be no fruit.
+4.  **Fruiting:** The flowers are pollinated and turn into the vegetables we harvest. The plant needs a lot of energy and water here to plump up the fruit.
+
+---
+
+## 3. The 3 Vegetables
+
+The app focuses on three specific plants. Each has unique needs, which our CA Engine will account for using "Weights" (e.g., one plant might care more about water, while another cares more about sun).
+
+*   🍅 **Tomato (Kamatis):** Very sensitive to water consistency. If watered irregularly while fruiting, the tomatoes can split or rot at the bottom. Loves sunlight.
+*   🍆 **Eggplant (Talong):** A heat-loving plant with a longer "Young Plant" vegetative phase before it starts fruiting. Very sturdy but needs rich soil.
+*   🌶️ **Siling Labuyo (Native Chili):** A native Philippine plant. It is very hardy, drought-tolerant, and tough. Once established, it doesn't need as much water as the other two, but it absolutely demands full sunlight to produce spicy peppers.
+
+---
+
+## 4. The 3 Environmental Factors (Inputs)
+
+The user will rate these three things from 1 (Very Low) to 5 (Excellent). These are the "rules" that feed our CA Engine.
+
+1.  **Sunlight:** Plants use photosynthesis to eat. Low sunlight = slow growth. 
+2.  **Water:** Necessary to move nutrients from the soil up into the leaves and fruit. Too little water = plant dries up. Too much water = roots drown and rot.
+3.  **Soil Quality:** The "vitamins" the plant gets. Good soil has Nitrogen (for leaves), Phosphorus (for flowers/roots), and Potassium (for overall health).
+
+---
+
+## 5. The Philippine Seasons (Context)
+
+Agriculture in the Philippines doesn't have Spring/Summer/Fall/Winter. We have three distinct agricultural seasons, which act as **Modifiers** in our CA algorithm:
+
+1.  **Tag-init (Dry/Hot Season - March to May):** Great sunlight, but extremely high evaporation. Plants dry out fast. Tomatoes struggle here because it gets *too* hot.
+2.  **Tag-ulan (Wet/Rainy Season - June to November):** Abundant water, but less sunlight due to clouds. The biggest danger here is "wet feet" (root rot) from flooding and fungal diseases.
+3.  **Malamig (Cool/Dry Season - December to February):** The "Goldilocks" season. Moderate temperatures and moderate rain. This is the absolute best time to grow Tomatoes and Eggplants.
+
+---
+
+## 6. How the App Logic Ties it All Together
+
+When you put on your programmer hat, here is how the app flows:
+
+1.  **Input:** User says "I have a *Tomato*, it's a *Seedling*, we are in *Tag-init*, Sun is 4, Water is 2, Soil is 3."
+2.  **CA Engine (The Math):** 
+    *   The engine calculates an **Environmental Score**. It knows Tomatoes need a lot of water, so a Water score of 2 hurts it heavily.
+    *   It applies a **Season Modifier**. It knows Tag-init is too hot for baby tomatoes, penalizing the score further.
+    *   It runs a loop, day by day, applying these penalties to the plant's growth speed.
+3.  **Output (UI):** 
+    *   **Timeline:** Tells the user it will take *longer* than normal to reach the Flowering stage.
+    *   **Health Status:** Flags the plant as "Stressed".
+    *   **Recommendations:** The engine sees the low Water score and the Tag-init season, so it outputs the tip: *"Increase watering frequency. The Tag-init heat evaporates water quickly, and tomatoes need consistent moisture."*
+
+> [!TIP]
+> You don't need a PhD in botany to build this! You just need to translate these concepts into data models (classes) and transition rules (if/else statements and simple math formulas) in Dart.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\errors_and_solutions.md ===
+# VerdiTech — Errors & Solutions Log
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+This file tracks all bugs, errors, blockers, and unexpected issues encountered during development. Every error is documented with its root cause and solution for future reference and pattern recognition.
+
+---
+
+## Error Log
+
+| # | Date | Error Description | Context / Where | Root Cause | Solution | Status | Time Spent |
+|---|------|-------------------|-----------------|------------|----------|--------|------------|
+| E001 | 2026-06-28 | Mappers throw `Undefined class 'PlantTableData'` | `lib/data/mappers/` | Drift generates data classes in `app_database.g.dart` which is part of `app_database.dart`, not the table definitions. | Replaced table imports (`plant_table.dart`) with the main database import (`app_database.dart`) where the generated part lives. | ✅ Resolved | 10 mins |
+
+---
+
+## How to Log Errors
+
+When adding a new error entry, use this format:
+
+```
+| E001 | YYYY-MM-DD | Brief but specific error description | File/module/screen/feature where it occurred | What actually caused the issue | How it was fixed (include code snippets if helpful) | Open/Resolved | Estimated time spent debugging |
+```
+
+### Status Values
+| Status | Meaning |
+|--------|---------|
+| 🔴 Open | Error identified, not yet resolved |
+| 🟡 In Progress | Actively being investigated/fixed |
+| ✅ Resolved | Fixed and verified |
+| 🔁 Recurring | Was resolved but has reappeared |
+| ⏸️ Deferred | Known issue, intentionally postponed |
+
+### Severity Levels (optional tag in description)
+- **[CRITICAL]** — App crashes, data loss, or blocks development entirely
+- **[HIGH]** — Major feature broken, significant UX impact
+- **[MEDIUM]** — Feature partially broken, workaround exists
+- **[LOW]** — Cosmetic issue, minor inconvenience
+
+---
+
+## Common Error Patterns
+
+*This section will be updated as patterns emerge during development.*
+
+| Pattern | Occurrences | Notes |
+|---------|-------------|-------|
+| — | — | *No patterns identified yet.* |
+
+---
+
+## Environment Info
+
+| Item | Value |
+|------|-------|
+| Flutter Version | TBD (not yet set up) |
+| Dart Version | TBD |
+| Android SDK | TBD |
+| IDE | TBD |
+| Test Device(s) | TBD |
+| OS | Windows |
+
+---
+
+## Notes
+
+- Always log errors immediately when encountered, even if the fix is quick. This builds a knowledge base.
+- Include stack traces or error messages verbatim when possible (use code blocks).
+- Link to related decisions (decisions.md) or features (features.md) when relevant.
+- Time spent helps estimate debugging overhead for future project planning.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\features.md ===
+# VerdiTech — Feature List
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Complete feature inventory for the VerdiTech plant growth prediction app. Features are categorized by priority and tracked through development phases.
+
+---
+
+## Feature Registry
+
+| ID | Feature | Description | Priority | Status | Phase |
+|----|---------|-------------|----------|--------|-------|
+| F001 | **User Input System** | Form-based input allowing users to select: plant type (Tomato/Eggplant/Siling Labuyo), planting date, current growth stage (Seedling/Young Plant/Flowering/Fruiting), current season, and rate three environmental factors (Sunlight, Water, Soil Quality) on a scale. | 🔴 Core | 📋 Planned | Phase 2–3 |
+| F002 | **Growth Prediction Engine** | 1D Cellular Automata model that takes user inputs and simulates plant growth progression. Calculates expected days to next stage, overall health score, and predicted timeline to harvest. Uses transition rules weighted by environmental factor scores and seasonal modifiers. | 🔴 Core | 📋 Planned | Phase 2 |
+| F003 | **Plant Health Monitoring** | Real-time health status display based on current environmental factor ratings. Shows overall health indicator (Excellent/Good/Fair/Poor) and identifies which factors are suboptimal. Updates dynamically as user adjusts input values. | 🔴 Core | 📋 Planned | Phase 2–3 |
+| F004 | **Recommendation System** | Generates actionable, context-specific tips based on identified deficiencies. If water is rated Low for Tomato in Tag-init (dry season), suggests specific watering frequency/volume. Tips are plant-specific and season-aware. | 🔴 Core | 📋 Planned | Phase 2–3 |
+| F005 | **Growth Timeline Visualization** | Visual representation of the predicted growth journey — from current stage to harvest. Shows estimated days per stage, progress indicators, and key milestones. Could be a horizontal timeline, progress bar, or stage-based card layout. | 🔴 Core | 📋 Planned | Phase 3 |
+| F006 | **Plant Dashboard** | Multi-plant tracking interface allowing users to manage several plants simultaneously. Each plant has its own profile with input data, predictions, and health status. List/grid view of all tracked plants. | 🔴 Core | ✅ Confirmed | Phase 2–3 |
+| F007 | **CA Visualization** | Animated grid visualization showing the Cellular Automata computation in action. Cells change color/state over time to illustrate how the prediction evolves. Educational and visually engaging — may strengthen thesis presentation. | 🟡 Nice-to-Have | ⏳ Pending Client | Phase 3–4 |
+| F008 | **Data Persistence** | Local storage solution to save plant profiles, prediction history, and user preferences across app sessions. No cloud sync — purely on-device storage. Candidates: sqflite, Hive, or drift. | 🔴 Core | ✅ Confirmed | Phase 2 |
+| F009 | **Push Notifications** | Local push notifications reminding users to water plants, check on growth, or update environmental ratings. Scheduled based on prediction data (e.g., "Your tomato should be entering Flowering stage soon!"). | 🟢 TBD | ⏳ Pending Client | Phase 4 |
+| F010 | **About / How It Works** | Educational section explaining what Cellular Automata is, how the prediction model works, and the science behind the growth factors. Important for thesis context — demonstrates understanding of the algorithm. | 🟡 Nice-to-Have | ⏳ Pending Client | Phase 3 |
+| F011 | **Daily Staging Logs** | Form-based input to record daily environmental factor ratings (Sunlight, Water, Soil Quality) on a 1-5 scale for any day since planting, persisted locally. | 🔴 Core | 📋 Planned | Phase 2 |
+| F012 | **Unified Live Timeline** | Chronological scrolling list combining historical logged days (with dynamic crop illustrations indicating health and stage) and future days displaying the CA model's forecast. | 🔴 Core | 📋 Planned | Phase 2–3 |
+
+---
+
+## Priority Legend
+
+| Priority | Meaning |
+|----------|---------|
+| 🔴 Core | Must-have for v1. App is incomplete without it. |
+| 🟡 Nice-to-Have | Enhances the app significantly but not strictly required. |
+| 🟢 TBD | Priority not yet determined — awaiting client input. |
+
+## Status Legend
+
+| Status | Meaning |
+|--------|---------|
+| 📋 Planned | Scoped and understood, not yet started |
+| ⏳ Pending Client | Awaiting client confirmation on inclusion |
+| 🚧 In Progress | Currently being developed |
+| 🔍 In Review | Developed, under testing/review |
+| ✅ Done | Completed and verified |
+| ❌ Cut | Removed from scope |
+
+---
+
+## Feature Dependencies
+
+```
+F001 (User Input) ──► F002 (CA Engine) ──► F003 (Health Monitor)
+                                       ──► F004 (Recommendations)
+                                       ──► F005 (Timeline Viz)
+F002 ──► F007 (CA Visualization) [optional]
+F001 ──► F006 (Dashboard) [requires F008]
+F008 (Data Persistence) ──► F006 (Dashboard)
+                         ──► F009 (Notifications)
+F010 (About) ── standalone, no dependencies
+```
+
+---
+
+## Feature Notes
+
+- **F001–F005** are the core feature set. The app is functional with just these five features.
+- **F006–F010** are enhancements. Their inclusion depends on client priorities, timeline, and thesis panel requirements.
+- **F007 (CA Visualization)** could be a strong differentiator for the thesis defense — it demonstrates the algorithm visually.
+- **F008 (Data Persistence)** becomes essential if F006 (Dashboard) is included, since tracking multiple plants requires saving state.
+- All "Pending Client" features are included in the questionnaire sent on June 27, 2026.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\milestones.md ===
+# VerdiTech — Milestones & Timeline
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Project phases, milestones, and delivery timeline. Dates are TBD until the client confirms the project deadline.
+
+---
+
+## Project Phases Overview
+
+```mermaid
+gantt
+    title VerdiTech Development Phases
+    dateFormat  YYYY-MM-DD
+    section Phases
+    Phase 0 - Requirements    :active, p0, 2026-06-27, 7d
+    Phase 1 - Design          :p1, after p0, 5d
+    Phase 2 - Core Dev        :p2, after p1, 10d
+    Phase 3 - UI Dev          :p3, after p2, 7d
+    Phase 4 - Integration     :p4, after p3, 5d
+    Phase 5 - Polish          :p5, after p4, 5d
+```
+
+*Note: Durations above are estimates. Actual dates will be set after client confirms deadline.*
+
+---
+
+## Phase Details
+
+### Phase 0: Requirements Gathering
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | ✅ Complete |
+| **Started** | June 27, 2026 |
+| **Target End** | June 27, 2026 |
+| **Objective** | Gather all information needed to begin design and development |
+
+**Deliverables:**
+- [x] Receive and analyze client specification
+- [x] Complete technical analysis
+- [x] Prepare and send client questionnaire
+- [x] Create project memory system (13 files)
+- [x] Receive client detailed spec confirmation
+- [x] Finalize core scope and feature list
+- [ ] Confirm project deadline and timeline
+- [x] Get client sign-off on scope document
+
+**Exit Criteria:** Core scope confirmed; ready for design.
+
+---
+
+### Phase 1: Design
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | ✅ Complete |
+| **Started** | June 27, 2026 |
+| **Target End** | June 27, 2026 |
+| **Objective** | Design the app architecture, data models, UI, and CA rules before coding |
+
+**Deliverables:**
+- [x] UI/UX wireframes or mockups (key screens)
+- [x] Finalize data models (Plant, GrowthStage, EnvironmentalFactors, Prediction)
+- [x] Specify CA transition rules with exact parameters
+- [x] Define app architecture and folder structure
+- [x] Select and lock tech stack (state management, database, packages)
+- [x] Create navigation flow diagram
+
+**Key Screens to Design:**
+1. Home / Landing screen
+2. Plant Input Form
+3. Prediction Results / Growth Timeline
+4. Plant Health Status & Recommendations
+5. Dashboard (if F006 confirmed)
+6. CA Visualization (if F007 confirmed)
+7. About / How It Works (if F010 confirmed)
+
+**Exit Criteria:** All designs reviewed; data models defined; CA rules specified; tech stack locked.
+
+---
+
+### Phase 2: Core Development
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | ✅ Complete |
+| **Started** | June 27, 2026 |
+| **Target End** | — |
+| **Objective** | Build the prediction engine, data layer, and foundational code |
+
+**Deliverables:**
+- [x] Flutter project initialized with folder structure
+- [x] Plant data models implemented
+- [x] CA prediction engine implemented and unit-tested
+- [x] Environmental scoring system implemented
+- [x] Seasonal modifier logic implemented
+- [x] Recommendation engine implemented
+- [x] Local data persistence set up (if F008 confirmed)
+- [x] Unit tests for CA engine (minimum 80% coverage on core logic)
+
+**Priority Order:**
+1. 🔴 CA Engine (F002) — this is the heart of the app
+2. 🔴 Plant Data Models — structures for all three plants
+3. 🔴 Environmental Scoring — factor weights and score calculation
+4. 🔴 Recommendation Logic (F004) — tip generation
+5. 🟡 Data Persistence (F008) — if confirmed
+
+**Exit Criteria:** CA engine produces reasonable predictions for all 3 plants; unit tests pass.
+
+---
+
+### Phase 3: UI Development
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | ✅ Complete |
+| **Started** | — |
+| **Target End** | — |
+| **Objective** | Build all user-facing screens and navigation |
+
+**Deliverables:**
+- [x] Plant Input Form screen (F001)
+- [x] Prediction Results screen with Growth Timeline (F005)
+- [x] Health Status & Recommendations screen (F003 + F004)
+- [x] Dashboard screen (F006 — if confirmed)
+- [x] CA Visualization screen (F007 — if confirmed)
+- [x] About / How It Works screen (F010 — if confirmed)
+- [x] App navigation and routing
+- [x] Theme and styling (colors, fonts, icons)
+- [x] Responsive layout testing
+
+**Exit Criteria:** All confirmed screens built; navigation works; visual styling complete.
+
+---
+
+### Phase 4: Integration & Testing
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | ✅ Complete |
+| **Started** | — |
+| **Target End** | — |
+| **Objective** | Connect the prediction engine to the UI; comprehensive testing |
+
+**Deliverables:**
+- [x] Wire UI inputs to CA engine
+- [x] Display predictions in the timeline visualization
+- [x] Display health status and recommendations from engine output
+- [x] End-to-end testing of all user flows
+- [x] Edge case testing (all Low inputs, all High inputs, boundary conditions)
+- [x] Push notification integration (F009 — deferred)
+- [x] Performance testing on target device
+- [x] Fix all Critical and High bugs
+
+**Test Scenarios:**
+| Scenario | Expected Behavior |
+|----------|-------------------|
+| Tomato, all Excellent, Malamig | Fastest growth timeline (~70 days) |
+| Eggplant, all Very Low, Tag-init | Very slow / stalled growth; critical warnings |
+| Siling Labuyo, moderate inputs, Tag-ulan | Moderate timeline with wet season adjustments |
+| Change factor mid-flow | Prediction updates immediately |
+| App restart (if persistence) | Saved data loads correctly |
+
+**Exit Criteria:** All user flows work end-to-end; no Critical bugs; predictions are reasonable.
+
+---
+
+### Phase 5: Polish & Delivery ⬅️ CURRENT PHASE
+
+| Attribute | Details |
+|-----------|---------|
+| **Status** | 🟡 In Progress |
+| **Started** | — |
+| **Target End** | — |
+| **Objective** | Final polish, documentation, and delivery of thesis-ready app |
+
+**Deliverables:**
+- [ ] Fix remaining Medium/Low bugs
+- [ ] Performance optimization
+- [ ] Final UI polish (animations, transitions, error states)
+- [ ] Build release APK
+- [ ] Test release APK on physical device
+- [ ] Prepare user guide / documentation (if needed for thesis)
+- [ ] Prepare demo script for thesis defense (if requested)
+- [ ] Final code cleanup and documentation
+- [ ] Deliver APK and source code to client
+
+**Exit Criteria:** Release APK works; client has all deliverables; app is demo-ready.
+
+---
+
+## Milestone Summary
+
+| Milestone | Phase | Target Date | Status |
+|-----------|-------|-------------|--------|
+| M1: Requirements complete | Phase 0 → 1 | 2026-06-27 | ✅ Complete |
+| M2: Design approved | Phase 1 → 2 | 2026-06-27 | ✅ Complete |
+| M3: CA engine working | Phase 2 midpoint | 2026-06-28 | ✅ Complete |
+| M4: Core dev complete | Phase 2 → 3 | 2026-06-28 | ✅ Complete |
+| M5: All screens built | Phase 3 → 4 | 2026-06-28 | ✅ Complete |
+| M6: Integration complete | Phase 4 → 5 | 2026-06-28 | ✅ Complete |
+| M7: Release APK delivered | Phase 5 end | TBD | ⬜ Not Started |
+
+---
+
+## Notes
+
+- Timeline will be populated once the client confirms the project deadline.
+- If timeline is tight (< 3 weeks), Phases 1–2 may overlap and Phase 5 may be compressed.
+- If timeline is very tight (< 2 weeks), consider reducing scope to Core features only (F001–F005).
+- Always maintain a buildable, demo-able version from Phase 2 onward.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\references.md ===
+# VerdiTech — References & Sources
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Curated collection of references, links, papers, and resources supporting VerdiTech development. Organized by category for quick lookup.
+
+---
+
+## 1. Academic References — Cellular Automata
+
+### Foundational
+| Source | Author(s) | Year | Relevance | Status |
+|--------|----------|------|-----------|--------|
+| *A New Kind of Science* | Stephen Wolfram | 2002 | Definitive reference on CA theory, rules, and classifications | 📖 To review |
+| Wolfram MathWorld — Cellular Automaton | Wolfram Research | Ongoing | Online reference for CA definitions and rule numbering | 📖 To review |
+| "Theory of Self-Reproducing Automata" | John von Neumann | 1966 | Historical origin of cellular automata concept | 📖 To review |
+
+### CA in Biological/Agricultural Modeling
+| Source | Author(s) | Year | Relevance | Status |
+|--------|----------|------|-----------|--------|
+| *To be identified* | — | — | Papers on CA applications to plant growth simulation | 🔍 To search |
+| *To be identified* | — | — | Papers on CA for crop yield prediction | 🔍 To search |
+| *To be identified* | — | — | Papers on computational models for tropical agriculture | 🔍 To search |
+
+### Search Queries for Literature
+- "cellular automata plant growth simulation"
+- "cellular automata agricultural model"
+- "computational model vegetable growth prediction"
+- "1D cellular automata biological modeling"
+- Google Scholar, ResearchGate, UPLB Library
+
+---
+
+## 2. Technical References — Flutter & Dart
+
+### Official Documentation
+| Resource | URL | Purpose |
+|----------|-----|---------|
+| Flutter Documentation | https://docs.flutter.dev/ | Framework reference, widgets, API |
+| Dart Language Tour | https://dart.dev/language | Language syntax and features |
+| pub.dev | https://pub.dev/ | Package repository |
+| Flutter Cookbook | https://docs.flutter.dev/cookbook | Common recipes and patterns |
+| Material Design 3 | https://m3.material.io/ | Design system guidelines |
+
+### Relevant Flutter Packages
+| Package | URL | Purpose | Status |
+|---------|-----|---------|--------|
+| provider | https://pub.dev/packages/provider | State management | 🔍 Under consideration |
+| riverpod | https://pub.dev/packages/riverpod | State management (alternative) | 🔍 Under consideration |
+| hive | https://pub.dev/packages/hive | Local NoSQL database | 🔍 Under consideration |
+| sqflite | https://pub.dev/packages/sqflite | Local SQL database | 🔍 Under consideration |
+| fl_chart | https://pub.dev/packages/fl_chart | Charts and graphs | 🔍 Under consideration |
+| flutter_local_notifications | https://pub.dev/packages/flutter_local_notifications | Push notifications | 🔍 Under consideration |
+| go_router | https://pub.dev/packages/go_router | Declarative navigation | 🔍 Under consideration |
+| google_fonts | https://pub.dev/packages/google_fonts | Custom typography | 🔍 Under consideration |
+| intl | https://pub.dev/packages/intl | Date formatting, i18n | 🔍 Under consideration |
+| freezed | https://pub.dev/packages/freezed | Immutable data classes | 🔍 Under consideration |
+
+### Tutorials & Guides
+| Resource | URL | Topic |
+|----------|-----|-------|
+| Flutter State Management Guide | https://docs.flutter.dev/data-and-backend/state-mgmt | Choosing state management approach |
+| Flutter Clean Architecture | *To be identified* | Project structure best practices |
+| Dart Testing Guide | https://dart.dev/guides/testing | Unit and widget testing |
+
+---
+
+## 3. Design References — UI Inspiration
+
+### Plant/Garden App UI Inspiration
+| App/Source | URL | What to Reference |
+|-----------|-----|-------------------|
+| Planta | App Store / Google Play | Plant care app — UI patterns for plant profiles |
+| Plantix | App Store / Google Play | Plant health diagnosis — card-based UI |
+| Blossom | App Store / Google Play | Plant identification — clean, modern design |
+| Dribbble — "Plant App" | https://dribbble.com/search/plant-app | Community designs for plant-themed apps |
+| Behance — "Agriculture App" | https://www.behance.net/search/projects?search=agriculture+app | Agriculture app design concepts |
+
+### Color Palette Ideas
+| Theme | Colors | Notes |
+|-------|--------|-------|
+| Primary Green | #2E7D32, #4CAF50, #81C784 | Natural, plant-associated |
+| Earth Tones | #795548, #8D6E63, #A1887F | Warm, organic feel |
+| Accent | #FF9800 (Orange), #FFC107 (Amber) | For warnings, highlights, CTAs |
+| Background | #FAFAFA (Light), #121212 (Dark) | Clean, readable |
+
+### Icon Resources
+| Resource | URL | License |
+|----------|-----|---------|
+| Material Icons | https://fonts.google.com/icons | Apache 2.0 (Free) |
+| Phosphor Icons | https://phosphoricons.com/ | MIT (Free) |
+| Tabler Icons | https://tabler-icons.io/ | MIT (Free) |
+| Flaticon | https://www.flaticon.com/ | Free with attribution |
+
+---
+
+## 4. Agricultural Data Sources — Philippines
+
+### Government & Institutional
+| Source | URL | Data Available | Status |
+|--------|-----|---------------|--------|
+| Philippine Department of Agriculture (DA) | https://www.da.gov.ph/ | Crop production guides, best practices, Philippine crop calendar | 🔍 To search |
+| Bureau of Plant Industry (BPI) | https://bpi.da.gov.ph/ | Plant variety data, cultivation guidelines | 🔍 To search |
+| UPLB (Univ. of the Philippines Los Baños) | https://uplb.edu.ph/ | Agricultural research, vegetable production manuals | 🔍 To search |
+| PhilRice (Philippine Rice Research Institute) | https://www.philrice.gov.ph/ | Crop science research (may have relevant vegetable data) | 🔍 To search |
+| PCAARRD | https://www.pcaarrd.dost.gov.ph/ | Agricultural R&D publications | 🔍 To search |
+| PAGASA | https://www.pagasa.dost.gov.ph/ | Philippine weather & climate data, seasonal definitions | 🔍 To search |
+
+### International
+| Source | URL | Data Available | Status |
+|--------|-----|---------------|--------|
+| FAO (Food and Agriculture Org.) | https://www.fao.org/ | Tropical vegetable cultivation guides | 🔍 To search |
+| AVRDC / World Vegetable Center | https://avrdc.org/ | Tropical vegetable research, variety data | 🔍 To search |
+| IRRI (Int'l Rice Research Institute) | https://www.irri.org/ | Philippine agricultural context | 🔍 To search |
+
+### Specific Crop Data
+| Crop | Search Terms | Priority Sources |
+|------|-------------|-----------------|
+| Tomato | "tomato cultivation Philippines", "Solanum lycopersicum tropical growing guide" | DA, UPLB, FAO |
+| Eggplant | "eggplant cultivation Philippines", "talong production guide" | DA, BPI |
+| Siling Labuyo | "siling labuyo growing guide", "Capsicum frutescens Philippines", "native chili cultivation" | DA, BPI, UPLB |
+
+---
+
+## 5. Thesis / Academic Writing References
+
+| Resource | Purpose | Status |
+|----------|---------|--------|
+| Client's school thesis format guide | Formatting requirements for documentation | ⏳ Awaiting from client |
+| UPLB thesis format (template) | Reference for academic writing structure | 🔍 To search |
+| IEEE / ACM paper format | If academic paper format is required | 🔍 To search |
+
+---
+
+## Reference Status Legend
+
+| Status | Meaning |
+|--------|---------|
+| ✅ Reviewed | Read and integrated into project knowledge |
+| 📖 To review | Identified, not yet read |
+| 🔍 To search | Need to find specific resource |
+| ❌ Not useful | Reviewed but not relevant |
+
+---
+
+## Notes
+
+- Prioritize Philippine-specific agricultural data over generic tropical data.
+- All references used in the thesis should be properly cited in the client's required format.
+- Keep URLs up to date — check for broken links periodically.
+- Academic papers should be noted with DOI when available.
+- Free/open-access resources only — client has no budget for subscriptions.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\requirements.md ===
+# VerdiTech — Requirements Document
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Comprehensive requirements specification for the VerdiTech plant growth prediction mobile app. This document captures all functional and non-functional requirements, constraints, and acceptance criteria.
+
+> **✅ STATUS: CORE SCOPE CONFIRMED**
+> The core requirements (FR-001 through FR-019) have been confirmed by the client's detailed specification. Optional features remain pending.
+
+---
+
+## 1. Functional Requirements
+
+### 1.1 User Input (FR-001 through FR-007)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-001 | User can select plant type from three options: Tomato, Eggplant, Siling Labuyo | Core | ✅ Confirmed | Dropdown/selector shows exactly 3 plant options; selection persists |
+| FR-002 | User can enter or select planting date | Core | ✅ Confirmed | Date picker allows past and current dates; default is today |
+| FR-003 | User can select current growth stage: Seedling, Young Plant, Flowering, Fruiting | Core | ✅ Confirmed | Four stage options displayed clearly; stages are plant-relevant |
+| FR-004 | User can select current season or season is auto-detected from date | Core | ✅ Confirmed | Three Philippine seasons available: Tag-init, Tag-ulan, Malamig; auto-detect preferred |
+| FR-005 | User can rate Sunlight level (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Input is intuitive; includes helper text explaining what each level means |
+| FR-006 | User can rate Water availability (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Same UX pattern as FR-005 |
+| FR-007 | User can rate Soil Quality (Low/Medium/High or 1–5 scale) | Core | ✅ Confirmed | Same UX pattern as FR-005; includes brief guidance on soil assessment |
+
+### 1.2 Prediction Engine (FR-008 through FR-012)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-008 | App uses Cellular Automata algorithm to predict plant growth | Core | ✅ Confirmed | CA engine produces deterministic results for identical inputs |
+| FR-009 | Prediction calculates estimated days to next growth stage | Core | ✅ Confirmed | Output shows a number of days with reasonable accuracy (±20% of agricultural norms) |
+| FR-010 | Prediction accounts for all three environmental factors | Core | ✅ Confirmed | Changing any single factor visibly affects the prediction output |
+| FR-011 | Prediction accounts for Philippine seasonal conditions | Core | ✅ Confirmed | Same inputs with different seasons produce different predictions |
+| FR-012 | Prediction generates an overall health score | Core | ✅ Confirmed | Health score is displayed as a percentage, category, or visual indicator |
+
+### 1.3 Health Monitoring & Recommendations (FR-013 through FR-016)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-013 | App displays plant health status based on environmental factors | Core | ✅ Confirmed | Health status updates in real-time as user changes inputs |
+| FR-014 | App identifies which environmental factors are suboptimal | Core | ✅ Confirmed | Deficient factors are visually highlighted (color, icon, label) |
+| FR-015 | App provides actionable recommendations for each deficiency | Core | ✅ Confirmed | Recommendations are plant-specific and season-aware; text is clear and actionable |
+| FR-016 | Recommendations are contextual (different tips for different plants/seasons) | Core | ✅ Confirmed | At least 3 unique tips per plant per factor per severity level |
+
+### 1.4 Visualization (FR-017 through FR-019)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-017 | App displays a visual growth timeline from current stage to harvest | Core | ✅ Confirmed | Timeline shows all remaining stages with estimated durations |
+| FR-018 | Growth timeline updates dynamically based on input changes | Core | ✅ Confirmed | Changing inputs immediately reflects in timeline visualization |
+| FR-019 | Optional: Animated CA grid visualization showing algorithm in action | Nice-to-Have | ⏳ Pending Client | Grid animates cell state transitions; includes play/pause controls |
+
+### 1.5 Data Management (FR-020 through FR-023)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-020 | App saves plant profiles locally on device | Core | ✅ Confirmed | Data persists across app restarts; no data loss on normal close |
+| FR-021 | User can track multiple plants simultaneously | Core | ✅ Confirmed | Dashboard shows all plants; user can add/edit/delete plants |
+| FR-022 | User can view prediction history for each plant | Core | ✅ Confirmed | History shows past predictions with timestamps |
+| FR-023 | Optional: Local push notifications for care reminders | TBD | ⏳ Pending Client | Notifications appear at scheduled times; user can disable them |
+
+### 1.6 Educational Content (FR-024)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-024 | App includes an "About" or "How It Works" section explaining the CA algorithm | Nice-to-Have | ⏳ Pending Client | Content is accurate, understandable for SHS level, includes diagrams |
+
+### 1.7 Staging Logs & Live Timeline (FR-025 through FR-028)
+
+| ID | Requirement | Priority | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| FR-025 | User can log daily environmental factors (Sun, Water, Soil Quality) on a 1-5 scale for any day since planting | Core | ✅ Confirmed | Numeric ratings are saved in the DB mapped to specific dates; triggers CA updates |
+| FR-026 | App displays a scrollable Unified Live Timeline from Day 1 to predicted harvest | Core | ✅ Confirmed | Displays past logged items (solid) and future simulated days (semi-transparent) |
+| FR-027 | Timeline displays crop-specific stage drawings that dynamically reflect health status | Core | ✅ Confirmed | Health state (Healthy vs Stressed) alters the color/form of the plant illustration |
+| FR-028 | Tapping a timeline day opens a Bottom Sheet for quick score updates | Core | ✅ Confirmed | Sheet slides up instantly; allows rating adjustments and notes; auto-updates CA prediction |
+
+---
+
+## 2. Non-Functional Requirements
+
+| ID | Requirement | Category | Status | Acceptance Criteria |
+|----|-------------|----------|--------|---------------------|
+| NFR-001 | App must work offline (no internet required for core features) | Availability | ⏳ Pending | All core features (F001–F005) function without network connection |
+| NFR-002 | Prediction engine must return results within 2 seconds | Performance | ⏳ Pending | Measured on mid-range Android device |
+| NFR-003 | App size should not exceed 50MB (APK) | Performance | ⏳ Pending | Measured after release build |
+| NFR-004 | App should support Android 6.0 (API 23) and above | Compatibility | ⏳ Pending | Tested on minimum supported API level |
+| NFR-005 | UI text should be in English | Localization | ⏳ Pending | Filipino/Tagalog support TBD |
+| NFR-006 | App should handle edge cases gracefully (no crashes) | Reliability | ⏳ Pending | No unhandled exceptions in core user flows |
+| NFR-007 | App should follow Material Design guidelines | Usability | ⏳ Pending | Consistent with Flutter Material 3 standards |
+
+---
+
+## 3. Constraints
+
+| Constraint | Description | Impact |
+|------------|-------------|--------|
+| **Client Level** | Client is a Senior High School student (likely thesis/capstone project) | App complexity must be reasonable; documentation should be thesis-friendly |
+| **Budget** | Likely limited or zero budget | No paid APIs, services, or assets; all resources must be free/open-source |
+| **Timeline** | Unknown — awaiting client response on deadline | Phased delivery approach recommended; core features first |
+| **Plant Types** | Limited to three specific vegetables | Data models and UI must support exactly 3 plants for v1 |
+| **Environmental Factors** | Limited to three factors (Sunlight, Water, Soil) | Simplified CA model; more factors could improve accuracy but add complexity |
+| **Botanical Accuracy** | Growth data based on general agricultural references, not field-tested | App must include disclaimer; predictions are estimates, not guarantees |
+| **Platform** | Android only for v1 | iOS support possible via Flutter but not required initially |
+| **Data** | No real-time data sources (weather API, sensors) | All environmental data is user-reported; accuracy depends on user input |
+
+---
+
+## 4. Assumptions
+
+1. The client has a basic understanding of Flutter/Dart or will not need to modify the code directly.
+2. The thesis panel will evaluate the app's concept, algorithm implementation, and presentation — not production-readiness.
+3. Growth stage durations can be approximated from publicly available agricultural data.
+4. The CA algorithm does not need to be scientifically validated — it needs to be a reasonable, demonstrable model.
+5. The app will be demonstrated on a physical Android device or emulator during the thesis defense.
+
+---
+
+## Notes
+
+- This document will be updated after receiving client questionnaire responses.
+- Each requirement should be traceable to a feature in `features.md` and a test case (when testing begins).
+- Changes to requirements after confirmation should go through the decision log (`decisions.md`).
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\research.md ===
+# VerdiTech — Research Notes
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Compiled research supporting the VerdiTech prediction engine. This covers Cellular Automata theory, plant-specific growth data, environmental factor analysis, and Philippine agricultural context.
+
+---
+
+## 1. Cellular Automata Theory
+
+### 1.1 What is Cellular Automata?
+
+Cellular Automata (CA) is a computational model consisting of a grid of cells, each in one of a finite number of states. The state of each cell evolves over discrete time steps according to a set of rules based on the states of neighboring cells.
+
+**Key Components:**
+- **Cells** — Individual units in the grid, each holding a state
+- **States** — Finite set of possible values for each cell (e.g., Seedling=1, Young=2, Flowering=3, Fruiting=4)
+- **Neighborhood** — The cells that influence a given cell's next state
+- **Transition Rules** — The logic that determines how cells evolve
+- **Time Steps** — Discrete iterations of the simulation
+
+### 1.2 1D vs 2D Cellular Automata
+
+| Aspect | 1D CA | 2D CA |
+|--------|-------|-------|
+| **Structure** | Linear array of cells | Grid (matrix) of cells |
+| **Neighborhood** | Left and right neighbors | 4 (von Neumann) or 8 (Moore) neighbors |
+| **Visualization** | Time evolution shown as rows stacked vertically | Animated grid changing over time |
+| **Complexity** | Lower — easier to implement and explain | Higher — more visually impressive |
+| **Suitability for Growth** | Good for modeling linear progression through stages | Good for modeling spatial spread (e.g., plant canopy growth) |
+
+### 1.3 How CA Applies to Plant Growth (VerdiTech Model)
+
+**Recommended Approach: 1D CA (Hybrid)**
+
+The plant's growth is modeled as a 1D array where:
+- Each **cell position** represents a discrete time step (day)
+- Each **cell state** represents the plant's condition at that time step
+- **Transition rules** determine whether the plant progresses to the next growth stage, maintains current stage, or degrades
+
+**State Encoding (Proposed):**
+```
+State 0: Not yet planted / Empty
+State 1: Seedling
+State 2: Young Plant
+State 3: Flowering
+State 4: Fruiting
+State 5: Harvest-ready (terminal state)
+State -1: Dead / Failed (environmental stress)
+```
+
+**Transition Rule Logic (Simplified):**
+```
+next_state = f(current_state, environmental_score, days_in_stage, season_modifier)
+
+If environmental_score >= threshold AND days_in_stage >= min_days:
+    next_state = current_state + 1  (progress to next stage)
+Elif environmental_score < critical_threshold:
+    next_state = current_state - 1  (regression / stress)
+Else:
+    next_state = current_state  (remain in current stage, growth delayed)
+```
+
+**Environmental Score Calculation:**
+```
+env_score = (sunlight_weight × sunlight_rating +
+             water_weight × water_rating +
+             soil_weight × soil_rating) × season_modifier
+```
+
+### 1.4 Optional 2D Visualization
+
+A 2D grid could visualize the CA simulation for educational/thesis purposes:
+- **Rows** = time steps (days progressing downward)
+- **Columns** = different aspects of plant health or parallel simulations
+- **Colors** = Green (healthy), Yellow (stressed), Red (critical), Dark Green (harvest-ready)
+
+This is purely for visualization — the core prediction logic remains 1D.
+
+---
+
+## 2. Plant Growth Data
+
+### 2.1 Tomato (*Solanum lycopersicum*)
+
+| Growth Stage | Typical Duration | Key Needs | Notes |
+|-------------|-----------------|-----------|-------|
+| **Seedling** | 14–28 days | High sunlight (6–8 hrs), consistent moisture, well-drained soil | Germination takes 5–10 days; seedlings emerge after |
+| **Young Plant** | 21–35 days | Full sun, regular watering, nutrient-rich soil | Vegetative growth phase; develops strong stem and leaves |
+| **Flowering** | 14–21 days | Full sun, moderate water (avoid over-watering), balanced soil | Flowers appear; pollination needed for fruit set |
+| **Fruiting** | 20–30 days | Full sun, consistent watering, phosphorus-rich soil | Fruits develop and ripen; color changes indicate maturity |
+| **Total to Harvest** | ~70–115 days | — | Varies by variety; Philippine conditions may accelerate |
+
+**Environmental Preferences:**
+| Factor | Optimal | Tolerable | Critical (Stress) |
+|--------|---------|-----------|-------------------|
+| Sunlight | 6–8 hours direct | 4–6 hours | < 4 hours |
+| Water | Regular, even moisture | Slightly dry/wet | Waterlogged or drought |
+| Soil | Rich, well-drained, pH 6.0–6.8 | Moderate quality | Poor drainage, nutrient-deficient |
+
+### 2.2 Eggplant (*Solanum melongena*)
+
+| Growth Stage | Typical Duration | Key Needs | Notes |
+|-------------|-----------------|-----------|-------|
+| **Seedling** | 14–21 days | Warm conditions, moderate sunlight, moist soil | Sensitive to cold; thrives in Philippine tropical climate |
+| **Young Plant** | 28–42 days | Full sun (6–8 hrs), consistent moisture, rich soil | Longer vegetative phase than tomato; develops broad leaves |
+| **Flowering** | 14–21 days | Full sun, moderate water, well-fertilized soil | Multiple flowering cycles possible |
+| **Fruiting** | 14–21 days | Full sun, regular watering, potassium-rich soil | Harvest when skin is glossy; overripe fruits become bitter |
+| **Total to Harvest** | ~70–105 days | — | Can produce fruits for extended periods |
+
+**Environmental Preferences:**
+| Factor | Optimal | Tolerable | Critical (Stress) |
+|--------|---------|-----------|-------------------|
+| Sunlight | 6–8 hours direct | 5–6 hours | < 4 hours |
+| Water | Consistent, deep watering | Slightly variable | Drought or waterlogged |
+| Soil | Fertile, well-drained, pH 5.5–6.5 | Average quality | Heavy clay, poor drainage |
+
+### 2.3 Siling Labuyo (*Capsicum frutescens*)
+
+| Growth Stage | Typical Duration | Key Needs | Notes |
+|-------------|-----------------|-----------|-------|
+| **Seedling** | 14–21 days | Warm temperatures, partial to full sun, moist soil | Native Philippine chili; well-adapted to local conditions |
+| **Young Plant** | 21–35 days | Full sun, moderate water, well-drained soil | Compact bushy growth; hardy and drought-tolerant once established |
+| **Flowering** | 14–21 days | Full sun, moderate water, avoid over-fertilization | Small white flowers; self-pollinating |
+| **Fruiting** | 21–30 days | Full sun, moderate water, well-drained soil | Small, very hot peppers; turn from green to red when ripe |
+| **Total to Harvest** | ~70–107 days | — | Continuous producer once fruiting begins |
+
+**Environmental Preferences:**
+| Factor | Optimal | Tolerable | Critical (Stress) |
+|--------|---------|-----------|-------------------|
+| Sunlight | 6–8 hours direct | 4–6 hours | < 3 hours |
+| Water | Moderate, allow slight drying | Variable (drought-tolerant) | Prolonged waterlogging |
+| Soil | Well-drained, moderate fertility, pH 6.0–6.8 | Most soil types | Very heavy, waterlogged soil |
+
+---
+
+## 3. Environmental Factor Scoring
+
+### 3.1 Proposed Rating Scale
+
+Each environmental factor is rated on a 1–5 scale by the user:
+
+| Rating | Label | General Description |
+|--------|-------|---------------------|
+| 1 | Very Low | Severely deficient; plant is at risk |
+| 2 | Low | Below optimal; growth will be noticeably slower |
+| 3 | Moderate | Adequate; plant can grow but not at full potential |
+| 4 | Good | Near-optimal conditions |
+| 5 | Excellent | Ideal conditions for this plant |
+
+### 3.2 Factor Weights per Plant (Proposed)
+
+Weights determine how much each factor influences the overall environmental score. Weights should sum to 1.0 for each plant.
+
+| Plant | Sunlight Weight | Water Weight | Soil Weight | Reasoning |
+|-------|----------------|--------------|-------------|-----------|
+| **Tomato** | 0.35 | 0.40 | 0.25 | Tomatoes are very sensitive to water consistency; sunlight is crucial for fruit sweetness |
+| **Eggplant** | 0.30 | 0.35 | 0.35 | Eggplant needs rich soil and consistent moisture; balanced needs |
+| **Siling Labuyo** | 0.40 | 0.25 | 0.35 | Native and drought-tolerant; sunlight is the primary driver; less water-dependent |
+
+### 3.3 Environmental Score Formula
+
+```
+env_score = (sunlight_weight × sunlight_rating +
+             water_weight × water_rating +
+             soil_weight × soil_rating) / 5.0
+
+Result: 0.0 to 1.0 (normalized)
+```
+
+**Score Interpretation:**
+| Score Range | Health Status | Effect on Growth |
+|-------------|---------------|------------------|
+| 0.8–1.0 | 🟢 Excellent | Progresses at normal/accelerated rate |
+| 0.6–0.79 | 🟡 Good | Progresses normally; minor delays possible |
+| 0.4–0.59 | 🟠 Fair | Growth significantly delayed; stress signs |
+| 0.2–0.39 | 🔴 Poor | Growth stalled; risk of regression |
+| 0.0–0.19 | ⚫ Critical | Plant at risk of death; immediate intervention needed |
+
+---
+
+## 4. Philippine Agricultural Seasons
+
+### 4.1 Season Definitions
+
+The Philippines has three recognized seasons that significantly affect agriculture:
+
+| Season | Filipino Name | Months | Temperature Range | Rainfall | Agricultural Character |
+|--------|--------------|--------|-------------------|----------|----------------------|
+| **Dry/Hot Season** | Tag-init (Tag-araw) | March – May | 28–36°C | Very low | High evaporation; irrigation critical; good sunlight |
+| **Wet/Rainy Season** | Tag-ulan | June – November | 24–32°C | High (typhoon season) | Abundant water; flood risk; reduced sunlight on cloudy days |
+| **Cool/Dry Season** | Malamig (Amihan) | December – February | 22–28°C | Low to moderate | Moderate temperatures; good growing conditions for most vegetables |
+
+### 4.2 Seasonal Modifiers for CA Model (Proposed)
+
+Season modifiers adjust the growth rate based on how favorable the season is for each plant:
+
+| Plant | Tag-init (Dry) | Tag-ulan (Wet) | Malamig (Cool) | Notes |
+|-------|---------------|-----------------|----------------|-------|
+| **Tomato** | 0.85 | 0.70 | 1.00 | Best in cool-dry season; wet season increases disease risk |
+| **Eggplant** | 0.90 | 0.80 | 0.95 | Tolerates heat well; wet season is manageable |
+| **Siling Labuyo** | 0.95 | 0.85 | 0.90 | Hardy and adaptable; performs well in most conditions |
+
+**Modifier Application:**
+```
+adjusted_env_score = env_score × season_modifier
+
+If adjusted_env_score >= 0.7: normal progression
+If adjusted_env_score >= 0.4: delayed progression (days × 1.5)
+If adjusted_env_score < 0.4: stalled (no progression; risk of regression)
+```
+
+### 4.3 Auto-Detection Logic
+
+Season can be auto-detected from the planting date:
+
+```dart
+String detectSeason(DateTime date) {
+  int month = date.month;
+  if (month >= 3 && month <= 5) return 'Tag-init';   // Dry/Hot
+  if (month >= 6 && month <= 11) return 'Tag-ulan';  // Wet/Rainy
+  return 'Malamig';                                    // Cool/Dry (Dec-Feb)
+}
+```
+
+---
+
+## 5. References to Investigate
+
+### Academic / Agricultural Sources
+- [ ] Philippine Department of Agriculture (DA) — crop production guides
+- [ ] UPLB (University of the Philippines Los Baños) — vegetable production manuals
+- [ ] PhilRice / PCAARRD — agricultural research publications
+- [ ] Bureau of Plant Industry (BPI) — crop data and best practices
+- [ ] PAGASA — detailed seasonal/climate data for the Philippines
+- [ ] FAO (Food and Agriculture Organization) — tropical vegetable cultivation guides
+
+### Cellular Automata References
+- [ ] Stephen Wolfram, "A New Kind of Science" (2002) — foundational CA reference
+- [ ] Wolfram MathWorld — CA classification and rule documentation
+- [ ] Research papers on CA applications in biological modeling
+- [ ] Research papers on CA for agricultural/plant growth simulation
+
+### Technical References
+- [ ] Flutter documentation — official docs for framework
+- [ ] Dart language tour — language reference
+- [ ] pub.dev — package repository for dependency research
+
+---
+
+## Research Status
+
+| Topic | Status | Confidence | Notes |
+|-------|--------|------------|-------|
+| CA Theory | ✅ Documented | High | Core concepts well understood |
+| Plant Growth Stages | ✅ Documented | Medium | Based on general agricultural data; needs Philippine-specific validation |
+| Environmental Weights | 📝 Proposed | Low | Educated estimates; needs calibration through testing |
+| Season Modifiers | 📝 Proposed | Low | Approximations; should be refined with agricultural data |
+| Philippine Seasons | ✅ Documented | High | Well-established seasonal definitions |
+| Transition Rules | 📝 Proposed | Medium | Framework defined; specifics need implementation and testing |
+
+---
+
+## Notes
+
+- All numerical values (weights, modifiers, durations) are initial estimates and should be treated as tunable parameters.
+- The CA model should be designed with configurable constants so that calibration is easy.
+- Philippine-specific data should be prioritized over generic tropical agriculture data where available.
+- Growth durations represent typical ranges — actual results vary by microclimate, variety, and care quality.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\risks.md ===
+# VerdiTech — Risk Assessment
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Proactive risk identification and mitigation planning for the VerdiTech project. Risks are assessed by likelihood and impact, with concrete mitigation strategies for each.
+
+---
+
+## Risk Register
+
+| ID | Risk | Likelihood | Impact | Risk Level | Mitigation Strategy | Owner | Status |
+|----|------|-----------|--------|------------|---------------------|-------|--------|
+| R001 | **Botanical accuracy** — Growth data may not match real-world conditions. Stage durations, environmental weights, and seasonal modifiers are estimates, not field-tested values. | 🟡 Medium | 🟡 Medium | 🟡 Medium | • Use published agricultural data from Philippine sources (DA, UPLB, FAO)<br>• Add disclaimer in-app: "Predictions are estimates based on general agricultural data"<br>• Design parameters as configurable constants for easy tuning<br>• If time permits, compare predictions against known growth timelines | Developer | 🔵 Open |
+| R002 | **CA tuning difficulty** — Transition rules may produce unrealistic timelines (too fast, too slow, or erratic growth patterns). Getting the math right is non-trivial. | 🟡 Medium | 🔴 High | 🔴 High | • Start with simple, conservative rules and iterate<br>• Create test cases with known expected outcomes (e.g., "Tomato in ideal conditions should reach harvest in ~85 days")<br>• Build a calibration/debug mode for rapid parameter adjustment<br>• Log all prediction outputs during testing for pattern analysis | Developer | 🔵 Open |
+| R003 | **Scope creep** — Client may request additional features mid-development (more plants, weather API, camera features, etc.), expanding beyond the agreed scope. | 🟡 Medium | 🟡 Medium | 🟡 Medium | • Establish clear scope document (`scope.md`) and get client sign-off<br>• Implement a change request process: new features are logged, estimated, and prioritized<br>• Offer "v2" as a container for non-essential requests<br>• Communicate impact of scope changes on timeline | Developer | 🔵 Open |
+| R004 | **Thesis panel requirements** — Unknown requirements from the thesis/capstone panel may surface mid-development (specific documentation format, required features, live demo requirements, specific technical criteria). | 🟡 Medium | 🔴 High | 🔴 High | • Ask client about panel expectations early (included in questionnaire)<br>• Request any rubric, evaluation criteria, or technical requirements the panel has published<br>• Build app with demo-friendly features (clear flow, educational content, visual appeal)<br>• Prepare documentation in a format that can be adapted to academic requirements | Developer + Client | 🔵 Open |
+| R005 | **Timeline pressure** — Unknown deadline may result in insufficient time for full feature development, testing, and polish. | 🔴 High | 🔴 High | 🔴 Critical | • Prioritize core features (F001–F005) over nice-to-have features (F006–F010)<br>• Use phased delivery: always have a working "minimum viable" version ready<br>• Ask for deadline immediately (included in questionnaire)<br>• Plan for a "good enough" v1 that covers thesis requirements, then polish if time allows<br>• Maintain a clean, always-buildable codebase | Developer | 🔵 Open |
+
+---
+
+## Risk Matrix
+
+|  | 🟢 Low Impact | 🟡 Medium Impact | 🔴 High Impact |
+|--|--------------|------------------|----------------|
+| 🔴 **High Likelihood** | | | **R005** (Timeline) |
+| 🟡 **Medium Likelihood** | | **R001** (Accuracy), **R003** (Scope Creep) | **R002** (CA Tuning), **R004** (Panel Reqs) |
+| 🟢 **Low Likelihood** | | | |
+
+---
+
+## Risk Response Strategies
+
+| Strategy | When to Use | Example |
+|----------|------------|---------|
+| **Avoid** | Eliminate the risk entirely by changing approach | Don't integrate weather API (avoids API dependency risk) |
+| **Mitigate** | Reduce likelihood or impact through proactive action | Build configurable parameters to reduce CA tuning risk |
+| **Transfer** | Shift risk ownership to another party | Ask client to confirm panel requirements (transfers knowledge gap) |
+| **Accept** | Acknowledge the risk and prepare to handle consequences | Accept that botanical data is approximate; add disclaimer |
+
+---
+
+## Contingency Plans
+
+### If R002 (CA Tuning) becomes critical:
+1. Simplify the CA model to a basic lookup table with environmental modifiers
+2. Use fixed stage durations with percentage adjustments based on environmental score
+3. Frame the CA as a "prototype model" in the thesis, acknowledging future calibration needs
+
+### If R005 (Timeline) becomes critical:
+1. **Week 1 Cutoff**: If less than 2 weeks remain, focus exclusively on F001–F004 (Input + Engine + Health + Recommendations)
+2. **3-Day Cutoff**: If less than 3 days remain, deliver a functional prototype with hardcoded sample data for demo purposes
+3. **Emergency**: Pre-build a demo mode that showcases the app flow with predetermined data
+
+### If R004 (Panel Requirements) surfaces new requirements:
+1. Assess whether the requirement is achievable within remaining timeline
+2. If yes, add to scope and adjust priorities
+3. If no, discuss with client and propose alternatives or documentation-only solutions
+
+---
+
+## Risk Review Schedule
+
+| Review Point | Trigger | Action |
+|-------------|---------|--------|
+| After questionnaire responses | Client responds | Re-assess R003, R004, R005 with new information |
+| After Phase 1 (Design) | Design complete | Re-assess R002 (CA tuning) based on rule specification |
+| After Phase 2 (Core Dev) | CA engine working | Re-assess R001 (accuracy) and R002 (tuning) based on test results |
+| Mid-Phase 3 (UI Dev) | 50% UI complete | Re-assess R005 (timeline) — are we on track? |
+| Before Phase 5 (Polish) | Integration complete | Final risk review before delivery |
+
+---
+
+## Notes
+
+- Review risks at each phase transition and after any significant client communication.
+- New risks should be added as they're identified — this is a living document.
+- Closed risks should be marked as "🟢 Closed" with a note on the outcome, not deleted.
+- Risk R005 (Timeline) is the highest priority concern until the client provides a deadline.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\scope.md ===
+# VerdiTech — Scope Definition
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Clear definition of what is included, excluded, and pending for VerdiTech v1. This document prevents scope creep and sets expectations with the client.
+
+> **✅ STATUS: CORE SCOPE CONFIRMED**
+> The core features (F001-F005) are confirmed. Nice-to-have features remain pending client response.
+
+---
+
+## ✅ IN SCOPE (v1 — Confirmed)
+
+These features and deliverables are confirmed for the first version of the app.
+
+### Features
+| Feature | Description | Reference |
+|---------|-------------|-----------|
+| **Plant Selection** | Support for exactly 3 plants: Tomato, Eggplant, Siling Labuyo | F001 |
+| **User Input Form** | Collect plant type, planting date, growth stage, season, and 3 environmental factor ratings | F001 |
+| **CA Prediction Engine** | 1D Cellular Automata model that calculates growth predictions based on inputs | F002 |
+| **Health Monitoring** | Display plant health status (Excellent/Good/Fair/Poor/Critical) based on environmental scores | F003 |
+| **Recommendation System** | Generate actionable, plant-specific tips for improving suboptimal conditions | F004 |
+| **Growth Timeline** | Visual representation of predicted growth from current stage to harvest | F005 |
+| **Plant Dashboard** | Multi-plant tracking dashboard interface for managing several profiles simultaneously | F006 |
+| **Data Persistence** | Local SQLite storage via Drift to save profiles and daily logs offline | F008 |
+| **Daily Staging Logs** | Tracking daily environmental factors (1-5 Sunlight, Water, Soil Quality) | F011 |
+| **Unified Live Timeline** | Chronological view combining logged history and predicted CA stages | F012 |
+
+### Technical
+| Item | Description |
+|------|-------------|
+| **Framework** | Flutter (Dart) |
+| **Platform** | Android (APK build) |
+| **Architecture** | Clean, maintainable codebase suitable for thesis context |
+| **Environmental Factors** | Sunlight, Water, Soil Quality (3 factors, rated by user) |
+| **Growth Stages** | Seedling → Young Plant → Flowering → Fruiting (4 stages) |
+| **Seasons** | Tag-init (Dry), Tag-ulan (Wet), Malamig (Cool) — Philippine seasons |
+
+### Deliverables
+| Deliverable | Format |
+|-------------|--------|
+| Working Android app | Release APK |
+| Source code | Flutter project (full source) |
+| Basic documentation | In-code comments + README |
+
+---
+
+## ❌ OUT OF SCOPE (v1 — Excluded)
+
+These items are explicitly not included in the first version. They may be considered for a future version.
+
+| Item | Reason for Exclusion | Future Possibility |
+|------|---------------------|-------------------|
+| **iOS build** | Client confirmed Android focus; iOS adds testing complexity | Easy to add — Flutter supports both platforms |
+| **Cloud sync / backend** | No server needed; adds cost and complexity | Could add Firebase/Supabase later |
+| **Camera integration** | Plant photo analysis requires ML models beyond project scope | Would need TFLite/ML Kit — significant effort |
+| **Weather API integration** | Adds external dependency; requires internet; API costs possible | Could use OpenWeatherMap free tier |
+| **Pest/disease detection** | Requires computer vision or extensive database; beyond scope | Major feature for v2+ |
+| **Real-time sensor data** | Requires IoT hardware (moisture sensors, light meters) | Different project category entirely |
+| **User accounts / login** | No cloud backend; unnecessary for single-device use | Only needed if cloud sync is added |
+| **Social features** | Sharing, community, forums — beyond thesis scope | Not relevant for thesis |
+| **Machine learning model** | CA is the specified algorithm; ML is a different approach | Could replace or augment CA in future |
+| **Web version** | Mobile app only for thesis | Flutter Web is possible but not needed |
+| **Monetization** | No ads, in-app purchases, or premium features | Not appropriate for thesis project |
+| **Additional plants beyond 3** | Scope limited to Tomato, Eggplant, Siling Labuyo | Data models designed to be extensible |
+
+---
+
+## ⏳ PENDING (Awaiting Client Input)
+
+These items are proposed but require client confirmation before being placed In Scope or Out of Scope. All are included in the questionnaire sent June 27, 2026.
+
+| Item | Description | Recommendation | Reference | Questionnaire Item |
+|------|-------------|----------------|-----------|-------------------|
+| **CA Visualization** | Animated grid showing the CA algorithm in action | 🟡 Recommended for thesis — demonstrates algorithm visually | F007 | Q3 |
+| **Push Notifications** | Local reminders for plant care activities | 🟢 Optional — adds engagement but not core to thesis | F009 | Q5 |
+| **About/How It Works** | Educational section explaining the CA algorithm and plant science | 🟡 Recommended for thesis — shows understanding of the algorithm | F010 | — |
+| **Language Support** | Filipino/Tagalog in addition to English | 🟢 Optional — adds local relevance but increases content workload | — | Q9 |
+| **Dark Mode** | Alternative color scheme for low-light use | 🟢 Optional — easy to implement with Flutter themes | — | Q8 |
+
+---
+
+## Scope Change Process
+
+If the client requests changes to scope during development:
+
+1. **Log the request** in `client_communication.md`
+2. **Assess impact** on timeline, complexity, and existing features
+3. **Classify** the change:
+   - 🟢 **Minor** — Can be absorbed without timeline impact (< 2 hours work)
+   - 🟡 **Moderate** — Requires timeline adjustment or reprioritization (2–8 hours)
+   - 🔴 **Major** — Significant scope expansion; may require dropping other features (> 8 hours)
+4. **Communicate** impact to client with options
+5. **Document decision** in `decisions.md`
+6. **Update this file** with the scope change
+
+---
+
+## Scope Verification Checklist
+
+Before considering the project complete, verify all In Scope items are delivered:
+
+- [ ] Plant selection works for all 3 plants
+- [ ] User input form captures all required data
+- [ ] CA engine produces predictions for all 3 plants × 4 stages × 3 seasons
+- [ ] Health monitoring displays accurate status
+- [ ] Recommendations are contextual and actionable
+- [ ] Growth timeline visualization is functional
+- [ ] Plant dashboard lists multiple profiles and handles creation/deletion
+- [ ] Drift database persists profiles and daily logs across sessions
+- [ ] Unified timeline correctly displays historical logs and predicted stages
+- [ ] Daily log entry form updates factors and notes successfully
+- [ ] Release APK builds and runs on Android
+- [ ] Source code is clean and documented
+
+---
+
+## Notes
+
+- This document is the single source of truth for what the project includes and excludes.
+- "Out of Scope" does not mean "never" — it means "not in this version."
+- When in doubt about whether something is in scope, check this document first.
+- Client must acknowledge the scope before development begins (Phase 1 exit criterion).
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\memory\techstack.md ===
+# VerdiTech — Technology Stack
+> Project: VerdiTech | Last Updated: June 27, 2026
+
+Complete technology stack documentation for the VerdiTech plant growth prediction app. Items marked TBD will be finalized during Phase 1 (Design) or early Phase 2 (Core Development).
+
+---
+
+## Core Stack
+
+| Category | Technology | Version | Status | Notes |
+|----------|-----------|---------|--------|-------|
+| **Framework** | Flutter | Latest stable (TBD) | ✅ Confirmed | Client-specified requirement |
+| **Language** | Dart | Bundled with Flutter | ✅ Confirmed | — |
+| **Target Platform** | Android | API 21+ (TBD) | ✅ Confirmed | Minimum SDK level to be determined |
+| **Target Platform** | iOS | — | ⏳ TBD | Not confirmed; Flutter supports it natively if needed |
+
+## Architecture & State Management
+
+| Category | Technology | Status | Candidates | Notes |
+|----------|-----------|--------|------------|-------|
+| **Architecture Pattern** | Feature-First (Domain-Driven) | ✅ Confirmed | Clean Architecture, MVVM, MVC | Easier to explain for thesis defense; cohesive folder structure |
+| **State Management** | Riverpod (v3.x) | ✅ Confirmed | Provider, Riverpod, BLoC, GetX | Modern standard, safe, less boilerplate than BLoC |
+| **Navigation** | GoRouter | ✅ Confirmed | GoRouter, Navigator 2.0, auto_route | Declarative routing, deep-linking support |
+
+## Data & Storage
+
+| Category | Technology | Status | Candidates | Notes |
+|----------|-----------|--------|------------|-------|
+| **Local Database** | Drift (formerly Moor) | ✅ Confirmed | sqflite, Hive, drift, shared_preferences | Robust ORM for SQLite, perfect for relational offline-first data |
+| **Data Models** | TBD | ⏳ Pending | freezed + json_serializable, manual | freezed recommended for immutable models with JSON support |
+| **Cloud/Backend** | None planned | ✅ Confirmed | — | Offline-first app, no server required for v1 |
+
+## UI & Design
+
+| Category | Technology | Status | Notes |
+|----------|-----------|--------|-------|
+| **Design System** | Material Design 3 | ✅ Confirmed | Custom theme with vibrant green accents and soft shadows |
+| **Icons** | Material Icons | ✅ Confirmed | Default flutter icon pack |
+| **Fonts** | Google Fonts | ✅ Confirmed | Custom clean typography package (Google Fonts: Outfit/Inter) |
+| **Charts/Graphs** | Custom Painter / Canvas | ⏳ Pending | Custom timeline visualization |
+| **Animations** | Flutter Animation Controller | ⏳ Pending | Micro-animations for page transitions and grid steps |
+
+## Development Tools
+
+| Category | Technology | Status | Notes |
+|----------|-----------|--------|-------|
+| **IDE** | VS Code / Android Studio | ✅ Confirmed | Main developer environments |
+| **Version Control** | Git | ✅ Confirmed | Git repository initialized locally |
+| **CI/CD** | TBD | ⏳ TBD | Not needed for thesis project |
+| **Testing** | Flutter test framework | ⏳ Planned | Unit tests for CA engine, widget tests for UI |
+| **Code Generation** | build_runner | ✅ Confirmed | Required for Drift and Riverpod generator |
+| **Linting** | flutter_lints | ✅ Confirmed | Configured `flutter_lints` package v3.0.0 |
+
+---
+
+## Candidate Package List
+
+These packages are being considered for the project. Final selection happens during Phase 2.
+
+### Likely to Use
+| Package | Purpose | pub.dev |
+|---------|---------|---------|
+| `provider` or `riverpod` | State management | — |
+| `hive` + `hive_flutter` | Local NoSQL storage | — |
+| `fl_chart` | Growth timeline charts | — |
+| `google_fonts` | Typography | — |
+| `intl` | Date formatting, localization | — |
+| `flutter_local_notifications` | Push notifications (if F009 confirmed) | — |
+
+### Under Consideration
+| Package | Purpose | pub.dev |
+|---------|---------|---------|
+| `freezed` + `json_serializable` | Immutable data classes | — |
+| `go_router` | Declarative navigation | — |
+| `lottie` | Animated illustrations | — |
+| `flutter_animate` | UI animations | — |
+| `sqflite` | SQL local database (alternative to Hive) | — |
+
+---
+
+## Environment Setup Checklist
+
+- [x] Install Flutter SDK (latest stable)
+- [x] Install Dart SDK (bundled)
+- [x] Install Android Studio + Android SDK
+- [x] Configure Android emulator or physical device
+- [x] Set up VS Code with Flutter/Dart extensions
+- [x] Initialize Git repository
+- [x] Create Flutter project with `flutter create`
+- [x] Configure `pubspec.yaml` with initial dependencies
+- [x] Set up project folder structure (Feature-First)
+- [ ] Run `flutter doctor` — all green checks
+
+---
+
+## Notes
+
+- Technology choices should prioritize **simplicity** given the client's SHS-level context. The app should be maintainable.
+- Avoid over-engineering — this is a thesis project, not a production SaaS app.
+- All packages should be well-maintained and have high pub.dev scores.
+- Final stack decisions will be logged in `decisions.md` when confirmed.
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\analysis_options.yaml ===
+# This file configures the analyzer, which statically analyzes Dart code to
+# check for errors, warnings, and lints.
+#
+# The issues identified by the analyzer are surfaced in the UI of Dart-enabled
+# IDEs (https://dart.dev/tools#ides-and-editors). The analyzer can also be
+# invoked from the command line by running `flutter analyze`.
+
+# The following line activates a set of recommended lints for Flutter apps,
+# packages, and plugins designed to encourage good coding practices.
+include: package:flutter_lints/flutter.yaml
+
+linter:
+  # The lint rules applied to this project can be customized in the
+  # section below to disable rules from the `package:flutter_lints/flutter.yaml`
+  # included above or to enable additional rules. A list of all available lints
+  # and their documentation is published at https://dart.dev/lints.
+  #
+  # Instead of disabling a lint rule for the entire project in the
+  # section below, it can also be suppressed for a single line of code
+  # or a specific dart file by using the `// ignore: name_of_lint` and
+  # `// ignore_for_file: name_of_lint` syntax on the line or in the file
+  # producing the lint.
+  rules:
+    # avoid_print: false  # Uncomment to disable the `avoid_print` rule
+    # prefer_single_quotes: true  # Uncomment to enable the `prefer_single_quotes` rule
+
+# Additional information about this file can be found at
+# https://dart.dev/guides/language/analysis-options
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\pubspec.yaml ===
+name: verditech
+description: A plant growth prediction and monitoring app.
+
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  go_router: ^14.0.0
+  google_fonts: ^6.2.1
+  flutter_riverpod: ^2.5.1
+  cupertino_icons: ^1.0.6
+  drift: ^2.17.0
+  sqlite3_flutter_libs: ^0.5.21
+  path_provider: ^2.1.3
+  path: ^1.9.0
+  riverpod_annotation: ^2.3.5
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  drift_dev: ^2.17.0
+  build_runner: ^2.4.9
+  riverpod_generator: ^2.4.0
+
+flutter:
+  uses-material-design: true
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\README.md ===
+# 💻 Source Code
+
+This directory will contain the **Flutter project** for VerdiTech.
+
+---
+
+> [!IMPORTANT]
+> **Do not create the Flutter project until Phase 2 (Project Initialization).**
+>
+> The Flutter project will be initialized here once:
+> 1. Requirements are finalized (Phase 0 complete)
+> 2. Technical specification is approved (Phase 1 complete)
+> 3. The client confirms the tech stack
+>
+> Premature initialization may result in unnecessary restructuring.
+
+---
+
+## Planned Structure
+
+Once initialized, this directory will contain the standard Flutter project layout:
+
+```
+src/
+├── android/              # Android platform-specific code
+├── lib/                  # Main Dart source code
+│   ├── models/           #   Data models
+│   ├── screens/          #   UI screens/pages
+│   ├── widgets/          #   Reusable widgets
+│   ├── services/         #   Business logic & services
+│   ├── utils/            #   Utility functions & helpers
+│   └── main.dart         #   App entry point
+├── assets/               # Flutter-managed assets
+├── pubspec.yaml          # Dependencies & project config
+└── ...
+```
+
+---
+
+## Prerequisites
+
+Before initialization, ensure:
+- [ ] Flutter SDK is installed and configured
+- [ ] Android SDK is set up
+- [ ] Target Android API level is confirmed with client
+- [ ] Package name / app ID is decided
+
+---
+
+*This folder is currently empty. Awaiting Phase 2.*
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\android\build.gradle.kts ===
+allprojects {
+    repositories {
+        google()
+        mavenCentral()
+    }
+}
+
+val newBuildDir: Directory =
+    rootProject.layout.buildDirectory
+        .dir("../../build")
+        .get()
+rootProject.layout.buildDirectory.value(newBuildDir)
+
+subprojects {
+    val newSubprojectBuildDir: Directory = newBuildDir.dir(project.name)
+    project.layout.buildDirectory.value(newSubprojectBuildDir)
+}
+subprojects {
+    project.evaluationDependsOn(":app")
+}
+
+tasks.register<Delete>("clean") {
+    delete(rootProject.layout.buildDirectory)
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\android\settings.gradle.kts ===
+pluginManagement {
+    val flutterSdkPath =
+        run {
+            val properties = java.util.Properties()
+            file("local.properties").inputStream().use { properties.load(it) }
+            val flutterSdkPath = properties.getProperty("flutter.sdk")
+            require(flutterSdkPath != null) { "flutter.sdk not set in local.properties" }
+            flutterSdkPath
+        }
+
+    includeBuild("$flutterSdkPath/packages/flutter_tools/gradle")
+
+    repositories {
+        google()
+        mavenCentral()
+        gradlePluginPortal()
+    }
+}
+
+plugins {
+    id("dev.flutter.flutter-plugin-loader") version "1.0.0"
+    id("com.android.application") version "9.0.1" apply false
+    id("org.jetbrains.kotlin.android") version "2.3.20" apply false
+}
+
+include(":app")
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\android\app\build.gradle.kts ===
+plugins {
+    id("com.android.application")
+    // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
+    id("dev.flutter.flutter-gradle-plugin")
+}
+
+android {
+    namespace = "com.example.verditech"
+    compileSdk = flutter.compileSdkVersion
+    ndkVersion = flutter.ndkVersion
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
+    }
+
+    defaultConfig {
+        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
+        applicationId = "com.example.verditech"
+        // You can update the following values to match your application needs.
+        // For more information, see: https://flutter.dev/to/review-gradle-config.
+        minSdk = flutter.minSdkVersion
+        targetSdk = flutter.targetSdkVersion
+        versionCode = flutter.versionCode
+        versionName = flutter.versionName
+    }
+
+    buildTypes {
+        release {
+            // TODO: Add your own signing config for the release build.
+            // Signing with the debug keys for now, so `flutter run --release` works.
+            signingConfig = signingConfigs.getByName("debug")
+        }
+    }
+}
+
+kotlin {
+    compilerOptions {
+        jvmTarget = org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17
+    }
+}
+
+flutter {
+    source = "../.."
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\android\app\src\main\kotlin\com\example\verditech\MainActivity.kt ===
+package com.example.verditech
+
+import io.flutter.embedding.android.FlutterActivity
+
+class MainActivity : FlutterActivity()
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\ios\Runner\AppDelegate.swift ===
+import Flutter
+import UIKit
+
+@main
+@objc class AppDelegate: FlutterAppDelegate, FlutterImplicitEngineDelegate {
+  override func application(
+    _ application: UIApplication,
+    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
+  ) -> Bool {
+    return super.application(application, didFinishLaunchingWithOptions: launchOptions)
+  }
+
+  func didInitializeImplicitFlutterEngine(_ engineBridge: FlutterImplicitEngineBridge) {
+    GeneratedPluginRegistrant.register(with: engineBridge.pluginRegistry)
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\ios\Runner\Runner-Bridging-Header.h ===
+#import "GeneratedPluginRegistrant.h"
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\ios\Runner\SceneDelegate.swift ===
+import Flutter
+import UIKit
+
+class SceneDelegate: FlutterSceneDelegate {
+
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\ios\RunnerTests\RunnerTests.swift ===
+import Flutter
+import UIKit
+import XCTest
+
+class RunnerTests: XCTestCase {
+
+  func testExample() {
+    // If you add code to the Runner application, consider adding tests here.
+    // See https://developer.apple.com/documentation/xctest for more information about using XCTest.
+  }
+
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\main.dart ===
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:google_fonts/google_fonts.dart';
+
+import 'features/dashboard/presentation/dashboard_screen.dart';
+import 'features/plant_form/presentation/add_plant_screen.dart';
+import 'features/plant_detail/presentation/plant_details_screen.dart';
+import 'features/ca_visualization/presentation/ca_visualization_screen.dart';
+import 'features/about/presentation/about_screen.dart';
+
+void main() {
+  runApp(
+    const ProviderScope(
+      child: VerdiTechApp(),
+    ),
+  );
+}
+
+final GoRouter _router = GoRouter(
+  initialLocation: '/',
+  // Step 7: errorBuilder prevents blank white screen on unknown routes
+  errorBuilder: (context, state) => Scaffold(
+    appBar: AppBar(title: const Text('Page Not Found')),
+    body: Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Icon(Icons.error_outline, size: 64, color: Colors.orange),
+          const SizedBox(height: 16),
+          Text(
+            'Route not found: ${state.uri}',
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+          FilledButton(
+            onPressed: () => context.go('/'),
+            child: const Text('Go to Dashboard'),
+          ),
+        ],
+      ),
+    ),
+  ),
+  routes: <RouteBase>[
+    GoRoute(
+      path: '/',
+      builder: (BuildContext context, GoRouterState state) {
+        return const DashboardScreen();
+      },
+      routes: <RouteBase>[
+        GoRoute(
+          path: 'add-plant',
+          builder: (BuildContext context, GoRouterState state) {
+            return const AddPlantScreen();
+          },
+        ),
+        GoRoute(
+          path: 'plant/:id',
+          builder: (BuildContext context, GoRouterState state) {
+            return PlantDetailsScreen(id: state.pathParameters['id']!);
+          },
+          routes: [
+            GoRoute(
+              path: 'visualization',
+              builder: (BuildContext context, GoRouterState state) {
+                return CaVisualizationScreen(
+                    id: state.pathParameters['id']!);
+              },
+            ),
+          ],
+        ),
+        GoRoute(
+          path: 'about',
+          builder: (BuildContext context, GoRouterState state) {
+            return const AboutScreen();
+          },
+        ),
+      ],
+    ),
+  ],
+);
+
+class VerdiTechApp extends StatelessWidget {
+  const VerdiTechApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp.router(
+      title: 'VerdiTech',
+      theme: ThemeData(
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: const Color(0xFF2E7D32),
+          brightness: Brightness.light,
+        ),
+        textTheme: GoogleFonts.interTextTheme(
+          Theme.of(context).textTheme,
+        ),
+      ),
+      routerConfig: _router,
+    );
+  }
+}
+
+==================

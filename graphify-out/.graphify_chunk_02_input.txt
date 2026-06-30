@@ -1,0 +1,3410 @@
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\app_database.dart ===
+import 'package:drift/drift.dart';
+import 'package:drift/native.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:path/path.dart' as p;
+import 'dart:io';
+
+import 'tables/plant_table.dart';
+import 'tables/daily_log_table.dart';
+import 'daos/plant_dao.dart';
+import 'daos/daily_log_dao.dart';
+
+part 'app_database.g.dart';
+
+/// The Drift database that backs all local persistence for VerdiTech.
+///
+/// Run `flutter pub run build_runner build --delete-conflicting-outputs`
+/// to generate the companion [_$AppDatabase] class.
+@DriftDatabase(tables: [PlantTable, DailyLogTable], daos: [PlantDao, DailyLogDao])
+class AppDatabase extends _$AppDatabase {
+  AppDatabase() : super(_openConnection());
+
+  /// Constructor used in tests to pass an in-memory database.
+  AppDatabase.forTesting(super.executor);
+
+  @override
+  int get schemaVersion => 1;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+        onCreate: (m) => m.createAll(),
+        onUpgrade: (m, from, to) async {
+          // Future migrations go here
+        },
+      );
+}
+
+/// Opens a [LazyDatabase] pointing at the app's document directory.
+LazyDatabase _openConnection() {
+  return LazyDatabase(() async {
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dbFolder.path, 'verditech.sqlite'));
+    return NativeDatabase.createInBackground(file);
+  });
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\app_database.g.dart ===
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'app_database.dart';
+
+// ignore_for_file: type=lint
+class $PlantTableTable extends PlantTable
+    with TableInfo<$PlantTableTable, PlantTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $PlantTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _nameMeta = const VerificationMeta('name');
+  @override
+  late final GeneratedColumn<String> name = GeneratedColumn<String>(
+      'name', aliasedName, false,
+      additionalChecks:
+          GeneratedColumn.checkTextLength(minTextLength: 1, maxTextLength: 100),
+      type: DriftSqlType.string,
+      requiredDuringInsert: true);
+  static const VerificationMeta _typeMeta = const VerificationMeta('type');
+  @override
+  late final GeneratedColumn<String> type = GeneratedColumn<String>(
+      'type', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _plantingDateMeta =
+      const VerificationMeta('plantingDate');
+  @override
+  late final GeneratedColumn<String> plantingDate = GeneratedColumn<String>(
+      'planting_date', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _currentStageMeta =
+      const VerificationMeta('currentStage');
+  @override
+  late final GeneratedColumn<String> currentStage = GeneratedColumn<String>(
+      'current_stage', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sunlightScoreMeta =
+      const VerificationMeta('sunlightScore');
+  @override
+  late final GeneratedColumn<double> sunlightScore = GeneratedColumn<double>(
+      'sunlight_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _waterScoreMeta =
+      const VerificationMeta('waterScore');
+  @override
+  late final GeneratedColumn<double> waterScore = GeneratedColumn<double>(
+      'water_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _soilScoreMeta =
+      const VerificationMeta('soilScore');
+  @override
+  late final GeneratedColumn<double> soilScore = GeneratedColumn<double>(
+      'soil_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _seasonMeta = const VerificationMeta('season');
+  @override
+  late final GeneratedColumn<String> season = GeneratedColumn<String>(
+      'season', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _notesMeta = const VerificationMeta('notes');
+  @override
+  late final GeneratedColumn<String> notes = GeneratedColumn<String>(
+      'notes', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        name,
+        type,
+        plantingDate,
+        currentStage,
+        sunlightScore,
+        waterScore,
+        soilScore,
+        season,
+        notes,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'plants';
+  @override
+  VerificationContext validateIntegrity(Insertable<PlantTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('name')) {
+      context.handle(
+          _nameMeta, name.isAcceptableOrUnknown(data['name']!, _nameMeta));
+    } else if (isInserting) {
+      context.missing(_nameMeta);
+    }
+    if (data.containsKey('type')) {
+      context.handle(
+          _typeMeta, type.isAcceptableOrUnknown(data['type']!, _typeMeta));
+    } else if (isInserting) {
+      context.missing(_typeMeta);
+    }
+    if (data.containsKey('planting_date')) {
+      context.handle(
+          _plantingDateMeta,
+          plantingDate.isAcceptableOrUnknown(
+              data['planting_date']!, _plantingDateMeta));
+    } else if (isInserting) {
+      context.missing(_plantingDateMeta);
+    }
+    if (data.containsKey('current_stage')) {
+      context.handle(
+          _currentStageMeta,
+          currentStage.isAcceptableOrUnknown(
+              data['current_stage']!, _currentStageMeta));
+    } else if (isInserting) {
+      context.missing(_currentStageMeta);
+    }
+    if (data.containsKey('sunlight_score')) {
+      context.handle(
+          _sunlightScoreMeta,
+          sunlightScore.isAcceptableOrUnknown(
+              data['sunlight_score']!, _sunlightScoreMeta));
+    } else if (isInserting) {
+      context.missing(_sunlightScoreMeta);
+    }
+    if (data.containsKey('water_score')) {
+      context.handle(
+          _waterScoreMeta,
+          waterScore.isAcceptableOrUnknown(
+              data['water_score']!, _waterScoreMeta));
+    } else if (isInserting) {
+      context.missing(_waterScoreMeta);
+    }
+    if (data.containsKey('soil_score')) {
+      context.handle(_soilScoreMeta,
+          soilScore.isAcceptableOrUnknown(data['soil_score']!, _soilScoreMeta));
+    } else if (isInserting) {
+      context.missing(_soilScoreMeta);
+    }
+    if (data.containsKey('season')) {
+      context.handle(_seasonMeta,
+          season.isAcceptableOrUnknown(data['season']!, _seasonMeta));
+    } else if (isInserting) {
+      context.missing(_seasonMeta);
+    }
+    if (data.containsKey('notes')) {
+      context.handle(
+          _notesMeta, notes.isAcceptableOrUnknown(data['notes']!, _notesMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  PlantTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return PlantTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      name: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}name'])!,
+      type: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}type'])!,
+      plantingDate: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}planting_date'])!,
+      currentStage: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}current_stage'])!,
+      sunlightScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}sunlight_score'])!,
+      waterScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}water_score'])!,
+      soilScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}soil_score'])!,
+      season: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}season'])!,
+      notes: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}notes']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $PlantTableTable createAlias(String alias) {
+    return $PlantTableTable(attachedDatabase, alias);
+  }
+}
+
+class PlantTableData extends DataClass implements Insertable<PlantTableData> {
+  final int id;
+
+  /// Display name given by the user.
+  final String name;
+
+  /// Stored as string of [PlantType.name].
+  final String type;
+
+  /// ISO-8601 date string.
+  final String plantingDate;
+
+  /// Stored as string of [GrowthStage.name].
+  final String currentStage;
+  final double sunlightScore;
+  final double waterScore;
+  final double soilScore;
+
+  /// Stored as string of [Season.name].
+  final String season;
+  final String? notes;
+  final String createdAt;
+  const PlantTableData(
+      {required this.id,
+      required this.name,
+      required this.type,
+      required this.plantingDate,
+      required this.currentStage,
+      required this.sunlightScore,
+      required this.waterScore,
+      required this.soilScore,
+      required this.season,
+      this.notes,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['name'] = Variable<String>(name);
+    map['type'] = Variable<String>(type);
+    map['planting_date'] = Variable<String>(plantingDate);
+    map['current_stage'] = Variable<String>(currentStage);
+    map['sunlight_score'] = Variable<double>(sunlightScore);
+    map['water_score'] = Variable<double>(waterScore);
+    map['soil_score'] = Variable<double>(soilScore);
+    map['season'] = Variable<String>(season);
+    if (!nullToAbsent || notes != null) {
+      map['notes'] = Variable<String>(notes);
+    }
+    map['created_at'] = Variable<String>(createdAt);
+    return map;
+  }
+
+  PlantTableCompanion toCompanion(bool nullToAbsent) {
+    return PlantTableCompanion(
+      id: Value(id),
+      name: Value(name),
+      type: Value(type),
+      plantingDate: Value(plantingDate),
+      currentStage: Value(currentStage),
+      sunlightScore: Value(sunlightScore),
+      waterScore: Value(waterScore),
+      soilScore: Value(soilScore),
+      season: Value(season),
+      notes:
+          notes == null && nullToAbsent ? const Value.absent() : Value(notes),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory PlantTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return PlantTableData(
+      id: serializer.fromJson<int>(json['id']),
+      name: serializer.fromJson<String>(json['name']),
+      type: serializer.fromJson<String>(json['type']),
+      plantingDate: serializer.fromJson<String>(json['plantingDate']),
+      currentStage: serializer.fromJson<String>(json['currentStage']),
+      sunlightScore: serializer.fromJson<double>(json['sunlightScore']),
+      waterScore: serializer.fromJson<double>(json['waterScore']),
+      soilScore: serializer.fromJson<double>(json['soilScore']),
+      season: serializer.fromJson<String>(json['season']),
+      notes: serializer.fromJson<String?>(json['notes']),
+      createdAt: serializer.fromJson<String>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'name': serializer.toJson<String>(name),
+      'type': serializer.toJson<String>(type),
+      'plantingDate': serializer.toJson<String>(plantingDate),
+      'currentStage': serializer.toJson<String>(currentStage),
+      'sunlightScore': serializer.toJson<double>(sunlightScore),
+      'waterScore': serializer.toJson<double>(waterScore),
+      'soilScore': serializer.toJson<double>(soilScore),
+      'season': serializer.toJson<String>(season),
+      'notes': serializer.toJson<String?>(notes),
+      'createdAt': serializer.toJson<String>(createdAt),
+    };
+  }
+
+  PlantTableData copyWith(
+          {int? id,
+          String? name,
+          String? type,
+          String? plantingDate,
+          String? currentStage,
+          double? sunlightScore,
+          double? waterScore,
+          double? soilScore,
+          String? season,
+          Value<String?> notes = const Value.absent(),
+          String? createdAt}) =>
+      PlantTableData(
+        id: id ?? this.id,
+        name: name ?? this.name,
+        type: type ?? this.type,
+        plantingDate: plantingDate ?? this.plantingDate,
+        currentStage: currentStage ?? this.currentStage,
+        sunlightScore: sunlightScore ?? this.sunlightScore,
+        waterScore: waterScore ?? this.waterScore,
+        soilScore: soilScore ?? this.soilScore,
+        season: season ?? this.season,
+        notes: notes.present ? notes.value : this.notes,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  PlantTableData copyWithCompanion(PlantTableCompanion data) {
+    return PlantTableData(
+      id: data.id.present ? data.id.value : this.id,
+      name: data.name.present ? data.name.value : this.name,
+      type: data.type.present ? data.type.value : this.type,
+      plantingDate: data.plantingDate.present
+          ? data.plantingDate.value
+          : this.plantingDate,
+      currentStage: data.currentStage.present
+          ? data.currentStage.value
+          : this.currentStage,
+      sunlightScore: data.sunlightScore.present
+          ? data.sunlightScore.value
+          : this.sunlightScore,
+      waterScore:
+          data.waterScore.present ? data.waterScore.value : this.waterScore,
+      soilScore: data.soilScore.present ? data.soilScore.value : this.soilScore,
+      season: data.season.present ? data.season.value : this.season,
+      notes: data.notes.present ? data.notes.value : this.notes,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlantTableData(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('plantingDate: $plantingDate, ')
+          ..write('currentStage: $currentStage, ')
+          ..write('sunlightScore: $sunlightScore, ')
+          ..write('waterScore: $waterScore, ')
+          ..write('soilScore: $soilScore, ')
+          ..write('season: $season, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(id, name, type, plantingDate, currentStage,
+      sunlightScore, waterScore, soilScore, season, notes, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is PlantTableData &&
+          other.id == this.id &&
+          other.name == this.name &&
+          other.type == this.type &&
+          other.plantingDate == this.plantingDate &&
+          other.currentStage == this.currentStage &&
+          other.sunlightScore == this.sunlightScore &&
+          other.waterScore == this.waterScore &&
+          other.soilScore == this.soilScore &&
+          other.season == this.season &&
+          other.notes == this.notes &&
+          other.createdAt == this.createdAt);
+}
+
+class PlantTableCompanion extends UpdateCompanion<PlantTableData> {
+  final Value<int> id;
+  final Value<String> name;
+  final Value<String> type;
+  final Value<String> plantingDate;
+  final Value<String> currentStage;
+  final Value<double> sunlightScore;
+  final Value<double> waterScore;
+  final Value<double> soilScore;
+  final Value<String> season;
+  final Value<String?> notes;
+  final Value<String> createdAt;
+  const PlantTableCompanion({
+    this.id = const Value.absent(),
+    this.name = const Value.absent(),
+    this.type = const Value.absent(),
+    this.plantingDate = const Value.absent(),
+    this.currentStage = const Value.absent(),
+    this.sunlightScore = const Value.absent(),
+    this.waterScore = const Value.absent(),
+    this.soilScore = const Value.absent(),
+    this.season = const Value.absent(),
+    this.notes = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  PlantTableCompanion.insert({
+    this.id = const Value.absent(),
+    required String name,
+    required String type,
+    required String plantingDate,
+    required String currentStage,
+    required double sunlightScore,
+    required double waterScore,
+    required double soilScore,
+    required String season,
+    this.notes = const Value.absent(),
+    required String createdAt,
+  })  : name = Value(name),
+        type = Value(type),
+        plantingDate = Value(plantingDate),
+        currentStage = Value(currentStage),
+        sunlightScore = Value(sunlightScore),
+        waterScore = Value(waterScore),
+        soilScore = Value(soilScore),
+        season = Value(season),
+        createdAt = Value(createdAt);
+  static Insertable<PlantTableData> custom({
+    Expression<int>? id,
+    Expression<String>? name,
+    Expression<String>? type,
+    Expression<String>? plantingDate,
+    Expression<String>? currentStage,
+    Expression<double>? sunlightScore,
+    Expression<double>? waterScore,
+    Expression<double>? soilScore,
+    Expression<String>? season,
+    Expression<String>? notes,
+    Expression<String>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (name != null) 'name': name,
+      if (type != null) 'type': type,
+      if (plantingDate != null) 'planting_date': plantingDate,
+      if (currentStage != null) 'current_stage': currentStage,
+      if (sunlightScore != null) 'sunlight_score': sunlightScore,
+      if (waterScore != null) 'water_score': waterScore,
+      if (soilScore != null) 'soil_score': soilScore,
+      if (season != null) 'season': season,
+      if (notes != null) 'notes': notes,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  PlantTableCompanion copyWith(
+      {Value<int>? id,
+      Value<String>? name,
+      Value<String>? type,
+      Value<String>? plantingDate,
+      Value<String>? currentStage,
+      Value<double>? sunlightScore,
+      Value<double>? waterScore,
+      Value<double>? soilScore,
+      Value<String>? season,
+      Value<String?>? notes,
+      Value<String>? createdAt}) {
+    return PlantTableCompanion(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      plantingDate: plantingDate ?? this.plantingDate,
+      currentStage: currentStage ?? this.currentStage,
+      sunlightScore: sunlightScore ?? this.sunlightScore,
+      waterScore: waterScore ?? this.waterScore,
+      soilScore: soilScore ?? this.soilScore,
+      season: season ?? this.season,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (name.present) {
+      map['name'] = Variable<String>(name.value);
+    }
+    if (type.present) {
+      map['type'] = Variable<String>(type.value);
+    }
+    if (plantingDate.present) {
+      map['planting_date'] = Variable<String>(plantingDate.value);
+    }
+    if (currentStage.present) {
+      map['current_stage'] = Variable<String>(currentStage.value);
+    }
+    if (sunlightScore.present) {
+      map['sunlight_score'] = Variable<double>(sunlightScore.value);
+    }
+    if (waterScore.present) {
+      map['water_score'] = Variable<double>(waterScore.value);
+    }
+    if (soilScore.present) {
+      map['soil_score'] = Variable<double>(soilScore.value);
+    }
+    if (season.present) {
+      map['season'] = Variable<String>(season.value);
+    }
+    if (notes.present) {
+      map['notes'] = Variable<String>(notes.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<String>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('PlantTableCompanion(')
+          ..write('id: $id, ')
+          ..write('name: $name, ')
+          ..write('type: $type, ')
+          ..write('plantingDate: $plantingDate, ')
+          ..write('currentStage: $currentStage, ')
+          ..write('sunlightScore: $sunlightScore, ')
+          ..write('waterScore: $waterScore, ')
+          ..write('soilScore: $soilScore, ')
+          ..write('season: $season, ')
+          ..write('notes: $notes, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+class $DailyLogTableTable extends DailyLogTable
+    with TableInfo<$DailyLogTableTable, DailyLogTableData> {
+  @override
+  final GeneratedDatabase attachedDatabase;
+  final String? _alias;
+  $DailyLogTableTable(this.attachedDatabase, [this._alias]);
+  static const VerificationMeta _idMeta = const VerificationMeta('id');
+  @override
+  late final GeneratedColumn<int> id = GeneratedColumn<int>(
+      'id', aliasedName, false,
+      hasAutoIncrement: true,
+      type: DriftSqlType.int,
+      requiredDuringInsert: false,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('PRIMARY KEY AUTOINCREMENT'));
+  static const VerificationMeta _plantIdMeta =
+      const VerificationMeta('plantId');
+  @override
+  late final GeneratedColumn<int> plantId = GeneratedColumn<int>(
+      'plant_id', aliasedName, false,
+      type: DriftSqlType.int,
+      requiredDuringInsert: true,
+      defaultConstraints:
+          GeneratedColumn.constraintIsAlways('REFERENCES plants (id)'));
+  static const VerificationMeta _dateMeta = const VerificationMeta('date');
+  @override
+  late final GeneratedColumn<String> date = GeneratedColumn<String>(
+      'date', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  static const VerificationMeta _sunlightScoreMeta =
+      const VerificationMeta('sunlightScore');
+  @override
+  late final GeneratedColumn<double> sunlightScore = GeneratedColumn<double>(
+      'sunlight_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _waterScoreMeta =
+      const VerificationMeta('waterScore');
+  @override
+  late final GeneratedColumn<double> waterScore = GeneratedColumn<double>(
+      'water_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _soilScoreMeta =
+      const VerificationMeta('soilScore');
+  @override
+  late final GeneratedColumn<double> soilScore = GeneratedColumn<double>(
+      'soil_score', aliasedName, false,
+      type: DriftSqlType.double, requiredDuringInsert: true);
+  static const VerificationMeta _noteMeta = const VerificationMeta('note');
+  @override
+  late final GeneratedColumn<String> note = GeneratedColumn<String>(
+      'note', aliasedName, true,
+      type: DriftSqlType.string, requiredDuringInsert: false);
+  static const VerificationMeta _createdAtMeta =
+      const VerificationMeta('createdAt');
+  @override
+  late final GeneratedColumn<String> createdAt = GeneratedColumn<String>(
+      'created_at', aliasedName, false,
+      type: DriftSqlType.string, requiredDuringInsert: true);
+  @override
+  List<GeneratedColumn> get $columns => [
+        id,
+        plantId,
+        date,
+        sunlightScore,
+        waterScore,
+        soilScore,
+        note,
+        createdAt
+      ];
+  @override
+  String get aliasedName => _alias ?? actualTableName;
+  @override
+  String get actualTableName => $name;
+  static const String $name = 'daily_logs';
+  @override
+  VerificationContext validateIntegrity(Insertable<DailyLogTableData> instance,
+      {bool isInserting = false}) {
+    final context = VerificationContext();
+    final data = instance.toColumns(true);
+    if (data.containsKey('id')) {
+      context.handle(_idMeta, id.isAcceptableOrUnknown(data['id']!, _idMeta));
+    }
+    if (data.containsKey('plant_id')) {
+      context.handle(_plantIdMeta,
+          plantId.isAcceptableOrUnknown(data['plant_id']!, _plantIdMeta));
+    } else if (isInserting) {
+      context.missing(_plantIdMeta);
+    }
+    if (data.containsKey('date')) {
+      context.handle(
+          _dateMeta, date.isAcceptableOrUnknown(data['date']!, _dateMeta));
+    } else if (isInserting) {
+      context.missing(_dateMeta);
+    }
+    if (data.containsKey('sunlight_score')) {
+      context.handle(
+          _sunlightScoreMeta,
+          sunlightScore.isAcceptableOrUnknown(
+              data['sunlight_score']!, _sunlightScoreMeta));
+    } else if (isInserting) {
+      context.missing(_sunlightScoreMeta);
+    }
+    if (data.containsKey('water_score')) {
+      context.handle(
+          _waterScoreMeta,
+          waterScore.isAcceptableOrUnknown(
+              data['water_score']!, _waterScoreMeta));
+    } else if (isInserting) {
+      context.missing(_waterScoreMeta);
+    }
+    if (data.containsKey('soil_score')) {
+      context.handle(_soilScoreMeta,
+          soilScore.isAcceptableOrUnknown(data['soil_score']!, _soilScoreMeta));
+    } else if (isInserting) {
+      context.missing(_soilScoreMeta);
+    }
+    if (data.containsKey('note')) {
+      context.handle(
+          _noteMeta, note.isAcceptableOrUnknown(data['note']!, _noteMeta));
+    }
+    if (data.containsKey('created_at')) {
+      context.handle(_createdAtMeta,
+          createdAt.isAcceptableOrUnknown(data['created_at']!, _createdAtMeta));
+    } else if (isInserting) {
+      context.missing(_createdAtMeta);
+    }
+    return context;
+  }
+
+  @override
+  Set<GeneratedColumn> get $primaryKey => {id};
+  @override
+  DailyLogTableData map(Map<String, dynamic> data, {String? tablePrefix}) {
+    final effectivePrefix = tablePrefix != null ? '$tablePrefix.' : '';
+    return DailyLogTableData(
+      id: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}id'])!,
+      plantId: attachedDatabase.typeMapping
+          .read(DriftSqlType.int, data['${effectivePrefix}plant_id'])!,
+      date: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}date'])!,
+      sunlightScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}sunlight_score'])!,
+      waterScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}water_score'])!,
+      soilScore: attachedDatabase.typeMapping
+          .read(DriftSqlType.double, data['${effectivePrefix}soil_score'])!,
+      note: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}note']),
+      createdAt: attachedDatabase.typeMapping
+          .read(DriftSqlType.string, data['${effectivePrefix}created_at'])!,
+    );
+  }
+
+  @override
+  $DailyLogTableTable createAlias(String alias) {
+    return $DailyLogTableTable(attachedDatabase, alias);
+  }
+}
+
+class DailyLogTableData extends DataClass
+    implements Insertable<DailyLogTableData> {
+  final int id;
+
+  /// Foreign key referencing [PlantTable.id].
+  final int plantId;
+
+  /// ISO-8601 date string (YYYY-MM-DD).
+  final String date;
+  final double sunlightScore;
+  final double waterScore;
+  final double soilScore;
+  final String? note;
+  final String createdAt;
+  const DailyLogTableData(
+      {required this.id,
+      required this.plantId,
+      required this.date,
+      required this.sunlightScore,
+      required this.waterScore,
+      required this.soilScore,
+      this.note,
+      required this.createdAt});
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    map['id'] = Variable<int>(id);
+    map['plant_id'] = Variable<int>(plantId);
+    map['date'] = Variable<String>(date);
+    map['sunlight_score'] = Variable<double>(sunlightScore);
+    map['water_score'] = Variable<double>(waterScore);
+    map['soil_score'] = Variable<double>(soilScore);
+    if (!nullToAbsent || note != null) {
+      map['note'] = Variable<String>(note);
+    }
+    map['created_at'] = Variable<String>(createdAt);
+    return map;
+  }
+
+  DailyLogTableCompanion toCompanion(bool nullToAbsent) {
+    return DailyLogTableCompanion(
+      id: Value(id),
+      plantId: Value(plantId),
+      date: Value(date),
+      sunlightScore: Value(sunlightScore),
+      waterScore: Value(waterScore),
+      soilScore: Value(soilScore),
+      note: note == null && nullToAbsent ? const Value.absent() : Value(note),
+      createdAt: Value(createdAt),
+    );
+  }
+
+  factory DailyLogTableData.fromJson(Map<String, dynamic> json,
+      {ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return DailyLogTableData(
+      id: serializer.fromJson<int>(json['id']),
+      plantId: serializer.fromJson<int>(json['plantId']),
+      date: serializer.fromJson<String>(json['date']),
+      sunlightScore: serializer.fromJson<double>(json['sunlightScore']),
+      waterScore: serializer.fromJson<double>(json['waterScore']),
+      soilScore: serializer.fromJson<double>(json['soilScore']),
+      note: serializer.fromJson<String?>(json['note']),
+      createdAt: serializer.fromJson<String>(json['createdAt']),
+    );
+  }
+  @override
+  Map<String, dynamic> toJson({ValueSerializer? serializer}) {
+    serializer ??= driftRuntimeOptions.defaultSerializer;
+    return <String, dynamic>{
+      'id': serializer.toJson<int>(id),
+      'plantId': serializer.toJson<int>(plantId),
+      'date': serializer.toJson<String>(date),
+      'sunlightScore': serializer.toJson<double>(sunlightScore),
+      'waterScore': serializer.toJson<double>(waterScore),
+      'soilScore': serializer.toJson<double>(soilScore),
+      'note': serializer.toJson<String?>(note),
+      'createdAt': serializer.toJson<String>(createdAt),
+    };
+  }
+
+  DailyLogTableData copyWith(
+          {int? id,
+          int? plantId,
+          String? date,
+          double? sunlightScore,
+          double? waterScore,
+          double? soilScore,
+          Value<String?> note = const Value.absent(),
+          String? createdAt}) =>
+      DailyLogTableData(
+        id: id ?? this.id,
+        plantId: plantId ?? this.plantId,
+        date: date ?? this.date,
+        sunlightScore: sunlightScore ?? this.sunlightScore,
+        waterScore: waterScore ?? this.waterScore,
+        soilScore: soilScore ?? this.soilScore,
+        note: note.present ? note.value : this.note,
+        createdAt: createdAt ?? this.createdAt,
+      );
+  DailyLogTableData copyWithCompanion(DailyLogTableCompanion data) {
+    return DailyLogTableData(
+      id: data.id.present ? data.id.value : this.id,
+      plantId: data.plantId.present ? data.plantId.value : this.plantId,
+      date: data.date.present ? data.date.value : this.date,
+      sunlightScore: data.sunlightScore.present
+          ? data.sunlightScore.value
+          : this.sunlightScore,
+      waterScore:
+          data.waterScore.present ? data.waterScore.value : this.waterScore,
+      soilScore: data.soilScore.present ? data.soilScore.value : this.soilScore,
+      note: data.note.present ? data.note.value : this.note,
+      createdAt: data.createdAt.present ? data.createdAt.value : this.createdAt,
+    );
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyLogTableData(')
+          ..write('id: $id, ')
+          ..write('plantId: $plantId, ')
+          ..write('date: $date, ')
+          ..write('sunlightScore: $sunlightScore, ')
+          ..write('waterScore: $waterScore, ')
+          ..write('soilScore: $soilScore, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      id, plantId, date, sunlightScore, waterScore, soilScore, note, createdAt);
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DailyLogTableData &&
+          other.id == this.id &&
+          other.plantId == this.plantId &&
+          other.date == this.date &&
+          other.sunlightScore == this.sunlightScore &&
+          other.waterScore == this.waterScore &&
+          other.soilScore == this.soilScore &&
+          other.note == this.note &&
+          other.createdAt == this.createdAt);
+}
+
+class DailyLogTableCompanion extends UpdateCompanion<DailyLogTableData> {
+  final Value<int> id;
+  final Value<int> plantId;
+  final Value<String> date;
+  final Value<double> sunlightScore;
+  final Value<double> waterScore;
+  final Value<double> soilScore;
+  final Value<String?> note;
+  final Value<String> createdAt;
+  const DailyLogTableCompanion({
+    this.id = const Value.absent(),
+    this.plantId = const Value.absent(),
+    this.date = const Value.absent(),
+    this.sunlightScore = const Value.absent(),
+    this.waterScore = const Value.absent(),
+    this.soilScore = const Value.absent(),
+    this.note = const Value.absent(),
+    this.createdAt = const Value.absent(),
+  });
+  DailyLogTableCompanion.insert({
+    this.id = const Value.absent(),
+    required int plantId,
+    required String date,
+    required double sunlightScore,
+    required double waterScore,
+    required double soilScore,
+    this.note = const Value.absent(),
+    required String createdAt,
+  })  : plantId = Value(plantId),
+        date = Value(date),
+        sunlightScore = Value(sunlightScore),
+        waterScore = Value(waterScore),
+        soilScore = Value(soilScore),
+        createdAt = Value(createdAt);
+  static Insertable<DailyLogTableData> custom({
+    Expression<int>? id,
+    Expression<int>? plantId,
+    Expression<String>? date,
+    Expression<double>? sunlightScore,
+    Expression<double>? waterScore,
+    Expression<double>? soilScore,
+    Expression<String>? note,
+    Expression<String>? createdAt,
+  }) {
+    return RawValuesInsertable({
+      if (id != null) 'id': id,
+      if (plantId != null) 'plant_id': plantId,
+      if (date != null) 'date': date,
+      if (sunlightScore != null) 'sunlight_score': sunlightScore,
+      if (waterScore != null) 'water_score': waterScore,
+      if (soilScore != null) 'soil_score': soilScore,
+      if (note != null) 'note': note,
+      if (createdAt != null) 'created_at': createdAt,
+    });
+  }
+
+  DailyLogTableCompanion copyWith(
+      {Value<int>? id,
+      Value<int>? plantId,
+      Value<String>? date,
+      Value<double>? sunlightScore,
+      Value<double>? waterScore,
+      Value<double>? soilScore,
+      Value<String?>? note,
+      Value<String>? createdAt}) {
+    return DailyLogTableCompanion(
+      id: id ?? this.id,
+      plantId: plantId ?? this.plantId,
+      date: date ?? this.date,
+      sunlightScore: sunlightScore ?? this.sunlightScore,
+      waterScore: waterScore ?? this.waterScore,
+      soilScore: soilScore ?? this.soilScore,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  Map<String, Expression> toColumns(bool nullToAbsent) {
+    final map = <String, Expression>{};
+    if (id.present) {
+      map['id'] = Variable<int>(id.value);
+    }
+    if (plantId.present) {
+      map['plant_id'] = Variable<int>(plantId.value);
+    }
+    if (date.present) {
+      map['date'] = Variable<String>(date.value);
+    }
+    if (sunlightScore.present) {
+      map['sunlight_score'] = Variable<double>(sunlightScore.value);
+    }
+    if (waterScore.present) {
+      map['water_score'] = Variable<double>(waterScore.value);
+    }
+    if (soilScore.present) {
+      map['soil_score'] = Variable<double>(soilScore.value);
+    }
+    if (note.present) {
+      map['note'] = Variable<String>(note.value);
+    }
+    if (createdAt.present) {
+      map['created_at'] = Variable<String>(createdAt.value);
+    }
+    return map;
+  }
+
+  @override
+  String toString() {
+    return (StringBuffer('DailyLogTableCompanion(')
+          ..write('id: $id, ')
+          ..write('plantId: $plantId, ')
+          ..write('date: $date, ')
+          ..write('sunlightScore: $sunlightScore, ')
+          ..write('waterScore: $waterScore, ')
+          ..write('soilScore: $soilScore, ')
+          ..write('note: $note, ')
+          ..write('createdAt: $createdAt')
+          ..write(')'))
+        .toString();
+  }
+}
+
+abstract class _$AppDatabase extends GeneratedDatabase {
+  _$AppDatabase(QueryExecutor e) : super(e);
+  $AppDatabaseManager get managers => $AppDatabaseManager(this);
+  late final $PlantTableTable plantTable = $PlantTableTable(this);
+  late final $DailyLogTableTable dailyLogTable = $DailyLogTableTable(this);
+  late final PlantDao plantDao = PlantDao(this as AppDatabase);
+  late final DailyLogDao dailyLogDao = DailyLogDao(this as AppDatabase);
+  @override
+  Iterable<TableInfo<Table, Object?>> get allTables =>
+      allSchemaEntities.whereType<TableInfo<Table, Object?>>();
+  @override
+  List<DatabaseSchemaEntity> get allSchemaEntities =>
+      [plantTable, dailyLogTable];
+}
+
+typedef $$PlantTableTableCreateCompanionBuilder = PlantTableCompanion Function({
+  Value<int> id,
+  required String name,
+  required String type,
+  required String plantingDate,
+  required String currentStage,
+  required double sunlightScore,
+  required double waterScore,
+  required double soilScore,
+  required String season,
+  Value<String?> notes,
+  required String createdAt,
+});
+typedef $$PlantTableTableUpdateCompanionBuilder = PlantTableCompanion Function({
+  Value<int> id,
+  Value<String> name,
+  Value<String> type,
+  Value<String> plantingDate,
+  Value<String> currentStage,
+  Value<double> sunlightScore,
+  Value<double> waterScore,
+  Value<double> soilScore,
+  Value<String> season,
+  Value<String?> notes,
+  Value<String> createdAt,
+});
+
+final class $$PlantTableTableReferences
+    extends BaseReferences<_$AppDatabase, $PlantTableTable, PlantTableData> {
+  $$PlantTableTableReferences(super.$_db, super.$_table, super.$_typedResult);
+
+  static MultiTypedResultKey<$DailyLogTableTable, List<DailyLogTableData>>
+      _dailyLogTableRefsTable(_$AppDatabase db) =>
+          MultiTypedResultKey.fromTable(db.dailyLogTable,
+              aliasName: $_aliasNameGenerator(
+                  db.plantTable.id, db.dailyLogTable.plantId));
+
+  $$DailyLogTableTableProcessedTableManager get dailyLogTableRefs {
+    final manager = $$DailyLogTableTableTableManager($_db, $_db.dailyLogTable)
+        .filter((f) => f.plantId.id.sqlEquals($_itemColumn<int>('id')!));
+
+    final cache = $_typedResult.readTableOrNull(_dailyLogTableRefsTable($_db));
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: cache));
+  }
+}
+
+class $$PlantTableTableFilterComposer
+    extends Composer<_$AppDatabase, $PlantTableTable> {
+  $$PlantTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get type => $composableBuilder(
+      column: $table.type, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get plantingDate => $composableBuilder(
+      column: $table.plantingDate, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get currentStage => $composableBuilder(
+      column: $table.currentStage, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get soilScore => $composableBuilder(
+      column: $table.soilScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get season => $composableBuilder(
+      column: $table.season, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  Expression<bool> dailyLogTableRefs(
+      Expression<bool> Function($$DailyLogTableTableFilterComposer f) f) {
+    final $$DailyLogTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.dailyLogTable,
+        getReferencedColumn: (t) => t.plantId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$DailyLogTableTableFilterComposer(
+              $db: $db,
+              $table: $db.dailyLogTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlantTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $PlantTableTable> {
+  $$PlantTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get name => $composableBuilder(
+      column: $table.name, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get type => $composableBuilder(
+      column: $table.type, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get plantingDate => $composableBuilder(
+      column: $table.plantingDate,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get currentStage => $composableBuilder(
+      column: $table.currentStage,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get soilScore => $composableBuilder(
+      column: $table.soilScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get season => $composableBuilder(
+      column: $table.season, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get notes => $composableBuilder(
+      column: $table.notes, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+}
+
+class $$PlantTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $PlantTableTable> {
+  $$PlantTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get name =>
+      $composableBuilder(column: $table.name, builder: (column) => column);
+
+  GeneratedColumn<String> get type =>
+      $composableBuilder(column: $table.type, builder: (column) => column);
+
+  GeneratedColumn<String> get plantingDate => $composableBuilder(
+      column: $table.plantingDate, builder: (column) => column);
+
+  GeneratedColumn<String> get currentStage => $composableBuilder(
+      column: $table.currentStage, builder: (column) => column);
+
+  GeneratedColumn<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore, builder: (column) => column);
+
+  GeneratedColumn<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => column);
+
+  GeneratedColumn<double> get soilScore =>
+      $composableBuilder(column: $table.soilScore, builder: (column) => column);
+
+  GeneratedColumn<String> get season =>
+      $composableBuilder(column: $table.season, builder: (column) => column);
+
+  GeneratedColumn<String> get notes =>
+      $composableBuilder(column: $table.notes, builder: (column) => column);
+
+  GeneratedColumn<String> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  Expression<T> dailyLogTableRefs<T extends Object>(
+      Expression<T> Function($$DailyLogTableTableAnnotationComposer a) f) {
+    final $$DailyLogTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.id,
+        referencedTable: $db.dailyLogTable,
+        getReferencedColumn: (t) => t.plantId,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$DailyLogTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.dailyLogTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return f(composer);
+  }
+}
+
+class $$PlantTableTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $PlantTableTable,
+    PlantTableData,
+    $$PlantTableTableFilterComposer,
+    $$PlantTableTableOrderingComposer,
+    $$PlantTableTableAnnotationComposer,
+    $$PlantTableTableCreateCompanionBuilder,
+    $$PlantTableTableUpdateCompanionBuilder,
+    (PlantTableData, $$PlantTableTableReferences),
+    PlantTableData,
+    PrefetchHooks Function({bool dailyLogTableRefs})> {
+  $$PlantTableTableTableManager(_$AppDatabase db, $PlantTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$PlantTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$PlantTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$PlantTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<String> name = const Value.absent(),
+            Value<String> type = const Value.absent(),
+            Value<String> plantingDate = const Value.absent(),
+            Value<String> currentStage = const Value.absent(),
+            Value<double> sunlightScore = const Value.absent(),
+            Value<double> waterScore = const Value.absent(),
+            Value<double> soilScore = const Value.absent(),
+            Value<String> season = const Value.absent(),
+            Value<String?> notes = const Value.absent(),
+            Value<String> createdAt = const Value.absent(),
+          }) =>
+              PlantTableCompanion(
+            id: id,
+            name: name,
+            type: type,
+            plantingDate: plantingDate,
+            currentStage: currentStage,
+            sunlightScore: sunlightScore,
+            waterScore: waterScore,
+            soilScore: soilScore,
+            season: season,
+            notes: notes,
+            createdAt: createdAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required String name,
+            required String type,
+            required String plantingDate,
+            required String currentStage,
+            required double sunlightScore,
+            required double waterScore,
+            required double soilScore,
+            required String season,
+            Value<String?> notes = const Value.absent(),
+            required String createdAt,
+          }) =>
+              PlantTableCompanion.insert(
+            id: id,
+            name: name,
+            type: type,
+            plantingDate: plantingDate,
+            currentStage: currentStage,
+            sunlightScore: sunlightScore,
+            waterScore: waterScore,
+            soilScore: soilScore,
+            season: season,
+            notes: notes,
+            createdAt: createdAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$PlantTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({dailyLogTableRefs = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [
+                if (dailyLogTableRefs) db.dailyLogTable
+              ],
+              addJoins: null,
+              getPrefetchedDataCallback: (items) async {
+                return [
+                  if (dailyLogTableRefs)
+                    await $_getPrefetchedData<PlantTableData, $PlantTableTable,
+                            DailyLogTableData>(
+                        currentTable: table,
+                        referencedTable: $$PlantTableTableReferences
+                            ._dailyLogTableRefsTable(db),
+                        managerFromTypedResult: (p0) =>
+                            $$PlantTableTableReferences(db, table, p0)
+                                .dailyLogTableRefs,
+                        referencedItemsForCurrentItem: (item,
+                                referencedItems) =>
+                            referencedItems.where((e) => e.plantId == item.id),
+                        typedResults: items)
+                ];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$PlantTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $PlantTableTable,
+    PlantTableData,
+    $$PlantTableTableFilterComposer,
+    $$PlantTableTableOrderingComposer,
+    $$PlantTableTableAnnotationComposer,
+    $$PlantTableTableCreateCompanionBuilder,
+    $$PlantTableTableUpdateCompanionBuilder,
+    (PlantTableData, $$PlantTableTableReferences),
+    PlantTableData,
+    PrefetchHooks Function({bool dailyLogTableRefs})>;
+typedef $$DailyLogTableTableCreateCompanionBuilder = DailyLogTableCompanion
+    Function({
+  Value<int> id,
+  required int plantId,
+  required String date,
+  required double sunlightScore,
+  required double waterScore,
+  required double soilScore,
+  Value<String?> note,
+  required String createdAt,
+});
+typedef $$DailyLogTableTableUpdateCompanionBuilder = DailyLogTableCompanion
+    Function({
+  Value<int> id,
+  Value<int> plantId,
+  Value<String> date,
+  Value<double> sunlightScore,
+  Value<double> waterScore,
+  Value<double> soilScore,
+  Value<String?> note,
+  Value<String> createdAt,
+});
+
+final class $$DailyLogTableTableReferences extends BaseReferences<_$AppDatabase,
+    $DailyLogTableTable, DailyLogTableData> {
+  $$DailyLogTableTableReferences(
+      super.$_db, super.$_table, super.$_typedResult);
+
+  static $PlantTableTable _plantIdTable(_$AppDatabase db) =>
+      db.plantTable.createAlias(
+          $_aliasNameGenerator(db.dailyLogTable.plantId, db.plantTable.id));
+
+  $$PlantTableTableProcessedTableManager get plantId {
+    final $_column = $_itemColumn<int>('plant_id')!;
+
+    final manager = $$PlantTableTableTableManager($_db, $_db.plantTable)
+        .filter((f) => f.id.sqlEquals($_column));
+    final item = $_typedResult.readTableOrNull(_plantIdTable($_db));
+    if (item == null) return manager;
+    return ProcessedTableManager(
+        manager.$state.copyWith(prefetchedData: [item]));
+  }
+}
+
+class $$DailyLogTableTableFilterComposer
+    extends Composer<_$AppDatabase, $DailyLogTableTable> {
+  $$DailyLogTableTableFilterComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnFilters<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<double> get soilScore => $composableBuilder(
+      column: $table.soilScore, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnFilters(column));
+
+  ColumnFilters<String> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnFilters(column));
+
+  $$PlantTableTableFilterComposer get plantId {
+    final $$PlantTableTableFilterComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.plantId,
+        referencedTable: $db.plantTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlantTableTableFilterComposer(
+              $db: $db,
+              $table: $db.plantTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$DailyLogTableTableOrderingComposer
+    extends Composer<_$AppDatabase, $DailyLogTableTable> {
+  $$DailyLogTableTableOrderingComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  ColumnOrderings<int> get id => $composableBuilder(
+      column: $table.id, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get date => $composableBuilder(
+      column: $table.date, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore,
+      builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<double> get soilScore => $composableBuilder(
+      column: $table.soilScore, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get note => $composableBuilder(
+      column: $table.note, builder: (column) => ColumnOrderings(column));
+
+  ColumnOrderings<String> get createdAt => $composableBuilder(
+      column: $table.createdAt, builder: (column) => ColumnOrderings(column));
+
+  $$PlantTableTableOrderingComposer get plantId {
+    final $$PlantTableTableOrderingComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.plantId,
+        referencedTable: $db.plantTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlantTableTableOrderingComposer(
+              $db: $db,
+              $table: $db.plantTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$DailyLogTableTableAnnotationComposer
+    extends Composer<_$AppDatabase, $DailyLogTableTable> {
+  $$DailyLogTableTableAnnotationComposer({
+    required super.$db,
+    required super.$table,
+    super.joinBuilder,
+    super.$addJoinBuilderToRootComposer,
+    super.$removeJoinBuilderFromRootComposer,
+  });
+  GeneratedColumn<int> get id =>
+      $composableBuilder(column: $table.id, builder: (column) => column);
+
+  GeneratedColumn<String> get date =>
+      $composableBuilder(column: $table.date, builder: (column) => column);
+
+  GeneratedColumn<double> get sunlightScore => $composableBuilder(
+      column: $table.sunlightScore, builder: (column) => column);
+
+  GeneratedColumn<double> get waterScore => $composableBuilder(
+      column: $table.waterScore, builder: (column) => column);
+
+  GeneratedColumn<double> get soilScore =>
+      $composableBuilder(column: $table.soilScore, builder: (column) => column);
+
+  GeneratedColumn<String> get note =>
+      $composableBuilder(column: $table.note, builder: (column) => column);
+
+  GeneratedColumn<String> get createdAt =>
+      $composableBuilder(column: $table.createdAt, builder: (column) => column);
+
+  $$PlantTableTableAnnotationComposer get plantId {
+    final $$PlantTableTableAnnotationComposer composer = $composerBuilder(
+        composer: this,
+        getCurrentColumn: (t) => t.plantId,
+        referencedTable: $db.plantTable,
+        getReferencedColumn: (t) => t.id,
+        builder: (joinBuilder,
+                {$addJoinBuilderToRootComposer,
+                $removeJoinBuilderFromRootComposer}) =>
+            $$PlantTableTableAnnotationComposer(
+              $db: $db,
+              $table: $db.plantTable,
+              $addJoinBuilderToRootComposer: $addJoinBuilderToRootComposer,
+              joinBuilder: joinBuilder,
+              $removeJoinBuilderFromRootComposer:
+                  $removeJoinBuilderFromRootComposer,
+            ));
+    return composer;
+  }
+}
+
+class $$DailyLogTableTableTableManager extends RootTableManager<
+    _$AppDatabase,
+    $DailyLogTableTable,
+    DailyLogTableData,
+    $$DailyLogTableTableFilterComposer,
+    $$DailyLogTableTableOrderingComposer,
+    $$DailyLogTableTableAnnotationComposer,
+    $$DailyLogTableTableCreateCompanionBuilder,
+    $$DailyLogTableTableUpdateCompanionBuilder,
+    (DailyLogTableData, $$DailyLogTableTableReferences),
+    DailyLogTableData,
+    PrefetchHooks Function({bool plantId})> {
+  $$DailyLogTableTableTableManager(_$AppDatabase db, $DailyLogTableTable table)
+      : super(TableManagerState(
+          db: db,
+          table: table,
+          createFilteringComposer: () =>
+              $$DailyLogTableTableFilterComposer($db: db, $table: table),
+          createOrderingComposer: () =>
+              $$DailyLogTableTableOrderingComposer($db: db, $table: table),
+          createComputedFieldComposer: () =>
+              $$DailyLogTableTableAnnotationComposer($db: db, $table: table),
+          updateCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            Value<int> plantId = const Value.absent(),
+            Value<String> date = const Value.absent(),
+            Value<double> sunlightScore = const Value.absent(),
+            Value<double> waterScore = const Value.absent(),
+            Value<double> soilScore = const Value.absent(),
+            Value<String?> note = const Value.absent(),
+            Value<String> createdAt = const Value.absent(),
+          }) =>
+              DailyLogTableCompanion(
+            id: id,
+            plantId: plantId,
+            date: date,
+            sunlightScore: sunlightScore,
+            waterScore: waterScore,
+            soilScore: soilScore,
+            note: note,
+            createdAt: createdAt,
+          ),
+          createCompanionCallback: ({
+            Value<int> id = const Value.absent(),
+            required int plantId,
+            required String date,
+            required double sunlightScore,
+            required double waterScore,
+            required double soilScore,
+            Value<String?> note = const Value.absent(),
+            required String createdAt,
+          }) =>
+              DailyLogTableCompanion.insert(
+            id: id,
+            plantId: plantId,
+            date: date,
+            sunlightScore: sunlightScore,
+            waterScore: waterScore,
+            soilScore: soilScore,
+            note: note,
+            createdAt: createdAt,
+          ),
+          withReferenceMapper: (p0) => p0
+              .map((e) => (
+                    e.readTable(table),
+                    $$DailyLogTableTableReferences(db, table, e)
+                  ))
+              .toList(),
+          prefetchHooksCallback: ({plantId = false}) {
+            return PrefetchHooks(
+              db: db,
+              explicitlyWatchedTables: [],
+              addJoins: <
+                  T extends TableManagerState<
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic,
+                      dynamic>>(state) {
+                if (plantId) {
+                  state = state.withJoin(
+                    currentTable: table,
+                    currentColumn: table.plantId,
+                    referencedTable:
+                        $$DailyLogTableTableReferences._plantIdTable(db),
+                    referencedColumn:
+                        $$DailyLogTableTableReferences._plantIdTable(db).id,
+                  ) as T;
+                }
+
+                return state;
+              },
+              getPrefetchedDataCallback: (items) async {
+                return [];
+              },
+            );
+          },
+        ));
+}
+
+typedef $$DailyLogTableTableProcessedTableManager = ProcessedTableManager<
+    _$AppDatabase,
+    $DailyLogTableTable,
+    DailyLogTableData,
+    $$DailyLogTableTableFilterComposer,
+    $$DailyLogTableTableOrderingComposer,
+    $$DailyLogTableTableAnnotationComposer,
+    $$DailyLogTableTableCreateCompanionBuilder,
+    $$DailyLogTableTableUpdateCompanionBuilder,
+    (DailyLogTableData, $$DailyLogTableTableReferences),
+    DailyLogTableData,
+    PrefetchHooks Function({bool plantId})>;
+
+class $AppDatabaseManager {
+  final _$AppDatabase _db;
+  $AppDatabaseManager(this._db);
+  $$PlantTableTableTableManager get plantTable =>
+      $$PlantTableTableTableManager(_db, _db.plantTable);
+  $$DailyLogTableTableTableManager get dailyLogTable =>
+      $$DailyLogTableTableTableManager(_db, _db.dailyLogTable);
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\daos\daily_log_dao.dart ===
+import 'package:drift/drift.dart';
+
+import '../app_database.dart';
+import '../tables/daily_log_table.dart';
+import '../../mappers/daily_log_mapper.dart';
+import '../../../domain/models/daily_log.dart';
+
+part 'daily_log_dao.g.dart';
+
+/// Data Access Object for [DailyLogTable] operations.
+@DriftAccessor(tables: [DailyLogTable])
+class DailyLogDao extends DatabaseAccessor<AppDatabase>
+    with _$DailyLogDaoMixin {
+  DailyLogDao(super.db);
+
+  /// Watch all daily logs for a specific plant, ordered by date ascending.
+  Stream<List<DailyLog>> watchLogsForPlant(int plantId) {
+    return (select(dailyLogTable)
+          ..where((t) => t.plantId.equals(plantId))
+          ..orderBy([(t) => OrderingTerm.asc(t.date)]))
+        .watch()
+        .map((rows) => rows.map((row) => DailyLogMapper.fromRow(row)).toList());
+  }
+
+  /// Get all daily logs for a specific plant once.
+  Future<List<DailyLog>> getLogsForPlant(int plantId) async {
+    final rows = await (select(dailyLogTable)
+          ..where((t) => t.plantId.equals(plantId))
+          ..orderBy([(t) => OrderingTerm.asc(t.date)]))
+        .get();
+    return rows.map((row) => DailyLogMapper.fromRow(row)).toList();
+  }
+
+  /// Insert a new daily log. Returns the assigned id.
+  Future<int> insertLog(DailyLog log) {
+    return into(dailyLogTable).insert(DailyLogMapper.toCompanion(log));
+  }
+
+  /// Update an existing log.
+  Future<bool> updateLog(DailyLog log) {
+    return update(dailyLogTable).replace(DailyLogMapper.toCompanion(log));
+  }
+
+  /// Delete a log by id.
+  Future<int> deleteLog(int id) {
+    return (delete(dailyLogTable)..where((t) => t.id.equals(id))).go();
+  }
+
+  /// Upsert a log for a specific date (insert or update).
+  Future<void> upsertLog(DailyLog log) async {
+    await into(dailyLogTable).insertOnConflictUpdate(
+      DailyLogMapper.toCompanion(log),
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\daos\daily_log_dao.g.dart ===
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'daily_log_dao.dart';
+
+// ignore_for_file: type=lint
+mixin _$DailyLogDaoMixin on DatabaseAccessor<AppDatabase> {
+  $PlantTableTable get plantTable => attachedDatabase.plantTable;
+  $DailyLogTableTable get dailyLogTable => attachedDatabase.dailyLogTable;
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\daos\plant_dao.dart ===
+import 'package:drift/drift.dart';
+
+import '../app_database.dart';
+import '../tables/plant_table.dart';
+import '../../mappers/plant_mapper.dart';
+import '../../../domain/models/plant.dart';
+
+part 'plant_dao.g.dart';
+
+/// Data Access Object for [PlantTable] operations.
+@DriftAccessor(tables: [PlantTable])
+class PlantDao extends DatabaseAccessor<AppDatabase> with _$PlantDaoMixin {
+  PlantDao(super.db);
+
+  /// Watch all plants, ordered by creation date descending.
+  Stream<List<Plant>> watchAllPlants() {
+    return (select(plantTable)
+          ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .watch()
+        .map((rows) => rows.map((row) => PlantMapper.fromRow(row)).toList());
+  }
+
+  /// Get all plants once.
+  Future<List<Plant>> getAllPlants() async {
+    final rows = await (select(plantTable)
+          ..orderBy([(t) => OrderingTerm.desc(t.createdAt)]))
+        .get();
+    return rows.map((row) => PlantMapper.fromRow(row)).toList();
+  }
+
+  /// Get a single plant by id.
+  Future<Plant?> getPlantById(int id) async {
+    final row = await (select(plantTable)
+          ..where((t) => t.id.equals(id)))
+        .getSingleOrNull();
+    return row == null ? null : PlantMapper.fromRow(row);
+  }
+
+  /// Insert a new plant. Returns the assigned id.
+  Future<int> insertPlant(Plant plant) {
+    return into(plantTable).insert(PlantMapper.toCompanion(plant));
+  }
+
+  /// Update an existing plant.
+  Future<bool> updatePlant(Plant plant) {
+    return update(plantTable).replace(PlantMapper.toCompanion(plant));
+  }
+
+  /// Delete a plant by id.
+  Future<int> deletePlant(int id) {
+    return (delete(plantTable)..where((t) => t.id.equals(id))).go();
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\daos\plant_dao.g.dart ===
+// GENERATED CODE - DO NOT MODIFY BY HAND
+
+part of 'plant_dao.dart';
+
+// ignore_for_file: type=lint
+mixin _$PlantDaoMixin on DatabaseAccessor<AppDatabase> {
+  $PlantTableTable get plantTable => attachedDatabase.plantTable;
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\tables\daily_log_table.dart ===
+import 'package:drift/drift.dart';
+
+import 'plant_table.dart';
+
+/// Drift table definition for daily environmental factor logs.
+class DailyLogTable extends Table {
+  @override
+  String get tableName => 'daily_logs';
+
+  IntColumn get id => integer().autoIncrement()();
+
+  /// Foreign key referencing [PlantTable.id].
+  IntColumn get plantId =>
+      integer().references(PlantTable, #id)();
+
+  /// ISO-8601 date string (YYYY-MM-DD).
+  TextColumn get date => text()();
+
+  RealColumn get sunlightScore => real()();
+  RealColumn get waterScore => real()();
+  RealColumn get soilScore => real()();
+
+  TextColumn get note => text().nullable()();
+
+  TextColumn get createdAt => text()();
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\database\tables\plant_table.dart ===
+import 'package:drift/drift.dart';
+
+/// Drift table definition for plant profiles.
+class PlantTable extends Table {
+  @override
+  String get tableName => 'plants';
+
+  IntColumn get id => integer().autoIncrement()();
+
+  /// Display name given by the user.
+  TextColumn get name => text().withLength(min: 1, max: 100)();
+
+  /// Stored as string of [PlantType.name].
+  TextColumn get type => text()();
+
+  /// ISO-8601 date string.
+  TextColumn get plantingDate => text()();
+
+  /// Stored as string of [GrowthStage.name].
+  TextColumn get currentStage => text()();
+
+  RealColumn get sunlightScore => real()();
+  RealColumn get waterScore => real()();
+  RealColumn get soilScore => real()();
+
+  /// Stored as string of [Season.name].
+  TextColumn get season => text()();
+
+  TextColumn get notes => text().nullable()();
+
+  TextColumn get createdAt => text()();
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\mappers\daily_log_mapper.dart ===
+import 'package:drift/drift.dart';
+
+import '../database/app_database.dart';
+import '../../domain/models/daily_log.dart';
+
+/// Converts between [DailyLogTableData] (Drift row) and [DailyLog] (domain model).
+class DailyLogMapper {
+  const DailyLogMapper._();
+
+  static DailyLog fromRow(DailyLogTableData row) {
+    return DailyLog(
+      id: row.id,
+      plantId: row.plantId,
+      date: DateTime.parse(row.date),
+      sunlightScore: row.sunlightScore,
+      waterScore: row.waterScore,
+      soilScore: row.soilScore,
+      note: row.note,
+      createdAt: DateTime.parse(row.createdAt),
+    );
+  }
+
+  static DailyLogTableCompanion toCompanion(DailyLog log) {
+    final now = DateTime.now().toIso8601String();
+    return DailyLogTableCompanion(
+      id: log.id != null ? Value(log.id!) : const Value.absent(),
+      plantId: Value(log.plantId),
+      date: Value(log.date.toIso8601String().substring(0, 10)), // YYYY-MM-DD
+      sunlightScore: Value(log.sunlightScore),
+      waterScore: Value(log.waterScore),
+      soilScore: Value(log.soilScore),
+      note: Value(log.note),
+      createdAt: Value(now),
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\mappers\plant_mapper.dart ===
+import 'package:drift/drift.dart';
+
+import '../database/app_database.dart';
+import '../../domain/models/plant.dart';
+import '../../domain/models/enums.dart';
+
+/// Converts between [PlantTableData] (Drift row) and [Plant] (domain model).
+class PlantMapper {
+  const PlantMapper._();
+
+  static Plant fromRow(PlantTableData row) {
+    return Plant(
+      id: row.id,
+      name: row.name,
+      type: PlantType.values.firstWhere((e) => e.name == row.type),
+      plantingDate: DateTime.parse(row.plantingDate),
+      currentStage:
+          GrowthStage.values.firstWhere((e) => e.name == row.currentStage),
+      sunlightScore: row.sunlightScore,
+      waterScore: row.waterScore,
+      soilScore: row.soilScore,
+      season: Season.values.firstWhere((e) => e.name == row.season),
+      notes: row.notes,
+      createdAt: DateTime.parse(row.createdAt),
+    );
+  }
+
+  static PlantTableCompanion toCompanion(Plant plant) {
+    final now = DateTime.now().toIso8601String();
+    return PlantTableCompanion(
+      id: plant.id != null ? Value(plant.id!) : const Value.absent(),
+      name: Value(plant.name),
+      type: Value(plant.type.name),
+      plantingDate: Value(plant.plantingDate.toIso8601String()),
+      currentStage: Value(plant.currentStage.name),
+      sunlightScore: Value(plant.sunlightScore),
+      waterScore: Value(plant.waterScore),
+      soilScore: Value(plant.soilScore),
+      season: Value(plant.season.name),
+      notes: Value(plant.notes),
+      createdAt: Value(now),
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\data\repositories\plant_repository.dart ===
+import '../../domain/models/plant.dart';
+import '../../domain/models/daily_log.dart';
+import '../database/app_database.dart';
+
+/// Repository providing a clean API over the [AppDatabase] for plant data.
+///
+/// ViewModels and Riverpod providers should interact with this class rather
+/// than the DAOs directly.
+class PlantRepository {
+  const PlantRepository(this._db);
+
+  final AppDatabase _db;
+
+  // ---------------------------------------------------------------------------
+  // Plant operations
+  // ---------------------------------------------------------------------------
+
+  /// Watch all plants in real-time.
+  Stream<List<Plant>> watchAllPlants() => _db.plantDao.watchAllPlants();
+
+  /// Fetch all plants once.
+  Future<List<Plant>> getAllPlants() => _db.plantDao.getAllPlants();
+
+  /// Fetch a single plant by id.
+  Future<Plant?> getPlantById(int id) => _db.plantDao.getPlantById(id);
+
+  /// Save a new plant. Returns the new plant with its assigned id.
+  Future<Plant> addPlant(Plant plant) async {
+    final id = await _db.plantDao.insertPlant(plant);
+    return plant.copyWith(id: id);
+  }
+
+  /// Update an existing plant.
+  Future<void> updatePlant(Plant plant) => _db.plantDao.updatePlant(plant);
+
+  /// Delete a plant and all its associated daily logs.
+  Future<void> deletePlant(int plantId) async {
+    // Delete associated logs first
+    final logs = await _db.dailyLogDao.getLogsForPlant(plantId);
+    for (final log in logs) {
+      if (log.id != null) {
+        await _db.dailyLogDao.deleteLog(log.id!);
+      }
+    }
+    await _db.plantDao.deletePlant(plantId);
+  }
+
+  // ---------------------------------------------------------------------------
+  // Daily log operations
+  // ---------------------------------------------------------------------------
+
+  /// Watch all daily logs for a plant in real-time.
+  Stream<List<DailyLog>> watchLogsForPlant(int plantId) =>
+      _db.dailyLogDao.watchLogsForPlant(plantId);
+
+  /// Fetch all daily logs for a plant once.
+  Future<List<DailyLog>> getLogsForPlant(int plantId) =>
+      _db.dailyLogDao.getLogsForPlant(plantId);
+
+  /// Save or update a daily log for a specific date.
+  Future<void> upsertLog(DailyLog log) => _db.dailyLogDao.upsertLog(log);
+
+  /// Delete a single daily log entry.
+  Future<void> deleteLog(int logId) => _db.dailyLogDao.deleteLog(logId);
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\engine\ca_engine.dart ===
+import '../models/enums.dart';
+import '../models/environment_profile.dart';
+import '../models/day_prediction.dart';
+import '../models/plant.dart';
+
+/// 1D Cellular Automata prediction engine for plant growth.
+///
+/// Each "cell" is a day. The cell's state is the plant's [GrowthStage] on
+/// that day. Transition rules are driven by the [EnvironmentProfile] and
+/// a season modifier specific to each [PlantType].
+class CaEngine {
+  const CaEngine();
+
+  // ---------------------------------------------------------------------------
+  // Factor weights per plant (sunlight / water / soil). Must sum to 1.0.
+  // Source: research.md §3.2
+  // ---------------------------------------------------------------------------
+  static const Map<PlantType, _Weights> _weights = {
+    PlantType.tomato: _Weights(sun: 0.35, water: 0.40, soil: 0.25),
+    PlantType.eggplant: _Weights(sun: 0.30, water: 0.35, soil: 0.35),
+    PlantType.silingLabuyo: _Weights(sun: 0.40, water: 0.25, soil: 0.35),
+  };
+
+  // ---------------------------------------------------------------------------
+  // Season modifiers per plant. Source: research.md §4.2
+  // ---------------------------------------------------------------------------
+  static const Map<PlantType, Map<Season, double>> _seasonModifiers = {
+    PlantType.tomato: {
+      Season.tagInit: 0.85,
+      Season.tagUlan: 0.70,
+      Season.malamig: 1.00,
+    },
+    PlantType.eggplant: {
+      Season.tagInit: 0.90,
+      Season.tagUlan: 0.80,
+      Season.malamig: 0.95,
+    },
+    PlantType.silingLabuyo: {
+      Season.tagInit: 0.95,
+      Season.tagUlan: 0.85,
+      Season.malamig: 0.90,
+    },
+  };
+
+  // ---------------------------------------------------------------------------
+  // Minimum days a plant must stay in each stage before progression.
+  // Source: research.md §2.1–2.3  (using midpoint of documented ranges)
+  // ---------------------------------------------------------------------------
+  static const Map<PlantType, Map<GrowthStage, int>> _minStageDays = {
+    PlantType.tomato: {
+      GrowthStage.seedling: 14,
+      GrowthStage.youngPlant: 21,
+      GrowthStage.flowering: 14,
+      GrowthStage.fruiting: 20,
+      GrowthStage.harvestReady: 0,
+    },
+    PlantType.eggplant: {
+      GrowthStage.seedling: 14,
+      GrowthStage.youngPlant: 28,
+      GrowthStage.flowering: 14,
+      GrowthStage.fruiting: 14,
+      GrowthStage.harvestReady: 0,
+    },
+    PlantType.silingLabuyo: {
+      GrowthStage.seedling: 14,
+      GrowthStage.youngPlant: 21,
+      GrowthStage.flowering: 14,
+      GrowthStage.fruiting: 21,
+      GrowthStage.harvestReady: 0,
+    },
+  };
+
+  // ---------------------------------------------------------------------------
+  // Thresholds
+  // ---------------------------------------------------------------------------
+
+  /// Adjusted env score at or above which the plant progresses normally.
+  static const double _progressThreshold = 0.70;
+
+  /// Adjusted env score at or above which progression is possible but delayed.
+  static const double _delayedThreshold = 0.40;
+
+  // ---------------------------------------------------------------------------
+  // Public API
+  // ---------------------------------------------------------------------------
+
+  /// Compute a normalised environmental score (0.0–1.0) for the given
+  /// [profile] and [plantType].
+  double computeEnvScore(PlantType plantType, EnvironmentProfile profile) {
+    final w = _weights[plantType]!;
+    final raw = (w.sun * profile.sunlight +
+                 w.water * profile.water +
+                 w.soil * profile.soil) /
+        5.0; // normalise from [1,5] range to [0.2,1.0]
+
+    final seasonMod = _seasonModifiers[plantType]![profile.season] ?? 1.0;
+    return (raw * seasonMod).clamp(0.0, 1.0);
+  }
+
+  /// Run the 1D CA simulation forward for [forecastDays] days starting from
+  /// [plant]'s current state, using [environment] as the daily condition.
+  ///
+  /// Returns a list of [DayPrediction]s ordered by day.
+  List<DayPrediction> forecast({
+    required Plant plant,
+    required EnvironmentProfile environment,
+    int forecastDays = 60,
+  }) {
+    final predictions = <DayPrediction>[];
+    var currentStage = plant.currentStage;
+    var daysInStage = 0;
+    final baseDate = DateTime.now();
+    final score = computeEnvScore(plant.type, environment);
+    final health = HealthStatus.fromScore(score);
+
+    for (var day = 0; day < forecastDays; day++) {
+      final date = baseDate.add(Duration(days: day));
+      predictions.add(DayPrediction(
+        dayOffset: plant.daysPlanted + day,
+        date: date,
+        predictedStage: currentStage,
+        healthStatus: health,
+        environmentalScore: score,
+      ));
+
+      // Advance the CA for the next iteration
+      final next = _transition(
+        plantType: plant.type,
+        currentStage: currentStage,
+        daysInStage: daysInStage,
+        adjustedScore: score,
+      );
+      if (next == currentStage) {
+        daysInStage++;
+      } else {
+        currentStage = next;
+        daysInStage = 0;
+      }
+    }
+
+    return predictions;
+  }
+
+  /// Estimate how many days remain until harvest from the current state.
+  int estimateDaysToHarvest({
+    required Plant plant,
+    required EnvironmentProfile environment,
+  }) {
+    final preds = forecast(
+      plant: plant,
+      environment: environment,
+      forecastDays: 180,
+    );
+    final harvestDay = preds.indexWhere(
+      (p) => p.predictedStage == GrowthStage.harvestReady,
+    );
+    return harvestDay == -1 ? 180 : harvestDay;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Private CA transition logic
+  // ---------------------------------------------------------------------------
+
+  GrowthStage _transition({
+    required PlantType plantType,
+    required GrowthStage currentStage,
+    required int daysInStage,
+    required double adjustedScore,
+  }) {
+    // Terminal state — no further transitions
+    if (currentStage == GrowthStage.harvestReady) {
+      return GrowthStage.harvestReady;
+    }
+
+    final minDays =
+        _minStageDays[plantType]![currentStage] ?? 0;
+
+    if (adjustedScore >= _progressThreshold && daysInStage >= minDays) {
+      // Normal progression: advance to next stage
+      return GrowthStage.fromIndex(currentStage.stageIndex + 1);
+    }
+
+    if (adjustedScore >= _delayedThreshold) {
+      // Delayed progression: must wait extra days proportional to deficit
+      const delayMultiplier = 1.5;
+      final delayedMin = (minDays * delayMultiplier).round();
+      if (daysInStage >= delayedMin) {
+        return GrowthStage.fromIndex(currentStage.stageIndex + 1);
+      }
+      return currentStage; // not enough days yet, stay
+    }
+
+    // Critical / poor conditions: risk regression
+    if (adjustedScore < _delayedThreshold && currentStage.stageIndex > 0) {
+      return GrowthStage.fromIndex(currentStage.stageIndex - 1);
+    }
+
+    return currentStage;
+  }
+}
+
+// ---------------------------------------------------------------------------
+// Helper
+// ---------------------------------------------------------------------------
+
+class _Weights {
+  const _Weights({
+    required this.sun,
+    required this.water,
+    required this.soil,
+  });
+
+  final double sun;
+  final double water;
+  final double soil;
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\engine\recommendation_engine.dart ===
+import '../models/enums.dart';
+import '../models/plant.dart';
+import '../models/environment_profile.dart';
+import '../models/recommendation.dart';
+
+/// Generates plant-specific, season-aware care recommendations based on
+/// the current environmental profile and plant type.
+class RecommendationEngine {
+  const RecommendationEngine();
+
+  /// Return a prioritised list of [Recommendation]s for the given plant and
+  /// environment. Returns an empty list when conditions are optimal.
+  List<Recommendation> generate({
+    required Plant plant,
+    required EnvironmentProfile environment,
+    required GrowthStage currentStage,
+  }) {
+    final tips = <Recommendation>[];
+
+    tips.addAll(_waterTips(plant.type, environment, currentStage));
+    tips.addAll(_sunlightTips(plant.type, environment, currentStage));
+    tips.addAll(_soilTips(plant.type, environment, currentStage));
+    tips.addAll(_seasonTips(plant.type, environment.season, currentStage));
+
+    // Sort by priority (high first)
+    tips.sort((a, b) => a.priority.index.compareTo(b.priority.index));
+    return tips;
+  }
+
+  // ---------------------------------------------------------------------------
+  // Water recommendations
+  // ---------------------------------------------------------------------------
+
+  List<Recommendation> _waterTips(
+    PlantType type,
+    EnvironmentProfile env,
+    GrowthStage stage,
+  ) {
+    if (env.water >= 4) return [];
+
+    final isLow = env.water <= 2;
+    final priority =
+        isLow ? RecommendationPriority.high : RecommendationPriority.medium;
+
+    final tips = <String>[];
+
+    if (type == PlantType.tomato) {
+      if (env.season == Season.tagInit) {
+        tips.add(
+          'Tag-init heat causes rapid evaporation. Water tomatoes every '
+          'morning and evening to maintain even soil moisture.',
+        );
+      } else if (stage == GrowthStage.fruiting && isLow) {
+        tips.add(
+          'Inconsistent watering during fruiting can cause blossom-end rot '
+          'or fruit cracking. Maintain steady moisture.',
+        );
+      } else if (isLow) {
+        tips.add('Tomatoes need consistent moisture. Increase watering to at '
+            'least once a day, especially during dry spells.');
+      } else {
+        tips.add('Tomato water levels are slightly below optimal. '
+            'Aim for even, deep watering sessions.');
+      }
+    } else if (type == PlantType.eggplant) {
+      if (isLow) {
+        tips.add('Eggplants need deep, consistent watering. Water at the base '
+            'and avoid wetting the leaves to prevent fungal disease.');
+      } else {
+        tips.add(
+            'Eggplant moisture is slightly low. Water more consistently '
+            'without flooding the roots.');
+      }
+    } else if (type == PlantType.silingLabuyo) {
+      if (isLow) {
+        tips.add(
+          'Siling Labuyo is drought-tolerant but prolonged water stress '
+          'reduces fruit size and spiciness. Increase watering slightly.',
+        );
+      } else {
+        tips.add('Siling Labuyo prefers slightly dry soil between waterings. '
+            'Avoid overwatering as it can cause root rot.');
+      }
+    }
+
+    return tips
+        .map((m) => Recommendation(
+              category: 'Watering',
+              priority: priority,
+              message: m,
+              forStage: stage,
+            ))
+        .toList();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Sunlight recommendations
+  // ---------------------------------------------------------------------------
+
+  List<Recommendation> _sunlightTips(
+    PlantType type,
+    EnvironmentProfile env,
+    GrowthStage stage,
+  ) {
+    if (env.sunlight >= 4) return [];
+
+    final isLow = env.sunlight <= 2;
+    final priority =
+        isLow ? RecommendationPriority.high : RecommendationPriority.medium;
+
+    final message = switch ((type, isLow)) {
+      (PlantType.tomato, true) =>
+        'Tomatoes need 6–8 hours of direct sun. Move to a sunnier spot '
+            'or thin out any overhead shade.',
+      (PlantType.tomato, _) =>
+        'Tomatoes prefer more sunlight. Ensure they receive at least '
+            '4–6 hours of direct sunlight per day.',
+      (PlantType.eggplant, true) =>
+        'Eggplants require full sun. Low sunlight will significantly slow '
+            'vegetative and flowering growth.',
+      (PlantType.eggplant, _) =>
+        'Eggplant sunlight is slightly below optimal. Ensure the plant '
+            'is not shaded by neighbouring plants.',
+      (PlantType.silingLabuyo, true) =>
+        'Siling Labuyo absolutely needs full sun to produce its characteristic '
+            'heat. Relocate to a spot with at least 6 hours of direct sunlight.',
+      (PlantType.silingLabuyo, _) =>
+        'Siling Labuyo prefers full sun. Aim for 6+ hours to maximise '
+            'fruit production and spiciness.',
+    };
+
+    return [
+      Recommendation(
+        category: 'Sunlight',
+        priority: priority,
+        message: message,
+        forStage: stage,
+      ),
+    ];
+  }
+
+  // ---------------------------------------------------------------------------
+  // Soil recommendations
+  // ---------------------------------------------------------------------------
+
+  List<Recommendation> _soilTips(
+    PlantType type,
+    EnvironmentProfile env,
+    GrowthStage stage,
+  ) {
+    if (env.soil >= 4) return [];
+
+    final isLow = env.soil <= 2;
+    final priority =
+        isLow ? RecommendationPriority.high : RecommendationPriority.medium;
+
+    final message = switch (type) {
+      PlantType.tomato when isLow =>
+        'Tomatoes need rich, well-drained soil (pH 6.0–6.8). Add compost '
+            'or organic fertiliser to improve nutrient levels.',
+      PlantType.tomato =>
+        'Tomato soil quality is slightly below optimal. Consider top-dressing '
+            'with compost or a balanced fertiliser.',
+      PlantType.eggplant when isLow =>
+        'Eggplants thrive in fertile soil. Incorporate organic matter and '
+            'ensure good drainage to avoid root disease.',
+      PlantType.eggplant =>
+        'Improve eggplant soil with compost or aged manure to support '
+            'its longer vegetative phase.',
+      PlantType.silingLabuyo when isLow =>
+        'Siling Labuyo needs well-drained, moderately fertile soil. '
+            'Avoid heavy clay; add sand and compost to improve drainage.',
+      _ => 'Improve soil quality with compost or organic matter.',
+    };
+
+    return [
+      Recommendation(
+        category: 'Soil',
+        priority: priority,
+        message: message,
+        forStage: stage,
+      ),
+    ];
+  }
+
+  // ---------------------------------------------------------------------------
+  // Season-specific recommendations
+  // ---------------------------------------------------------------------------
+
+  List<Recommendation> _seasonTips(
+    PlantType type,
+    Season season,
+    GrowthStage stage,
+  ) {
+    final tips = <Recommendation>[];
+
+    if (season == Season.tagUlan && type != PlantType.silingLabuyo) {
+      tips.add(Recommendation(
+        category: 'Disease Prevention',
+        priority: RecommendationPriority.medium,
+        message:
+            'During Tag-ulan (rainy season), high humidity increases fungal '
+            'disease risk. Ensure good air circulation and avoid overhead '
+            'watering to keep leaves dry.',
+        forStage: stage,
+      ));
+    }
+
+    return tips;
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\daily_log.dart ===
+/// A single day's environmental factor log for a plant.
+class DailyLog {
+  DailyLog({
+    this.id,
+    required this.plantId,
+    required this.date,
+    required this.sunlightScore,
+    required this.waterScore,
+    required this.soilScore,
+    this.note,
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  final int? id;
+  final int plantId;
+  final DateTime date;
+
+  /// Sunlight rating 1–5.
+  final double sunlightScore;
+
+  /// Water availability rating 1–5.
+  final double waterScore;
+
+  /// Soil quality rating 1–5.
+  final double soilScore;
+
+  final String? note;
+  final DateTime createdAt;
+
+  DailyLog copyWith({
+    int? id,
+    int? plantId,
+    DateTime? date,
+    double? sunlightScore,
+    double? waterScore,
+    double? soilScore,
+    String? note,
+    DateTime? createdAt,
+  }) {
+    return DailyLog(
+      id: id ?? this.id,
+      plantId: plantId ?? this.plantId,
+      date: date ?? this.date,
+      sunlightScore: sunlightScore ?? this.sunlightScore,
+      waterScore: waterScore ?? this.waterScore,
+      soilScore: soilScore ?? this.soilScore,
+      note: note ?? this.note,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  String toString() =>
+      'DailyLog(id: $id, plantId: $plantId, date: $date, '
+      'sun: $sunlightScore, water: $waterScore, soil: $soilScore)';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is DailyLog && id != null && id == other.id);
+
+  @override
+  int get hashCode => id.hashCode;
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\day_prediction.dart ===
+import 'enums.dart';
+
+/// The CA engine's prediction for a single future day.
+class DayPrediction {
+  const DayPrediction({
+    required this.dayOffset,
+    required this.date,
+    required this.predictedStage,
+    required this.healthStatus,
+    required this.environmentalScore,
+    this.isHistorical = false,
+  });
+
+  /// How many days from planting this prediction represents.
+  final int dayOffset;
+
+  final DateTime date;
+
+  final GrowthStage predictedStage;
+
+  final HealthStatus healthStatus;
+
+  /// Normalised environmental score (0.0–1.0) for this day.
+  final double environmentalScore;
+
+  /// True when this entry is backed by a real [DailyLog], false when it is
+  /// a future CA forecast.
+  final bool isHistorical;
+
+  @override
+  String toString() =>
+      'DayPrediction(day: $dayOffset, stage: $predictedStage, '
+      'health: $healthStatus, score: ${environmentalScore.toStringAsFixed(2)})';
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\enums.dart ===
+/// Enums shared across the VerdiTech domain layer.
+library enums;
+
+/// Supported plant types for the prediction engine.
+enum PlantType {
+  tomato,
+  eggplant,
+  silingLabuyo;
+
+  String get displayName {
+    switch (this) {
+      case PlantType.tomato:
+        return 'Tomato';
+      case PlantType.eggplant:
+        return 'Eggplant';
+      case PlantType.silingLabuyo:
+        return 'Siling Labuyo';
+    }
+  }
+}
+
+/// Plant growth stages modelled by the 1D Cellular Automata engine.
+enum GrowthStage {
+  seedling,
+  youngPlant,
+  flowering,
+  fruiting,
+  harvestReady;
+
+  String get displayName {
+    switch (this) {
+      case GrowthStage.seedling:
+        return 'Seedling';
+      case GrowthStage.youngPlant:
+        return 'Young Plant';
+      case GrowthStage.flowering:
+        return 'Flowering';
+      case GrowthStage.fruiting:
+        return 'Fruiting';
+      case GrowthStage.harvestReady:
+        return 'Harvest Ready';
+    }
+  }
+
+  int get stageIndex {
+    switch (this) {
+      case GrowthStage.seedling:
+        return 0;
+      case GrowthStage.youngPlant:
+        return 1;
+      case GrowthStage.flowering:
+        return 2;
+      case GrowthStage.fruiting:
+        return 3;
+      case GrowthStage.harvestReady:
+        return 4;
+    }
+  }
+
+  static GrowthStage fromIndex(int index) {
+    return GrowthStage.values[index.clamp(0, GrowthStage.values.length - 1)];
+  }
+}
+
+/// Philippine agricultural seasons, used as CA modifiers.
+enum Season {
+  tagInit,   // Dry/Hot — March–May
+  tagUlan,   // Wet/Rainy — June–November
+  malamig;   // Cool/Dry — December–February
+
+  String get displayName {
+    switch (this) {
+      case Season.tagInit:
+        return 'Tag-init (Dry Season)';
+      case Season.tagUlan:
+        return 'Tag-ulan (Rainy Season)';
+      case Season.malamig:
+        return 'Malamig (Cool Season)';
+    }
+  }
+
+  /// Auto-detect season from a date.
+  static Season fromDate(DateTime date) {
+    final month = date.month;
+    if (month >= 3 && month <= 5) return Season.tagInit;
+    if (month >= 6 && month <= 11) return Season.tagUlan;
+    return Season.malamig;
+  }
+}
+
+/// Overall health status of a plant based on environmental score.
+enum HealthStatus {
+  excellent,
+  good,
+  fair,
+  poor,
+  critical;
+
+  String get displayName {
+    switch (this) {
+      case HealthStatus.excellent:
+        return 'Excellent';
+      case HealthStatus.good:
+        return 'Good';
+      case HealthStatus.fair:
+        return 'Fair';
+      case HealthStatus.poor:
+        return 'Poor';
+      case HealthStatus.critical:
+        return 'Critical';
+    }
+  }
+
+  /// Derive health status from a normalised environmental score (0.0–1.0).
+  static HealthStatus fromScore(double score) {
+    if (score >= 0.80) return HealthStatus.excellent;
+    if (score >= 0.60) return HealthStatus.good;
+    if (score >= 0.40) return HealthStatus.fair;
+    if (score >= 0.20) return HealthStatus.poor;
+    return HealthStatus.critical;
+  }
+}
+
+/// Priority level for a recommendation.
+enum RecommendationPriority {
+  high,
+  medium,
+  low;
+
+  String get displayName {
+    switch (this) {
+      case RecommendationPriority.high:
+        return 'High';
+      case RecommendationPriority.medium:
+        return 'Medium';
+      case RecommendationPriority.low:
+        return 'Low';
+    }
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\environment_profile.dart ===
+import 'enums.dart';
+
+/// Snapshot of environmental conditions used by the CA engine.
+class EnvironmentProfile {
+  const EnvironmentProfile({
+    required this.sunlight,
+    required this.water,
+    required this.soil,
+    required this.season,
+  });
+
+  /// Sunlight rating 1–5.
+  final double sunlight;
+
+  /// Water availability rating 1–5.
+  final double water;
+
+  /// Soil quality rating 1–5.
+  final double soil;
+
+  final Season season;
+
+  EnvironmentProfile copyWith({
+    double? sunlight,
+    double? water,
+    double? soil,
+    Season? season,
+  }) {
+    return EnvironmentProfile(
+      sunlight: sunlight ?? this.sunlight,
+      water: water ?? this.water,
+      soil: soil ?? this.soil,
+      season: season ?? this.season,
+    );
+  }
+
+  @override
+  String toString() =>
+      'EnvironmentProfile(sun: $sunlight, water: $water, '
+      'soil: $soil, season: $season)';
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\plant.dart ===
+import 'enums.dart';
+
+/// Domain model representing a tracked plant profile.
+class Plant {
+  Plant({
+    this.id,
+    required this.name,
+    required this.type,
+    required this.plantingDate,
+    required this.currentStage,
+    required this.sunlightScore,
+    required this.waterScore,
+    required this.soilScore,
+    required this.season,
+    this.notes,
+    DateTime? createdAt,
+  }) : createdAt = createdAt ?? DateTime.now();
+
+  final int? id;
+  final String name;
+  final PlantType type;
+  final DateTime plantingDate;
+  final GrowthStage currentStage;
+
+  /// Sunlight rating 1–5.
+  final double sunlightScore;
+
+  /// Water availability rating 1–5.
+  final double waterScore;
+
+  /// Soil quality rating 1–5.
+  final double soilScore;
+
+  final Season season;
+  final String? notes;
+  final DateTime createdAt;
+
+  /// How many days have elapsed since the planting date.
+  int get daysPlanted =>
+      DateTime.now().difference(plantingDate).inDays.abs();
+
+  Plant copyWith({
+    int? id,
+    String? name,
+    PlantType? type,
+    DateTime? plantingDate,
+    GrowthStage? currentStage,
+    double? sunlightScore,
+    double? waterScore,
+    double? soilScore,
+    Season? season,
+    String? notes,
+    DateTime? createdAt,
+  }) {
+    return Plant(
+      id: id ?? this.id,
+      name: name ?? this.name,
+      type: type ?? this.type,
+      plantingDate: plantingDate ?? this.plantingDate,
+      currentStage: currentStage ?? this.currentStage,
+      sunlightScore: sunlightScore ?? this.sunlightScore,
+      waterScore: waterScore ?? this.waterScore,
+      soilScore: soilScore ?? this.soilScore,
+      season: season ?? this.season,
+      notes: notes ?? this.notes,
+      createdAt: createdAt ?? this.createdAt,
+    );
+  }
+
+  @override
+  String toString() =>
+      'Plant(id: $id, name: $name, type: $type, stage: $currentStage)';
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      (other is Plant && id != null && id == other.id);
+
+  @override
+  int get hashCode => id.hashCode;
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\domain\models\recommendation.dart ===
+import 'enums.dart';
+
+/// An actionable tip generated by the recommendation engine.
+class Recommendation {
+  const Recommendation({
+    required this.category,
+    required this.priority,
+    required this.message,
+    required this.forStage,
+  });
+
+  /// Short label for the category, e.g. "Watering", "Sunlight", "Soil".
+  final String category;
+
+  final RecommendationPriority priority;
+
+  /// The human-readable advice text.
+  final String message;
+
+  /// Which growth stage this recommendation applies to.
+  final GrowthStage forStage;
+
+  @override
+  String toString() =>
+      'Recommendation(category: $category, priority: $priority, '
+      'stage: $forStage)';
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\features\about\presentation\about_screen.dart ===
+import 'package:flutter/material.dart';
+
+class AboutScreen extends StatelessWidget {
+  const AboutScreen({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('About VerdiTech')),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(24.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'How It Works',
+              style: Theme.of(context).textTheme.headlineMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'VerdiTech uses a Cellular Automata (CA) model to predict plant '
+              'growth and generate personalised care recommendations.',
+              style: Theme.of(context).textTheme.bodyLarge,
+            ),
+            const SizedBox(height: 24),
+            _buildSectionTitle(context, 'What is Cellular Automata?'),
+            const SizedBox(height: 8),
+            const Text(
+              'Cellular Automata is a computational model consisting of a grid of '
+              'cells, each with a state that evolves over time based on specific '
+              'rules. In VerdiTech, we use a 1D CA where each "cell" represents a '
+              'single day. The cell\'s state is the plant\'s growth stage '
+              '(Seedling → Young Plant → Flowering → Fruiting → Harvest Ready).',
+            ),
+            const SizedBox(height: 24),
+            _buildSectionTitle(context, 'Environmental Factors'),
+            const SizedBox(height: 8),
+            const Text(
+              'The algorithm weights three daily factors to compute a Health Score '
+              'from 0–100%:\n\n'
+              '• Sunlight — how much direct sunlight the plant receives\n'
+              '• Water — availability and consistency of irrigation\n'
+              '• Soil Quality — fertility, drainage, and pH suitability\n\n'
+              'Each plant type (Tomato, Eggplant, Siling Labuyo) has different '
+              'factor weights based on its agricultural profile.',
+            ),
+            const SizedBox(height: 24),
+            _buildSectionTitle(context, 'Transition Rules'),
+            const SizedBox(height: 8),
+            const Text(
+              '• Score ≥ 70% + minimum stage days met → stage progresses\n'
+              '• 40–69% → progression delayed (×1.5 time)\n'
+              '• < 40% → risk of regression to the previous stage',
+            ),
+            const SizedBox(height: 24),
+            _buildSectionTitle(context, 'Philippine Seasonal Modifiers'),
+            const SizedBox(height: 8),
+            const Text(
+              'The model also applies seasonal modifiers based on the Philippine '
+              'seasons (Tag-init, Tag-ulan, Malamig) to provide context-aware '
+              'predictions for local crops. For example, Tomatoes perform best '
+              'during Malamig (Cool Season) and are most stressed during Tag-ulan.',
+            ),
+            const SizedBox(height: 40),
+            Center(
+              child: Text(
+                'VerdiTech v1.0 — Capstone Project',
+                style: TextStyle(color: Colors.grey.shade500),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionTitle(BuildContext context, String title) {
+    return Text(
+      title,
+      style: Theme.of(context).textTheme.titleLarge?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+    );
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\features\ca_visualization\presentation\ca_visualization_screen.dart ===
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+import '../../../domain/engine/ca_engine.dart';
+import '../../../domain/models/enums.dart';
+import '../../../domain/models/environment_profile.dart';
+import '../../../domain/models/plant.dart';
+
+class CaVisualizationScreen extends StatefulWidget {
+  final String id;
+  const CaVisualizationScreen({super.key, required this.id});
+
+  @override
+  State<CaVisualizationScreen> createState() => _CaVisualizationScreenState();
+}
+
+class _CaVisualizationScreenState extends State<CaVisualizationScreen> {
+  static const int _timelineLength = 60;
+  static const int _numRows = 12; // rows show different env conditions
+
+  final _engine = const CaEngine();
+  bool _isPlaying = false;
+  int _currentStep = 0;
+
+  /// Runs a simulated forecast grid using the CA engine.
+  /// Each row is a different initial environmental score (0.2 → 1.0).
+  List<List<GrowthStage>> _buildGrid() {
+    final grid = <List<GrowthStage>>[];
+    for (int row = 0; row < _numRows; row++) {
+      final sunScore = 1.0 + (row / (_numRows - 1)) * 4; // 1..5
+      final mockPlant = Plant(
+        name: 'Mock',
+        type: PlantType.tomato,
+        plantingDate: DateTime.now().subtract(const Duration(days: 15)),
+        currentStage: GrowthStage.seedling,
+        sunlightScore: sunScore,
+        waterScore: 3,
+        soilScore: 3,
+        season: Season.malamig,
+      );
+      final env = EnvironmentProfile(
+        sunlight: sunScore,
+        water: 3,
+        soil: 3,
+        season: Season.malamig,
+      );
+      final forecast = _engine.forecast(
+        plant: mockPlant,
+        environment: env,
+        forecastDays: _timelineLength,
+      );
+      grid.add(forecast.map((p) => p.predictedStage).toList());
+    }
+    return grid;
+  }
+
+  Color _colorForStage(GrowthStage stage) {
+    switch (stage) {
+      case GrowthStage.seedling:
+        return const Color(0xFFD7E8C0);
+      case GrowthStage.youngPlant:
+        return const Color(0xFF8BC34A);
+      case GrowthStage.flowering:
+        return const Color(0xFFFFEB3B);
+      case GrowthStage.fruiting:
+        return const Color(0xFFFF7043);
+      case GrowthStage.harvestReady:
+        return const Color(0xFF4CAF50);
+    }
+  }
+
+  void _stepForward() {
+    setState(() {
+      _currentStep = (_currentStep + 1) % _timelineLength;
+    });
+  }
+
+  void _reset() {
+    setState(() {
+      _currentStep = 0;
+      _isPlaying = false;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final grid = _buildGrid();
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('CA Engine Visualization'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Text(
+              '1D Cellular Automata — Growth Forecast (Day $_currentStep of $_timelineLength)',
+              style: Theme.of(context).textTheme.titleSmall,
+              textAlign: TextAlign.center,
+            ),
+          ),
+          // Legend
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16),
+            child: Wrap(
+              spacing: 12,
+              children: GrowthStage.values.map((s) {
+                return Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 12,
+                      height: 12,
+                      decoration: BoxDecoration(
+                        color: _colorForStage(s),
+                        borderRadius: BorderRadius.circular(2),
+                      ),
+                    ),
+                    const SizedBox(width: 4),
+                    Text(s.displayName, style: const TextStyle(fontSize: 11)),
+                  ],
+                );
+              }).toList(),
+            ),
+          ),
+          const SizedBox(height: 8),
+          // CA Grid
+          Expanded(
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  final cellWidth = constraints.maxWidth / _timelineLength;
+                  final cellHeight = constraints.maxHeight / _numRows;
+                  return Stack(
+                    children: [
+                      // Grid
+                      Column(
+                        children: List.generate(_numRows, (row) {
+                          return Row(
+                            children: List.generate(_timelineLength, (col) {
+                              final stage = grid[row][col];
+                              return Container(
+                                width: cellWidth,
+                                height: cellHeight,
+                                color: _colorForStage(stage),
+                              );
+                            }),
+                          );
+                        }),
+                      ),
+                      // Current day indicator
+                      Positioned(
+                        left: _currentStep * cellWidth,
+                        top: 0,
+                        bottom: 0,
+                        child: Container(
+                          width: max(cellWidth, 2),
+                          color: Colors.white.withValues(alpha: 0.6),
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+            child: Text(
+              '↑ Each row = higher sunlight (bottom=1, top=5). '
+              'Rows with better conditions progress through stages faster.',
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Colors.grey.shade600),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          // Controls
+          Padding(
+            padding: const EdgeInsets.all(24.0),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.refresh),
+                  tooltip: 'Reset',
+                  onPressed: _reset,
+                ),
+                const SizedBox(width: 16),
+                FloatingActionButton(
+                  heroTag: 'ca_play',
+                  onPressed: () {
+                    setState(() => _isPlaying = !_isPlaying);
+                    if (_isPlaying) _advanceAutomatically();
+                  },
+                  child: Icon(_isPlaying ? Icons.pause : Icons.play_arrow),
+                ),
+                const SizedBox(width: 16),
+                IconButton(
+                  icon: const Icon(Icons.skip_next),
+                  tooltip: 'Step Forward',
+                  onPressed: _stepForward,
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Future<void> _advanceAutomatically() async {
+    while (_isPlaying && mounted) {
+      await Future.delayed(const Duration(milliseconds: 200));
+      if (!mounted) break;
+      setState(() {
+        _currentStep = (_currentStep + 1) % _timelineLength;
+        if (_currentStep == 0) _isPlaying = false;
+      });
+    }
+  }
+}
+
+==================
+
+=== FILE: C:\Users\user\Documents\ANDREI_FILES\DEVFILES\COMMISSIONS\Temp\src\lib\features\dashboard\presentation\dashboard_screen.dart ===
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+
+import '../../../domain/models/enums.dart';
+import '../../../domain/models/plant.dart';
+import '../../../providers/plant_providers.dart';
+import '../../../providers/prediction_providers.dart';
+
+class DashboardScreen extends ConsumerWidget {
+  const DashboardScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final plantsAsync = ref.watch(plantsStreamProvider);
+
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('VerdiTech Dashboard'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () => context.go('/about'),
+            tooltip: 'About VerdiTech',
+          ),
+        ],
+      ),
+      body: plantsAsync.when(
+        loading: () => const Center(child: CircularProgressIndicator()),
+        error: (e, _) => Center(child: Text('Error loading plants: $e')),
+        data: (plants) {
+          if (plants.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Icon(Icons.local_florist,
+                      size: 64, color: Colors.grey.shade400),
+                  const SizedBox(height: 16),
+                  Text(
+                    'No plants tracked yet.',
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  const SizedBox(height: 8),
+                  const Text('Tap the + button to add your first plant.'),
+                ],
+              ),
+            );
+          }
+          return ListView.builder(
+            padding: const EdgeInsets.all(16),
+            itemCount: plants.length,
+            itemBuilder: (context, index) =>
+                _PlantCard(plant: plants[index]),
+          );
+        },
+      ),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () => context.go('/add-plant'),
+        icon: const Icon(Icons.add),
+        label: const Text('Add Plant'),
+      ),
+    );
+  }
+}
+
+class _PlantCard extends ConsumerWidget {
+  const _PlantCard({required this.plant});
+
+  final Plant plant;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final score = ref.watch(envScoreProvider(plant));
+    final health = HealthStatus.fromScore(score);
+    final daysToHarvest = ref.watch(daysToHarvestProvider(plant));
+
+    final healthColor = _colorForHealth(health);
+
+    return Card(
+      margin: const EdgeInsets.only(bottom: 16),
+      child: InkWell(
+        borderRadius: BorderRadius.circular(12),
+        onTap: () => context.go('/plant/${plant.id}'),
+        child: Padding(
+          padding: const EdgeInsets.all(16),
+          child: Row(
+            children: [
+              CircleAvatar(
+                backgroundColor: healthColor.withValues(alpha: 0.2),
+                child: Icon(Icons.eco, color: healthColor),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      plant.name,
+                      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+                    ),
+                    const SizedBox(height: 4),
+                    Row(
+                      children: [
+                        const Icon(Icons.timeline, size: 14),
+                        const SizedBox(width: 4),
+                        Text(plant.currentStage.displayName,
+                            style: const TextStyle(fontSize: 13)),
+                        const SizedBox(width: 12),
+                        const Icon(Icons.health_and_safety, size: 14),
+                        const SizedBox(width: 4),
+                        Text(
+                          health.displayName,
+                          style: TextStyle(fontSize: 13, color: healthColor),
+                        ),
+                      ],
+                    ),
+                    const SizedBox(height: 4),
+                    Text(
+                      'Day ${plant.daysPlanted} • ~$daysToHarvest days to harvest',
+                      style: TextStyle(
+                          fontSize: 12, color: Colors.grey.shade600),
+                    ),
+                  ],
+                ),
+              ),
+              const Icon(Icons.chevron_right),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  Color _colorForHealth(HealthStatus h) {
+    switch (h) {
+      case HealthStatus.excellent:
+        return Colors.green;
+      case HealthStatus.good:
+        return Colors.lightGreen;
+      case HealthStatus.fair:
+        return Colors.orange;
+      case HealthStatus.poor:
+        return Colors.deepOrange;
+      case HealthStatus.critical:
+        return Colors.red;
+    }
+  }
+}
+
+==================
