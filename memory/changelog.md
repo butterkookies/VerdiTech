@@ -135,6 +135,23 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 ---
 
+### v0.5.2 — Phase 5 Final Polish & Notifications (June 30, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- 🔔 **Push Notifications**: Implemented local push notifications via `flutter_local_notifications` with three channels (Harvest Alerts, Daily Care Reminders, Stage Milestones). Configured `coreLibraryDesugaring` in `build.gradle.kts` to support Java 8+ time APIs on older Androids.
+- 🎨 **About Screen Redesign**: Fully redesigned `about_screen.dart` with animated hero banner, card-based sections, and transition rule pills. Fixed visibility issues in dark mode by correctly applying `VTTheme.of(context)`.
+- 🌱 **Growth Stage Selector**: Added `GrowthStage` selector in the Add Plant flow, allowing users to track mature plants, which dynamically offsets prediction timelines and notification schedules.
+- 📖 **Care Tutorials**: Added `care_tutorial_sheet.dart` offering species-specific care instructions (Tomato, Eggplant, Siling Labuyo) accessible via a book icon in the Plant Details screen.
+- 🧹 **Dashboard Clean-up**: Removed redundant "VerdiTech Dashboard" title and "Your Plants" section header for a cleaner UI.
+- 🌿 **Theme Expansion**: Added `VTSpace.xxl` spacing constant to `verditech_theme.dart`.
+- 🔀 **Branching**: All changes committed to `feature/temp`, merged into `staging`, and pushed to remote GitHub repository.
+
+**Status:** Phase 5 (Polish & Delivery) — Complete. Codebase pushed to `staging`.
+
+---
+
 ### Upcoming
 
 - **v1.0.0** — Thesis-ready release (Final polish, assets, and documentation)

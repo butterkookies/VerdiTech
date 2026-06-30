@@ -17,10 +17,11 @@ Complete feature inventory for the VerdiTech plant growth prediction app. Featur
 | F006 | **Plant Dashboard** | Multi-plant tracking interface allowing users to manage several plants simultaneously. Each plant has its own profile with input data, predictions, and health status. List/grid view of all tracked plants. | 🔴 Core | ✅ Done | Phase 2–3 |
 | F007 | **CA Visualization** | Animated grid visualization showing the Cellular Automata computation in action. Cells change color/state over time to illustrate how the prediction evolves. Educational and visually engaging — may strengthen thesis presentation. | 🟡 Nice-to-Have | ✅ Done | Phase 3–4 |
 | F008 | **Data Persistence** | Local storage solution to save plant profiles, prediction history, and user preferences across app sessions. No cloud sync — purely on-device storage. Candidates: sqflite, Hive, or drift. | 🔴 Core | ✅ Done | Phase 2 |
-| F009 | **Push Notifications** | Local push notifications reminding users to water plants, check on growth, or update environmental ratings. Scheduled based on prediction data (e.g., "Your tomato should be entering Flowering stage soon!"). | 🟢 TBD | ❌ Cut | Phase 4 |
+| F009 | **Push Notifications** | Local push notifications reminding users to water plants, check on growth, or update environmental ratings. Scheduled based on prediction data (e.g., "Your tomato should be entering Flowering stage soon!"). | 🟡 Nice-to-Have | ✅ Done | Phase 5 |
 | F010 | **About / How It Works** | Educational section explaining what Cellular Automata is, how the prediction model works, and the science behind the growth factors. Important for thesis context — demonstrates understanding of the algorithm. | 🟡 Nice-to-Have | ✅ Done | Phase 3 |
 | F011 | **Daily Staging Logs** | Form-based input to record daily environmental factor ratings (Sunlight, Water, Soil Quality) on a 1-5 scale for any day since planting, persisted locally. | 🔴 Core | ✅ Done | Phase 2 |
 | F012 | **Unified Live Timeline** | Chronological scrolling list combining historical logged days (with dynamic crop illustrations indicating health and stage) and future days displaying the CA model's forecast. | 🔴 Core | ✅ Done | Phase 2–3 |
+| F013 | **Care Tutorials** | Plant-specific care guides (Watering, Sunlight, Pruning) accessible from the Plant Details screen. Educational content tailored for Tomato, Eggplant, and Siling Labuyo. | 🟡 Nice-to-Have | ✅ Done | Phase 5 |
 
 ---
 
