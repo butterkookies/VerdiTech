@@ -49,12 +49,12 @@ final envScoreProvider = Provider.family<double, Plant>((ref, plant) {
   return engine.computeEnvScore(plant.type, env);
 });
 
-/// Generates a 60-day growth forecast for a plant.
+/// Generates a 180-day growth forecast for a plant.
 final forecastProvider =
     Provider.family<List<DayPrediction>, Plant>((ref, plant) {
   final engine = ref.watch(caEngineProvider);
   final env = ref.watch(environmentProfileProvider(plant));
-  return engine.forecast(plant: plant, environment: env, forecastDays: 60);
+  return engine.forecast(plant: plant, environment: env, forecastDays: 180);
 });
 
 /// Estimates the number of days to harvest for a plant.

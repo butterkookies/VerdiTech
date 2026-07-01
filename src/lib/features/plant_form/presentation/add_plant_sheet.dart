@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../domain/models/enums.dart';
 import '../../../domain/models/plant.dart';
+import '../../../domain/models/environment_profile.dart';
+import '../../../domain/engine/ca_engine.dart';
 import '../../../providers/database_provider.dart';
 import '../../../presentation/theme/verditech_theme.dart';
 import '../../../presentation/theme/vt_haptics.dart';
@@ -27,6 +29,30 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
   double _moisture = 0.6;
   double _light = 0.7;
   GrowthStage _stage = GrowthStage.seedling;
+
+  int get _calculatedForecastDays {
+    if (_species == null) return 0;
+    
+    final engine = const CaEngine();
+    final dummyPlant = Plant(
+      name: 'Temp',
+      type: _species!,
+      currentStage: _stage,
+      plantingDate: DateTime.now(),
+      sunlightScore: (_light * 4 + 1).roundToDouble(), // 1 to 5 scale
+      waterScore: (_moisture * 4 + 1).roundToDouble(), // 1 to 5 scale
+      soilScore: 3,
+      season: Season.tagInit,
+    );
+    final env = EnvironmentProfile(
+      sunlight: _light * 4 + 1,
+      water: _moisture * 4 + 1,
+      soil: 3.0,
+      season: Season.tagInit,
+    );
+    
+    return engine.estimateDaysToHarvest(plant: dummyPlant, environment: env);
+  }
 
   // We map PlantType to display icons and an initial "GrowthStage" to show on the card
   IconData _iconForType(PlantType t) {
@@ -92,6 +118,52 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
       _step,
       duration: const Duration(milliseconds: 320),
       curve: Curves.easeOut,
+    );
+  }
+
+  void _showInfo(String title, String body) {
+    final s = VTTheme.of(context);
+    showModalBottomSheet(
+      context: context,
+      backgroundColor: Colors.transparent,
+      builder: (_) => Container(
+        margin: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(24),
+        decoration: BoxDecoration(
+          color: s.surface,
+          borderRadius: BorderRadius.circular(24),
+          border: Border.all(color: s.glassStroke),
+        ),
+        child: SafeArea(
+          top: false,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  Icon(Icons.lightbulb_outline, color: s.verdantDeep),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(title, style: TextStyle(color: s.textPrimary, fontSize: 16, fontWeight: FontWeight.bold)),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Text(body, style: TextStyle(color: s.textPrimary, fontSize: 14, height: 1.5)),
+              const SizedBox(height: 24),
+              SizedBox(
+                width: double.infinity,
+                child: FilledButton(
+                  style: FilledButton.styleFrom(backgroundColor: s.verdantDeep),
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('Got it'),
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
     );
   }
 
@@ -310,6 +382,11 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
           icon: Icons.water_drop_outlined,
           color: VTColors.seedling,
           value: _moisture,
+          description: _moisture < 0.35 ? 'Dry: Finger comes out clean' : _moisture > 0.70 ? 'Wet: Finger is muddy' : 'Moist: Soil clings slightly to finger',
+          onInfoTap: () => _showInfo(
+            'How to measure moisture',
+            'Use the "Finger Test": Stick your index finger about 2 inches into the soil.\n\n• Dry (0-30%): Finger comes out clean.\n• Moist (35-70%): Soil clings slightly. Perfect starting point.\n• Wet (75-100%): Finger is muddy.',
+          ),
           onChanged: (v) => setState(() => _moisture = v),
         ),
         _EnvSlider(
@@ -317,6 +394,11 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
           icon: Icons.wb_sunny_outlined,
           color: VTColors.harvest,
           value: _light,
+          description: _light < 0.35 ? 'Low light: Barely any shadow cast' : _light > 0.70 ? 'High light: Sharp, distinct shadow' : 'Medium light: Soft, fuzzy shadow',
+          onInfoTap: () => _showInfo(
+            'How to measure light',
+            'Use the "Shadow Test": Hold your hand about 12 inches above the plant during midday.\n\n• Low Light (0-30%): Barely any shadow.\n• Medium Light (35-70%): Soft and fuzzy shadow.\n• High Light (75-100%): Sharp, distinct shadow.',
+          ),
           onChanged: (v) => setState(() => _light = v),
         ),
         const SizedBox(height: VTSpace.lg),
@@ -400,7 +482,7 @@ class _AddPlantSheetState extends ConsumerState<AddPlantSheet> {
                     const SizedBox(width: VTSpace.sm),
                     Expanded(
                       child: Text(
-                        'CA engine will forecast harvest in ~58 days under these conditions.',
+                        'CA engine forecasts harvest in ~$_calculatedForecastDays days under these conditions.',
                         style: TextStyle(
                             color: s.textPrimary, fontSize: 12, height: 1.4),
                       ),
@@ -468,6 +550,8 @@ class _EnvSlider extends StatelessWidget {
   final IconData icon;
   final Color color;
   final double value;
+  final String description;
+  final VoidCallback onInfoTap;
   final ValueChanged<double> onChanged;
 
   const _EnvSlider({
@@ -475,6 +559,8 @@ class _EnvSlider extends StatelessWidget {
     required this.icon,
     required this.color,
     required this.value,
+    required this.description,
+    required this.onInfoTap,
     required this.onChanged,
   });
 
@@ -493,6 +579,12 @@ class _EnvSlider extends StatelessWidget {
               Text(label,
                   style: TextStyle(
                       color: s.textPrimary, fontWeight: FontWeight.w600)),
+              IconButton(
+                padding: const EdgeInsets.only(left: 4),
+                constraints: const BoxConstraints(),
+                icon: Icon(Icons.info_outline, size: 16, color: s.textMuted),
+                onPressed: onInfoTap,
+              ),
               const Spacer(),
               Text('${(value * 100).round()}%',
                   style: TextStyle(color: s.textMuted, fontSize: 13)),
@@ -506,6 +598,13 @@ class _EnvSlider extends StatelessWidget {
               overlayColor: color.withValues(alpha: 0.2),
             ),
             child: Slider(value: value, onChanged: onChanged),
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6.0),
+            child: Text(
+              description,
+              style: TextStyle(color: s.textMuted, fontSize: 12, fontStyle: FontStyle.italic),
+            ),
           ),
         ],
       ),

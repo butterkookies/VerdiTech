@@ -152,6 +152,44 @@ Chronological record of all project changes, releases, and milestones. Follows [
 
 ---
 
+### v0.5.3 — CA Engine Prediction Tuning & Fixes (July 1, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- ⚙️ **Accurate CA Timelines**: Resolved an issue where greenhouse tomatoes were incorrectly forecasting harvest at 58 days. Updated `_minStageDays` to scientifically grounded values (Seedling: 25, Young: 20, Flowering: 20, Fruiting: 25) yielding ~90+ days before harvest.
+- 🌦️ **Environmental Penalties**: Added logic in `computeEnvScore()` inside `CaEngine` to enforce growth penalties when exposed to extreme moisture (>4.5 deducts 0.30) or extreme light (>4.5 deducts 0.20) simulating fungal risk and photo-inhibition.
+- 🐛 **Forecast Limit Fixed**: The CA engine `forecastProvider` was artificially truncating timeline generation at exactly 60 days, preventing it from completing later stages like Flowering and Fruiting. Increased the simulation limit to 180 days.
+- 🐛 **UI Hardcoding Removed**: Replaced the hardcoded '58 days' string in `add_plant_sheet.dart` with a dynamic forecast generated via `engine.estimateDaysToHarvest()` using a dummy `Plant` model based on user slider inputs.
+- 🐛 **Compiler Fix**: Fixed a build failure (`The argument type 'int' can't be assigned to the parameter type 'double'`) when providing the dummy `sunlightScore` and `waterScore` to `Plant` in the Add Plant UI by switching from `.round()` to `.roundToDouble()`.
+
+**Status:** Phase 5 (Polish & Delivery) — Final UI fixes complete and verified.
+
+---
+
+### v0.5.3 — Codebase Consolidation & Client Specs Audit (July 1, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- 🔍 **Client Specs Audit**: Conducted an exhaustive audit cross-referencing all client specs (`requirements.md`, `ca_model_spec.md`, `verditech_spec.md`) against the actual codebase. Findings documented in `audit_report.md`.
+- ✅ **Compliance Verified**: Confirmed ~100% implementation of core and optional features, including animated CA grids and push notifications.
+- 🗑️ **Codebase Consolidation**: Removed the redundant `verditech_flutter` directory. Standardized all future development strictly onto the `src/` directory, which holds the robust Drift database layer and integrated CA engines.
+
+**Status:** Phase 5 (Polish & Delivery) — Codebase consolidated and fully audited against specs.
+
+---
+
+### v0.5.4 — UI Variant Mockup Generation (July 1, 2026)
+
+**Author:** Agent
+
+**Changes:**
+- 🎨 **Minimalist Modern Soft UI Design System**: Created a new UI mockup variant in Stitch MCP enforcing the "Gentle Growth" aesthetic (soft greens, heavily rounded components, off-white canvas, Inter typography).
+- 🖼️ **Stitch Home Dashboard**: Generated a mobile-first UI for the VerdiTech Home Dashboard mapped perfectly to current app functionality (Tomato, Eggplant, Siling Labuyo list with prediction states).
+
+---
+
 ### Upcoming
 
 - **v1.0.0** — Thesis-ready release (Final polish, assets, and documentation)

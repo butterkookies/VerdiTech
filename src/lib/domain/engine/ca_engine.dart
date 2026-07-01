@@ -48,10 +48,10 @@ class CaEngine {
   // ---------------------------------------------------------------------------
   static const Map<PlantType, Map<GrowthStage, int>> _minStageDays = {
     PlantType.tomato: {
-      GrowthStage.seedling: 14,
-      GrowthStage.youngPlant: 21,
-      GrowthStage.flowering: 14,
-      GrowthStage.fruiting: 20,
+      GrowthStage.seedling: 25,
+      GrowthStage.youngPlant: 20,
+      GrowthStage.flowering: 20,
+      GrowthStage.fruiting: 25,
       GrowthStage.harvestReady: 0,
     },
     PlantType.eggplant: {
@@ -94,7 +94,13 @@ class CaEngine {
         5.0; // normalise from [1,5] range to [0.2,1.0]
 
     final seasonMod = _seasonModifiers[plantType]![profile.season] ?? 1.0;
-    return (raw * seasonMod).clamp(0.0, 1.0);
+    
+    // Explicit penalties for extreme conditions (fungal disease risk, photo-inhibition)
+    double penalty = 0.0;
+    if (profile.water > 4.5) penalty += 0.30;
+    if (profile.sunlight > 4.5) penalty += 0.20;
+
+    return (raw * seasonMod - penalty).clamp(0.0, 1.0);
   }
 
   /// Run the 1D CA simulation forward for [forecastDays] days starting from

@@ -28,6 +28,7 @@ class DashboardScreen extends ConsumerWidget {
     final reduce = VTA11y.reduceMotion(context);
 
     return Scaffold(
+      extendBodyBehindAppBar: true,
       backgroundColor: s.bg,
       appBar: AppBar(
         backgroundColor: Colors.transparent,

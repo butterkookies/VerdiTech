@@ -47,39 +47,39 @@ class RecommendationEngine {
     if (type == PlantType.tomato) {
       if (env.season == Season.tagInit) {
         tips.add(
-          'Tag-init heat causes rapid evaporation. Water tomatoes every '
-          'morning and evening to maintain even soil moisture.',
+          'Tag-init heat causes rapid evaporation. Water tomatoes deeply every '
+          'morning and evening until the top 2 inches of soil are fully moist.',
         );
       } else if (stage == GrowthStage.fruiting && isLow) {
         tips.add(
-          'Inconsistent watering during fruiting can cause blossom-end rot '
-          'or fruit cracking. Maintain steady moisture.',
+          'Inconsistent watering during fruiting causes blossom-end rot. '
+          'Water deeply (about 1-2 liters for adult plants) every 1-2 days.',
         );
       } else if (isLow) {
-        tips.add('Tomatoes need consistent moisture. Increase watering to at '
-            'least once a day, especially during dry spells.');
+        tips.add('Tomatoes need consistent moisture. Water until the top 2 inches '
+            'are moist (Finger Test: soil should cling to your finger).');
       } else {
         tips.add('Tomato water levels are slightly below optimal. '
-            'Aim for even, deep watering sessions.');
+            'Aim for even, deep watering sessions every 2-3 days.');
       }
     } else if (type == PlantType.eggplant) {
       if (isLow) {
-        tips.add('Eggplants need deep, consistent watering. Water at the base '
-            'and avoid wetting the leaves to prevent fungal disease.');
+        tips.add('Eggplants need deep, consistent watering (about 1-1.5 inches of water per week). '
+            'Water at the base until soil is moist 2 inches down.');
       } else {
         tips.add(
-            'Eggplant moisture is slightly low. Water more consistently '
+            'Eggplant moisture is slightly low. Water deeply every 2-3 days '
             'without flooding the roots.');
       }
     } else if (type == PlantType.silingLabuyo) {
       if (isLow) {
         tips.add(
-          'Siling Labuyo is drought-tolerant but prolonged water stress '
-          'reduces fruit size and spiciness. Increase watering slightly.',
+          'Prolonged water stress reduces fruit size. Water deeply (until it drains) '
+          'once the top 1 inch of soil feels completely dry.',
         );
       } else {
-        tips.add('Siling Labuyo prefers slightly dry soil between waterings. '
-            'Avoid overwatering as it can cause root rot.');
+        tips.add('Siling Labuyo prefers slightly dry soil. Let the top 1-2 inches '
+            'dry out before watering again to prevent root rot.');
       }
     }
 
@@ -116,11 +116,11 @@ class RecommendationEngine {
         'Tomatoes prefer more sunlight. Ensure they receive at least '
             '4–6 hours of direct sunlight per day.',
       (PlantType.eggplant, true) =>
-        'Eggplants require full sun. Low sunlight will significantly slow '
-            'vegetative and flowering growth.',
+        'Eggplants require full sun (6-8 hours minimum). Low sunlight will significantly '
+            'slow vegetative and flowering growth. Move to a sunnier spot.',
       (PlantType.eggplant, _) =>
-        'Eggplant sunlight is slightly below optimal. Ensure the plant '
-            'is not shaded by neighbouring plants.',
+        'Eggplant sunlight is slightly below optimal. Ensure they receive '
+            'at least 6 hours of direct sun and are not shaded by neighbours.',
       (PlantType.silingLabuyo, true) =>
         'Siling Labuyo absolutely needs full sun to produce its characteristic '
             'heat. Relocate to a spot with at least 6 hours of direct sunlight.',
@@ -156,21 +156,21 @@ class RecommendationEngine {
 
     final message = switch (type) {
       PlantType.tomato when isLow =>
-        'Tomatoes need rich, well-drained soil (pH 6.0–6.8). Add compost '
-            'or organic fertiliser to improve nutrient levels.',
+        'Tomatoes are heavy feeders. Add a 1-inch layer of compost '
+            'or a balanced organic fertiliser to the topsoil every 3-4 weeks.',
       PlantType.tomato =>
-        'Tomato soil quality is slightly below optimal. Consider top-dressing '
-            'with compost or a balanced fertiliser.',
+        'Tomato soil quality is slightly below optimal. Top-dress with '
+            'a handful of compost or worm castings around the base.',
       PlantType.eggplant when isLow =>
-        'Eggplants thrive in fertile soil. Incorporate organic matter and '
-            'ensure good drainage to avoid root disease.',
+        'Eggplants need highly fertile soil. Mix in 1-2 inches of aged manure '
+            'or compost into the topsoil to support its long vegetative phase.',
       PlantType.eggplant =>
-        'Improve eggplant soil with compost or aged manure to support '
-            'its longer vegetative phase.',
+        'Improve eggplant soil by scratching a handful of compost into the '
+            'top layer of the soil.',
       PlantType.silingLabuyo when isLow =>
-        'Siling Labuyo needs well-drained, moderately fertile soil. '
-            'Avoid heavy clay; add sand and compost to improve drainage.',
-      _ => 'Improve soil quality with compost or organic matter.',
+        'Siling Labuyo roots rot easily in heavy clay. If potted, ensure '
+            'drainage holes are clear. Add sand or perlite to improve drainage.',
+      _ => 'Improve soil quality by adding a 1-inch layer of compost.',
     };
 
     return [
